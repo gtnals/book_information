@@ -1,0 +1,25 @@
+/* index.css */
+main {background-color: #f7f7f7; }
+main > h1 {font-size: 36px; margin-bottom: 30px;}
+.content_area {font-size: 0; width: 1250px;}
+.content_area > div {
+    display: inline-block; vertical-align: top;
+    width: 230px; height: 250px; padding: 30px; position: relative;
+    /* height +50px */
+    background-color: #fff; font-size: 16px; margin-left: 20px;
+    border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+.content_area > .book_info {margin-left:0;}
+.content_area > div h2 {
+    font-size: 20px; margin-bottom: 25px; color:#333
+}
+.content_area > div h2 i {display: inline-block; width: 30px;}
+.content_area > div p {margin-bottom: 18px; font-size: 18px; color: #434343;}
+.content_area > div p span {font-weight: 700;}
+.content_area > div p:last-child {font-size: 14px; color: #999;
+    position: absolute; right: 15px; bottom: 0px;
+}
+.content_area > div p:last-child span {font-weight: 400;}
+
+.content_area > .member_board_info > .small {font-size: 15px; color: #777;margin-bottom: 18px;}
+.content_area > .member_board_info > .small:nth-child(3) {margin-bottom: 10px;}

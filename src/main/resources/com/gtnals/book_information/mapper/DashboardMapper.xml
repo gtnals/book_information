@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtnals.book_information.mapper.DashboardMapper">
+    <select id="getTotalBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info
+    </select>
+    <select id="getAvailableBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info where bi_status=0
+    </select>
+    <select id="getBorrowBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info where bi_status=1
+    </select>
+    <select id="getOverdueBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info where bi_status=2
+    </select>
+    <select id="getReserveBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info where bi_status=3
+    </select>
+
+    <select id="getTotalMemberCnt" resultType="java.lang.Integer">
+        select count(*) from member_info 
+    </select>
+    <select id="getNormalMemberCnt" resultType="java.lang.Integer">
+        select count(*) from member_info where mi_status=0
+    </select>
+    <select id="getWarningMemberCnt" resultType="java.lang.Integer">
+        select count(*) from member_info where mi_status=1
+    </select>
+    <select id="getDeactiveMemberCnt" resultType="java.lang.Integer">
+        select count(*) from member_info where mi_status=2
+    </select>
+
+    <select id="getTotalReviewCnt" resultType="java.lang.Integer">
+        select count(*) from review_info 
+    </select>
+    <select id="getPrivateReviewCnt" resultType="java.lang.Integer">
+        select count(*) from review_info where ri_open=1
+    </select>
+    <select id="getNormalReviewCnt" resultType="java.lang.Integer">
+        select count(*) from review_info where ri_open=0 and ri_warning=0
+    </select>
+    <select id="getwaitDeleteCnt" resultType="java.lang.Integer">
+        select count(*) from review_info where ri_warning != 0
+    </select>
+
+    <select id="getTotalBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info 
+    </select>
+    <select id="getAddBookBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info where mbi_category = 0
+    </select>
+    <select id="getReportBookBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info where mbi_category = 1
+    </select>
+    <select id="getEtcBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info where mbi_category = 2
+    </select>
+    <select id="getCompleteBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info where mbi_status = 1
+    </select>
+    <select id="getWaitBoardCnt" resultType="java.lang.Integer">
+        select count(*) from member_board_info where mbi_status = 0
+    </select>
+</mapper>
