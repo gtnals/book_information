@@ -97,9 +97,7 @@
                     <button id="author_search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <select id="b_author">
-                    <option value="1">일</option>
-                    <option value="2">이</option>
-                    <option value="3">삼</option>
+                    <option value="0">작가명 입력</option>
                 </select>
             </div>
             <div class="btn_area">

@@ -59,10 +59,17 @@ $(function(){
             url:"/author/search?name="+author_name,
             type: "post",
             success: function(r){
-                for(let i=0; i< r.list.length; i++){
-                    //html append로 b_author 밑에 option 추가
-                    //console.log(i)
+                if(r.list.length==0){
+                    $("#b_author").empty()
+                    $("#b_author").append('<option value="0">해당 작가 없음</option>')
                 }
+                else{
+                    $("#b_author").empty()
+                    for(let i=0; i< r.list.length; i++){
+                        $("#b_author").append('<option value='+i+'>'+r.list[i].ai_number+'</option>')
+                    }
+                }
+                
                 //alert(r.list[0].ai_number)
             }
         })
