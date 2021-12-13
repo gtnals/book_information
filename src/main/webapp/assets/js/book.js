@@ -56,10 +56,14 @@ $(function(){
         let author_name = $("#author_name").val()
         
         $.ajax({
-            url:"/author?name="+author_name,
+            url:"/author/search?name="+author_name,
             type: "post",
             success: function(r){
-                alert(r.list)
+                for(let i=0; i< r.list.length; i++){
+                    //html append로 b_author 밑에 option 추가
+                    //console.log(i)
+                }
+                //alert(r.list[0].ai_number)
             }
         })
 

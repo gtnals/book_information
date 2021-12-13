@@ -8,7 +8,9 @@ import com.gtnals.book_information.data.AuthorVO;
 import com.gtnals.book_information.mapper.AuthorMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthorService {
     @Autowired
     AuthorMapper mapper;
