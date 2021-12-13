@@ -1,0 +1,107 @@
+/* book_list.css */
+main {background-color: #f3f3f3; position: relative;}
+main > h1 {font-size: 36px; padding-bottom: 30px; margin-bottom: 30px; border-bottom: 1px solid #ddd;}
+#add_book {
+    position: absolute; right: 35px; top: 30px;
+    border: 0; background-color: #999; color: #fff;
+    width: 170px; height: 40px; border-radius: 5px; font-size: 14px; font-weight: 300;
+    cursor: pointer;
+}
+#add_book i {margin-right: 5px;}
+#add_book:hover {background-color: #333;}
+.search_box {background-color: #fff; display: inline-block; vertical-align: middle;
+    padding: 10px 20px; border-radius: 99px; margin-right: 20px;
+}
+.search_box input {border: 0; padding: 0; margin: 0; outline: none; color: #434343;} 
+.search_box input::placeholder {color: #ccc;}
+.search_box button {color: #333; border: 0; padding: 0; margin: 0; background-color: transparent;
+    outline: none; cursor: pointer;
+}
+
+#reset_btn {border: 0; background-color: rgb(103, 103, 124); color: #fff; width: 80px; height: 35px;
+    border-radius: 99px; cursor: pointer;
+}
+#reset_btn:hover {background-color: rgb(18,18,68);}
+
+.table_area table {width: 100%; margin-top: 30px; border-collapse: separate;
+    border-spacing: 0 15px;
+}
+.table_area td {text-align: center;}
+
+.table_area th {color: #999; font-weight: 400; padding: 20px 0; padding-bottom: 5px;}
+.table_area tbody tr { padding-bottom: 10px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
+}
+/* tr에는 적용이 안 되는 속성이 많음 */
+.table_area tbody td {padding: 20px 0; background-color: #fff; margin-bottom: 10px; font-size: 14px;
+color: #333;}
+.table_area tbody td:first-child { border-radius: 5px 0 0 5px;}
+.table_area tbody td:last-child { border-radius: 0 5px 5px 0;}
+.table_area tbody td button {margin: 0 8px; background-color: transparent; border: 0; padding: 0;
+font-size: 20px; cursor: pointer; }
+.modify_btn {color: rgb(73, 73, 93);}
+.delete_btn {color: rgb(224, 81, 81);}
+
+.pager_area { text-align: center; padding-top: 30px;}
+.pagers {display: inline-block; vertical-align: middle;}
+.pager_area button {vertical-align: middle; display: inline-block; padding: 0; background-color: transparent;
+    border: 0; margin: 10px; position: relative; top: 2px;
+    font-size: 20px; color: #434343; cursor: pointer;
+}
+.pagers a {color: #555; text-decoration: none; margin: 10px;}
+.pagers a.current {color: #000; text-decoration: underline; font-weight: 700;}
+
+#nodata {
+    font-size: 20px; font-weight: 700; color: #999;
+    padding: 20px 0; background-color: rgba(255,255,255,0.5);
+}
+.popup_wrap {
+    position: fixed; width: 100vw; height: 100vh; left: 0; top: 0;
+    background-color: rgba(0,0,0,0.3); display: none;
+} 
+/* 이렇게 설정하면 뒤에 있는 걸 누를 수 없는 상태가 됨 */
+.popup_wrap.open {display: block;}
+.popup {
+    position: absolute; left: 50%; top: 50%; background-color: #fff;
+    margin-left: -250px; margin-top: -250px;
+    z-index: 999999; padding: 45px 0; width: 500px;
+    border-radius: 5px; box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+.popup .top_area { text-align: center; padding-bottom: 40px; border-bottom: 1px solid #ccc;}
+.popup .ico {
+    width: 80px; height: 80px; text-align: center;
+    background-color: #666; color: #fff; font-size: 36px; line-height: 70px; 
+    border-radius: 999px; display: inline-block;
+}
+.popup .top_area h2 {margin-top: 20px; font-size: 24px;}
+.popup .top_area p {margin-top: 10px; color: #555;}
+
+.popup .content_area {padding: 40px 0; width: 350px; margin: 0 auto; font-size: 0;
+    padding-bottom: 20px;
+}
+#b_name, #b_number, #b_status, .author_search_box, #b_author {width: 100%; padding: 0; margin: 0; border: 1px solid #ccc;
+    font-size: 16px; font-weight: 400; padding: 10px 20px; box-sizing: border-box;
+    border-radius: 15px; margin-bottom: 15px; outline: none;
+}
+#b_number, .author_search_box {width: 200px; border-radius: 15px 0 0 15px;}
+#b_status, #b_author {width: 150px; border-radius: 0 15px 15px 0; border-left: 0 solid #000;
+    padding: 9px 20px;
+}
+.author_search_box {display: inline-block;}
+.author_search_box input {width: 140px; border: 0; padding: 0; margin: 0; outline: none; color: #434343; 
+    font-size: 16px; font-weight: 400;
+} 
+.author_search_box button {color: #333; border: 0; padding: 0; margin: 0; background-color: transparent;
+    outline: none; cursor: pointer;
+}
+
+.btn_area {
+    text-align: center;
+}
+.btn_area button {
+    border: 0; font-size: 16px; padding: 10px 30px; margin: 0 5px; color: #fff;
+    cursor: pointer; border-radius: 15px;
+}
+.btn_area #add_b {background-color: #999;}
+.btn_area #add_b:hover {background-color: #333;}
+.btn_area #cancel_b {background-color: rgb(255,194,194);}
+.btn_area #cancel_b:hover {background-color: rgb(255,83,83);}

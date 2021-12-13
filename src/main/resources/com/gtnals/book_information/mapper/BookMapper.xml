@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtnals.book_information.mapper.BookMapper">
+    <select id="getBookInfo" resultType="com.gtnals.book_information.data.BookVO">
+        select a.*, b.ai_name as author
+        from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
+        order by bi_seq desc
+        limit 10 offset #{offset}
+    </select>
+    <select id="getBookCount" resultType="java.lang.Integer">
+        select count(*) from book_info
+    </select>
+    <insert id="addBook">
+        insert into book_info(bi_name, bi_number, bi_status)
+        values(#{bi_name}, #{bi_number}, #{bi_status})
+    </insert>
+    <delete id="deleteBook">
+        delete from book_info where bi_seq=#{seq}
+    </delete>
+</mapper>
