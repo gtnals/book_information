@@ -2,6 +2,7 @@ package com.gtnals.book_information.mapper;
 
 import java.util.List;
 
+import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +16,7 @@ public interface BookMapper {
     public BookVO getBookInfoBySeq(Integer seq);
 
     public void updateBook(BookVO data);
+
+    public Integer selectLatestDataSeq();
+    public void insertBookHistory(BookHistoryVO data);
 }

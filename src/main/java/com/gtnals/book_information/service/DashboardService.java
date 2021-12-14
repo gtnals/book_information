@@ -21,6 +21,7 @@ public class DashboardService {
         bookCntList.add(mapper.getBorrowBookCnt());
         bookCntList.add(mapper.getOverdueBookCnt());
         bookCntList.add(mapper.getReserveBookCnt());
+        bookCntList.add(mapper.getUnavailableBookCnt());
 
         List<Integer> memberCntList = new ArrayList<Integer>();
         memberCntList.add(mapper.getTotalMemberCnt());

@@ -53,9 +53,23 @@
                             <tr>
                                 <td>${d.bi_seq}</td>
                                 <td>${d.bi_number}</td>
-                                <td>${d.bi_name}</td>
-                                <td>${d.author}</td>
-                                <td>${d.bi_status==0?"대출가능":d.bi_status==1?"대출중":d.bi_status==2?"연체중":d.bi_status==3?"예약중":"이용불가"}</td>
+                                <td><a href="#">${d.bi_name}</a></td>
+                                <td><a href="#">${d.author}</a></td>
+                                <c:if test="${d.bi_status==0}">
+                                    <td style="color: blue;font-weight: 600;">대출가능</td>
+                                </c:if>
+                                <c:if test="${d.bi_status==1}">
+                                    <td style="color: red;font-weight: 600;">대출중</td>
+                                </c:if>
+                                <c:if test="${d.bi_status==2}">
+                                    <td style="color: darkred;font-weight: 600;">연체중</td>
+                                </c:if>
+                                <c:if test="${d.bi_status==3}">
+                                    <td style="color: coral;font-weight: 600;">예약중</td>
+                                </c:if>
+                                <c:if test="${d.bi_status==4}">
+                                    <td style="color: deeppink;font-weight: 600;">이용불가</td>
+                                </c:if>
                                 <td>${d.bi_reg_dt}</td>
                                 <td>${d.bi_mod_dt}</td>
                                 <td>

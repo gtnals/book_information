@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.mapper.BookMapper;
 
@@ -69,6 +70,15 @@ public class BookService {
         mapper.addBook(data);
         resultMap.put("status", true);
         resultMap.put("message", "도서가 추가되었습니다.");
+
+        Integer seq = mapper.selectLatestDataSeq();
+        BookHistoryVO history = new BookHistoryVO();
+        history.setBh_bi_seq(seq);
+        history.setBh_type("new");
+        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status();
+        history.setBh_content(content);
+        mapper.insertBookHistory(history);
+
         return resultMap;
     }
 
@@ -77,6 +87,12 @@ public class BookService {
         mapper.deleteBook(seq);
         resultMap.put("status", true);
         resultMap.put("message", "도서가 삭제되었습니다.");
+
+        BookHistoryVO history = new BookHistoryVO();
+        history.setBh_bi_seq(seq);
+        history.setBh_type("delete");
+        mapper.insertBookHistory(history);
+
         return resultMap;
     }
 
@@ -94,6 +110,14 @@ public class BookService {
 
         resultMap.put("status", true);
         resultMap.put("message", "수정되었습니다.");
+
+        BookHistoryVO history = new BookHistoryVO();
+        history.setBh_bi_seq(data.getBi_seq());
+        history.setBh_type("update");
+        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status();
+        history.setBh_content(content);
+        mapper.insertBookHistory(history);
+
         return resultMap;
     }
 }

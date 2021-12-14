@@ -27,6 +27,7 @@
                 <p>대출 중 도서 : <span>${cnt.book[2]}건</span></p>
                 <p>연체 중 도서 : <span>${cnt.book[3]}건</span></p>
                 <p>예약 중 도서 : <span>${cnt.book[4]}건</span></p>
+                <p>이용 불가 도서 : <span>${cnt.book[5]}건</span></p>
                 <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
             </div>
             <div class="member_info">

@@ -47,4 +47,12 @@
         set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_mod_dt=NOW()
         where bi_seq=#{bi_seq}
     </update>
+    <select id="selectLatestDataSeq" resultType="java.lang.Integer">
+        select bi_seq from book_info
+        order by bi_seq desc limit 1
+    </select>
+    <insert id="insertBookHistory">
+        INSERT INTO book_history(bh_type, bh_content, bh_bi_seq)
+        VALUES(#{bh_type}, #{bh_content}, #{bh_bi_seq})
+    </insert>
 </mapper>

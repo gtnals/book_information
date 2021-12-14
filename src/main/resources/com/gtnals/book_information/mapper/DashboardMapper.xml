@@ -17,6 +17,9 @@
     <select id="getReserveBookCnt" resultType="java.lang.Integer">
         select count(*) from book_info where bi_status=3
     </select>
+    <select id="getUnavailableBookCnt" resultType="java.lang.Integer">
+        select count(*) from book_info where bi_status=4
+    </select>
 
     <select id="getTotalMemberCnt" resultType="java.lang.Integer">
         select count(*) from member_info 

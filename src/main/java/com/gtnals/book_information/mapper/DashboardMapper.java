@@ -9,6 +9,7 @@ public interface DashboardMapper {
     public Integer getBorrowBookCnt();
     public Integer getOverdueBookCnt();
     public Integer getReserveBookCnt();
+    public Integer getUnavailableBookCnt();
 
     public Integer getTotalMemberCnt();
     public Integer getNormalMemberCnt();
