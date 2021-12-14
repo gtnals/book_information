@@ -17,6 +17,7 @@ public class AuthorService {
 
     public Map<String, Object> getAuthorList(String name){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        name="%"+name+"%";
         List<AuthorVO> list = mapper.getAuthorListByName(name);
         resultMap.put("status", true);
         resultMap.put("list", list);

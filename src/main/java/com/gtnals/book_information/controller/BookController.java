@@ -16,8 +16,11 @@ public class BookController {
     @Autowired
     BookService service;
     @GetMapping("/book")
-    public String getBook(Model model, @RequestParam @Nullable Integer offset){
-        Map<String, Object> resultMap=service.getBookList(offset);
+    public String getBook(
+        Model model, @RequestParam @Nullable Integer offset,
+        @RequestParam @Nullable String keyword
+    ){
+        Map<String, Object> resultMap=service.getBookList(offset,keyword);
         model.addAttribute("data", resultMap);
         return "/book/list";
     }

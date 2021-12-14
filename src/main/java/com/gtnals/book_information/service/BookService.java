@@ -15,13 +15,24 @@ public class BookService {
     @Autowired
     BookMapper mapper;
 
-    public Map<String, Object> getBookList(Integer offset){
-        if(offset==null) offset=0;
-
+    public Map<String, Object> getBookList(Integer offset, String keyword){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-        List<BookVO> list = mapper.getBookInfo(offset);
+        if(offset==null) {
+            offset=0;
+            resultMap.put("offset", offset);
+        }
+        if(keyword==null) {
+            keyword="%%";
+            resultMap.put("keyword", "");
+        }
+        else {
+            resultMap.put("keyword", keyword);
+            keyword = "%"+keyword+"%";
+        }
 
-        Integer cnt = mapper.getBookCount();
+        List<BookVO> list = mapper.getBookInfo(offset,keyword);
+
+        Integer cnt = mapper.getBookCount(keyword);
         Integer page_cnt = cnt/10 +(cnt%10>0?1:0);
 
         resultMap.put("status", true);
@@ -43,6 +54,11 @@ public class BookService {
             resultMap.put("message", "일련번호를 입력하세요.");
             return resultMap;
         }
+        if(data.getBi_ai_seq()==null || data.getBi_ai_seq()==0) {
+            resultMap.put("status", false);
+            resultMap.put("message", "작가를 입력하세요.");
+            return resultMap;
+        }
         
         mapper.addBook(data);
         resultMap.put("status", true);
@@ -55,6 +71,23 @@ public class BookService {
         mapper.deleteBook(seq);
         resultMap.put("status", true);
         resultMap.put("message", "도서가 삭제되었습니다.");
+        return resultMap;
+    }
+
+    public Map<String, Object> getBookInfoBySeq(Integer seq){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        resultMap.put("status", true);
+        resultMap.put("data", mapper.getBookInfoBySeq(seq));
+        return resultMap;
+    }
+
+    public Map<String, Object> updateBookInfo(BookVO data){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+
+        mapper.updateBook(data);
+
+        resultMap.put("status", true);
+        resultMap.put("message", "수정되었습니다.");
         return resultMap;
     }
 }

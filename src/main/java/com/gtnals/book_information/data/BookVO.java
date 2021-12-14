@@ -21,6 +21,8 @@ public class BookVO {
     private String bi_publisher;
     private String bi_translator;
     private String bi_image;
+    private Integer bi_page;
 
     private String author;
+    private String author_code;
 }

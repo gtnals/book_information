@@ -3,6 +3,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gtnals.book_information.mapper.AuthorMapper">
     <select id="getAuthorListByName" resultType="com.gtnals.book_information.data.AuthorVO">
-        select * from author_info where ai_name=#{name}
+        select * from author_info where ai_name like #{name}
     </select>
 </mapper>

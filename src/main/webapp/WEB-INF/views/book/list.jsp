@@ -19,7 +19,7 @@
         <div class="content_area">
             <div class="menu_area">
                 <div class="search_box">
-                    <input type="text" id="keyword" placeholder="검색어 입력">
+                    <input type="text" id="keyword" placeholder="검색어 입력" value="${data.keyword}">
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <button id="reset_btn">초기화</button>
@@ -28,11 +28,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>번호</th>
-                            <th>일련번호</th>
+                            <th>등록번호</th>
+                            <th>청구번호</th>
                             <th>도서명</th>
-                            <th>작가</th>
-                            <th>상태</th>
+                            <th>저자</th>
+                            <th>도서상태</th>
                             <th>등록일</th>
                             <th>수정일</th>
                             <th>조작</th>
@@ -41,7 +41,7 @@
                     <tbody>
                         <c:if test="${data.total==0}">
                             <tr>
-                                <td id="nodata" colspan="7">데이터가 없습니다.</td>
+                                <td id="nodata" colspan="8">데이터가 없습니다.</td>
                             </tr>
                         </c:if>
                         <c:forEach items="${data.list}" var="d">
@@ -66,7 +66,7 @@
                 <button id="prev"><i class="fas fa-chevron-left"></i></button>
                 <div class="pagers">
                     <c:forEach begin="1" end="${data.pageCnt}" var="i">
-                        <a href="/book?offset=${(i-1)*10}">${i}</a>
+                        <a href="/book?offset=${(i-1)*10}&keyword=${data.keyword}">${i}</a>
                     </c:forEach>
                 </div>
                 <button id="next"><i class="fas fa-chevron-right"></i></button>
@@ -83,8 +83,8 @@
                 <p>도서 정보를 입력해주세요</p>
             </div>
             <div class="content_area">
-                <input type="text" id="b_name" placeholder="도서 명"><br>
-                <input type="text" id="b_number" placeholder="일련 번호">
+                <input type="text" id="b_name" placeholder="도서명"><br>
+                <input type="text" id="b_number" placeholder="청구번호">
                 <select id="b_status">
                     <option value="0">대출가능</option>
                     <option value="1">대출중</option>
@@ -93,15 +93,16 @@
                     <option value="4">이용불가</option>
                 </select>
                 <div class="author_search_box">
-                    <input type="text" id="author_name" placeholder="작가명">
+                    <input type="text" id="author_name" placeholder="저자명">
                     <button id="author_search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <select id="b_author">
-                    <option value="0">작가명 입력</option>
+                    <option value="0">저자명 입력</option>
                 </select>
             </div>
             <div class="btn_area">
                 <button id="add_b">등록하기</button>
+                <button id="mod_b">수정하기</button>
                 <button id="cancel_b">취소하기</button>
             </div>
         </div>
