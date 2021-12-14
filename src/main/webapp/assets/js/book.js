@@ -137,7 +137,8 @@ $(function(){
     })
 
     $("#search_btn").click(function(){
-        location.href="/book?keyword="+$("#keyword").val();
+        let opt = $("#search_opt").val();
+        location.href="/book?keyword="+$("#keyword").val()+"&key_opt="+opt;
     })
     $("#keyword").keydown(function(e){
         console.log(e.keyCode)

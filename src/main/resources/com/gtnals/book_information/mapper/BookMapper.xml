@@ -5,14 +5,30 @@
     <select id="getBookInfo" resultType="com.gtnals.book_information.data.BookVO">
         select a.*, b.ai_name as author
         from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
-        where bi_name like #{keyword} or b.ai_name like #{keyword}
+        <if test="key_opt==0">
+            where bi_name like #{keyword} or b.ai_name like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where bi_name like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where b.ai_name like #{keyword}
+        </if>
         order by bi_seq desc
         limit 10 offset #{offset}
     </select>
     <select id="getBookCount" resultType="java.lang.Integer">
         select count(*)
         from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
-        where bi_name like #{keyword} or b.ai_name like #{keyword}
+        <if test="key_opt==0">
+            where bi_name like #{keyword} or b.ai_name like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where bi_name like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where b.ai_name like #{keyword}
+        </if>
     </select>
     <insert id="addBook">
         insert into book_info(bi_name, bi_number, bi_status, bi_ai_seq)

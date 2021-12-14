@@ -19,6 +19,11 @@
         <div class="content_area">
             <div class="menu_area">
                 <div class="search_box">
+                    <select id="search_opt">
+                        <option value="0" <c:if test="${data.key_opt==0}">selected</c:if> >전체</option>
+                        <option value="1" <c:if test="${data.key_opt==1}">selected</c:if> >도서명</option>
+                        <option value="2" <c:if test="${data.key_opt==2}">selected</c:if> >저자명</option>
+                    </select>
                     <input type="text" id="keyword" placeholder="검색어 입력" value="${data.keyword}">
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>

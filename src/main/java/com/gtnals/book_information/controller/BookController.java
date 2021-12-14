@@ -18,9 +18,10 @@ public class BookController {
     @GetMapping("/book")
     public String getBook(
         Model model, @RequestParam @Nullable Integer offset,
-        @RequestParam @Nullable String keyword
+        @RequestParam @Nullable String keyword,
+        @RequestParam @Nullable Integer key_opt
     ){
-        Map<String, Object> resultMap=service.getBookList(offset,keyword);
+        Map<String, Object> resultMap=service.getBookList(offset,keyword,key_opt);
         model.addAttribute("data", resultMap);
         return "/book/list";
     }

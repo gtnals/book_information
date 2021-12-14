@@ -15,12 +15,13 @@ public class BookService {
     @Autowired
     BookMapper mapper;
 
-    public Map<String, Object> getBookList(Integer offset, String keyword){
+    public Map<String, Object> getBookList(Integer offset, String keyword, Integer key_opt){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         if(offset==null) {
             offset=0;
             resultMap.put("offset", offset);
         }
+
         if(keyword==null) {
             keyword="%%";
             resultMap.put("keyword", "");
@@ -30,9 +31,14 @@ public class BookService {
             keyword = "%"+keyword+"%";
         }
 
-        List<BookVO> list = mapper.getBookInfo(offset,keyword);
+        if(key_opt == null) {
+            key_opt = 0;
+        }
+        resultMap.put("key_opt", key_opt);
 
-        Integer cnt = mapper.getBookCount(keyword);
+        List<BookVO> list = mapper.getBookInfo(offset,keyword,key_opt);
+
+        Integer cnt = mapper.getBookCount(keyword, key_opt);
         Integer page_cnt = cnt/10 +(cnt%10>0?1:0);
 
         resultMap.put("status", true);
@@ -51,12 +57,12 @@ public class BookService {
         }
         if(data.getBi_number()==null || data.getBi_number().equals("")) {
             resultMap.put("status", false);
-            resultMap.put("message", "일련번호를 입력하세요.");
+            resultMap.put("message", "청구번호를 입력하세요.");
             return resultMap;
         }
         if(data.getBi_ai_seq()==null || data.getBi_ai_seq()==0) {
             resultMap.put("status", false);
-            resultMap.put("message", "작가를 입력하세요.");
+            resultMap.put("message", "저자를 입력하세요.");
             return resultMap;
         }
         

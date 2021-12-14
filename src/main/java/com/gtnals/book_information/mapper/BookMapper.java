@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BookMapper {
-    public List<BookVO>  getBookInfo(Integer offset, String keyword);
-    public Integer getBookCount(String keyword);
+    public List<BookVO>  getBookInfo(Integer offset, String keyword, Integer key_opt);
+    public Integer getBookCount(String keyword, Integer key_opt);
     public void addBook(BookVO data);
     public void deleteBook(Integer seq);
     public BookVO getBookInfoBySeq(Integer seq);

@@ -12,7 +12,7 @@ main > h1 {font-size: 36px; padding-bottom: 30px; margin-bottom: 30px; border-bo
 .search_box {background-color: #fff; display: inline-block; vertical-align: middle;
     padding: 10px 20px; border-radius: 99px; margin-right: 20px;
 }
-.search_box input {border: 0; padding: 0; margin: 0; outline: none; color: #434343;} 
+.search_box input, #search_opt {border: 0; padding: 0; margin: 0; outline: none; color: #434343;} 
 .search_box input::placeholder {color: #ccc;}
 .search_box button {color: #333; border: 0; padding: 0; margin: 0; background-color: transparent;
     outline: none; cursor: pointer;
