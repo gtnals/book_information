@@ -9,6 +9,7 @@ import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.mapper.BookMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,36 +17,83 @@ public class BookService {
     @Autowired
     BookMapper mapper;
 
-    public Map<String, Object> getBookList(Integer offset, String keyword, Integer key_opt){
+    public Map<String, Object> getBookList(Integer offset, String keyword, Integer key_opt, String name,String author,String publisher, Integer category){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         if(offset==null) {
             offset=0;
             resultMap.put("offset", offset);
         }
-
-        if(keyword==null) {
-            keyword="%%";
-            resultMap.put("keyword", "");
-        }
-        else {
-            resultMap.put("keyword", keyword);
-            keyword = "%"+keyword+"%";
-        }
-
         if(key_opt == null) {
             key_opt = 0;
         }
         resultMap.put("key_opt", key_opt);
+// key_opt이 3 => 상세 검색 처리
+        if(key_opt == 3){
+            resultMap.put("keyword", "");
+            if(name==null) {
+                name="%%";
+                resultMap.put("key_b_name", "");
+            }
+            else{
+                resultMap.put("key_b_name", name);
+                name="%"+name+"%";
+            }
 
-        List<BookVO> list = mapper.getBookInfo(offset,keyword,key_opt);
+            if(author==null){
+                author="%%";
+                resultMap.put("key_b_author", "");
+            }
+            else{
+                resultMap.put("key_b_author", author);
+                author="%"+author+"%";
+            }
 
-        Integer cnt = mapper.getBookCount(keyword, key_opt);
-        Integer page_cnt = cnt/10 +(cnt%10>0?1:0);
+            if(publisher==null){
+                publisher="%%";
+                resultMap.put("key_b_publisher", "");
+            }
+            else{
+                resultMap.put("key_b_publisher", publisher);
+                publisher="%"+publisher+"%";
+            }
 
-        resultMap.put("status", true);
-        resultMap.put("total", cnt);
-        resultMap.put("pageCnt", page_cnt);
-        resultMap.put("list", list);
+            if(category == null || category== -1){
+                category=-1;
+                resultMap.put("key_b_category", category);
+            }
+            else{
+                resultMap.put("key_b_category", category);
+            }
+            List<BookVO> list = mapper.getBookInfoByDetail(offset, name,author,publisher, category);
+            Integer cnt = mapper.getBookCountByDetail(name,author,publisher, category);
+            resultMap.put("list", list);
+            resultMap.put("total", cnt);
+            Integer page_cnt = cnt/10 +(cnt%10>0?1:0);
+            resultMap.put("pageCnt", page_cnt);
+            resultMap.put("status", true);
+        }
+//key_opt가 0,1,2 -> 일반 검색 처리
+        else{
+            resultMap.put("key_b_name", "");
+            resultMap.put("key_b_author", "");
+            resultMap.put("key_b_publisher", "");
+            resultMap.put("key_b_category", -1);
+            if(keyword==null) {
+                keyword="%%";
+                resultMap.put("keyword", "");
+            }
+            else {
+                resultMap.put("keyword", keyword);
+                keyword = "%"+keyword+"%";
+            }
+            List<BookVO> list = mapper.getBookInfo(offset,keyword,key_opt);
+            Integer cnt = mapper.getBookCount(keyword, key_opt);
+            resultMap.put("list", list);
+            resultMap.put("total", cnt);
+            Integer page_cnt = cnt/10 +(cnt%10>0?1:0);
+            resultMap.put("status", true);
+            resultMap.put("pageCnt", page_cnt);
+        }
         return resultMap;
     }
 
@@ -66,8 +114,27 @@ public class BookService {
             resultMap.put("message", "저자를 입력하세요.");
             return resultMap;
         }
+        if(data.getBi_publisher()==null || data.getBi_publisher().equals("")) {
+            resultMap.put("status", false);
+            resultMap.put("message", "발행처를 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_category()==null) {
+            resultMap.put("status", false);
+            resultMap.put("message", "분류를 입력하세요.");
+            return resultMap;
+        }
         
-        mapper.addBook(data);
+        try{
+            mapper.addBook(data);
+        } catch(DuplicateKeyException e){
+            resultMap.put("status", false);
+            resultMap.put("message", "이미 존재하는 청구번호입니다.");
+            return resultMap;    
+        } catch(Exception e){
+            resultMap.put("status", false);
+            resultMap.put("message", "오류가 발생했습니다.");
+        }
         resultMap.put("status", true);
         resultMap.put("message", "도서가 추가되었습니다.");
 
@@ -75,7 +142,9 @@ public class BookService {
         BookHistoryVO history = new BookHistoryVO();
         history.setBh_bi_seq(seq);
         history.setBh_type("new");
-        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status();
+        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status()+"|"+
+            data.getBi_publisher()+"|"+data.getBi_category()+"|"+data.getBi_publication_date()+"|"+data.getBi_page()+"|"+
+            data.getBi_image();
         history.setBh_content(content);
         mapper.insertBookHistory(history);
 
@@ -114,7 +183,9 @@ public class BookService {
         BookHistoryVO history = new BookHistoryVO();
         history.setBh_bi_seq(data.getBi_seq());
         history.setBh_type("update");
-        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status();
+        String content = data.getBi_name()+"|"+data.getBi_number()+"|"+data.getBi_ai_seq()+"|"+data.getBi_status()+"|"+
+            data.getBi_publisher()+"|"+data.getBi_category()+"|"+data.getBi_publication_date()+"|"+data.getBi_page()+"|"+
+            data.getBi_image();
         history.setBh_content(content);
         mapper.insertBookHistory(history);
 

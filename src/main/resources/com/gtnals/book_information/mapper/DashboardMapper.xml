@@ -38,10 +38,10 @@
         select count(*) from review_info 
     </select>
     <select id="getPrivateReviewCnt" resultType="java.lang.Integer">
-        select count(*) from review_info where ri_open=1
+        select count(*) from review_info where ri_private=1
     </select>
     <select id="getNormalReviewCnt" resultType="java.lang.Integer">
-        select count(*) from review_info where ri_open=0 and ri_warning=0
+        select count(*) from review_info where ri_private=0 and ri_warning=0
     </select>
     <select id="getwaitDeleteCnt" resultType="java.lang.Integer">
         select count(*) from review_info where ri_warning != 0

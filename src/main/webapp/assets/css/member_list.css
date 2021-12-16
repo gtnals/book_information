@@ -1,5 +1,6 @@
-/* book_list.css */
-main {background-color: #f3f3f3; position: relative;}
+/* member_list.css */
+
+/* main {background-color: #f3f3f3; position: relative;}
 main > h1 {font-size: 36px; padding-bottom: 30px; margin-bottom: 30px; border-bottom: 1px solid #ddd;}
 #add_book {
     position: absolute; right: 35px; top: 30px;
@@ -34,14 +35,12 @@ main > h1 {font-size: 36px; padding-bottom: 30px; margin-bottom: 30px; border-bo
 .table_area th {color: #999; font-weight: 400; padding: 20px 0; padding-bottom: 5px;}
 .table_area tbody tr { padding-bottom: 10px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
 }
-/* tr에는 적용이 안 되는 속성이 많음 */
 .table_area tbody td {padding: 20px 0; background-color: #fff; margin-bottom: 10px; font-size: 14px;
 color: #333;}
 .table_area tbody td:first-child { border-radius: 5px 0 0 5px;}
 .table_area tbody td:last-child { border-radius: 0 5px 5px 0;}
 .table_area tbody td button {margin: 0 8px; background-color: transparent; border: 0; padding: 0;
 font-size: 20px; cursor: pointer; }
-.table_area tbody td a {text-decoration: none; color: #000; font-weight: 500;}
 .modify_btn {color: rgb(73, 73, 93);}
 .delete_btn {color: rgb(224, 81, 81);}
 #book_detail, #author_detail {font-size: 14px; font-weight: 500;}
@@ -63,11 +62,10 @@ font-size: 20px; cursor: pointer; }
     position: fixed; width: 100vw; height: 100vh; left: 0; top: 0;
     background-color: rgba(0,0,0,0.3); display: none;
 } 
-/* 이렇게 설정하면 뒤에 있는 걸 누를 수 없는 상태가 됨 */
 .popup_wrap.open {display: block;}
 .popup {
     position: absolute; left: 50%; top: 50%; background-color: #fff;
-    margin-left: -250px; margin-top: -400px;
+    margin-left: -250px; margin-top: -300px;
     z-index: 999999; padding: 45px 0; width: 500px;
     border-radius: 5px; box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
@@ -82,17 +80,14 @@ font-size: 20px; cursor: pointer; }
 .popup .content_area {padding: 40px 0; width: 350px; margin: 0 auto; font-size: 0;
     padding-bottom: 20px;
 }
-#b_name, #b_number, #b_status, .author_search_box, #b_author, #b_publisher, #b_category, #b_publication_date,#b_page,#b_image
-{width: 100%; padding: 0; margin: 0; border: 1px solid #ccc;
+#b_name, #b_number, #b_status, .author_search_box, #b_author, #b_publisher, #b_category {width: 100%; padding: 0; margin: 0; border: 1px solid #ccc;
     font-size: 16px; font-weight: 400; padding: 10px 20px; box-sizing: border-box;
     border-radius: 15px; margin-bottom: 15px; outline: none;
 }
-#b_number, .author_search_box, #b_publisher, #b_page {width: 200px; border-radius: 15px 0 0 15px;}
-#b_status, #b_author, #b_category, #b_publication_date {
-    width: 150px; border-radius: 0 15px 15px 0; border-left: 0 solid #000;
+#b_number, .author_search_box, #b_publisher {width: 200px; border-radius: 15px 0 0 15px;}
+#b_status, #b_author, #b_category {width: 150px; border-radius: 0 15px 15px 0; border-left: 0 solid #000;
     padding: 9px 20px;
 }
-#b_publication_date {padding: 10px 20px;}
 .author_search_box {display: inline-block;}
 .author_search_box input {width: 140px; border: 0; padding: 0; margin: 0; outline: none; color: #434343; 
     font-size: 16px; font-weight: 400;
@@ -116,4 +111,5 @@ font-size: 20px; cursor: pointer; }
 .btn_area #cancel_b:hover {background-color: rgb(255,83,83);}
 
 .order_select { margin-top: 20px; float: right; padding: 10px; background-color: #fff; border-radius: 10px;}
-.order_select select {border: 0; background-color: #fff;}
+.order_select select {border: 0; background-color: #fff;} */
+

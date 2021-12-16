@@ -10,12 +10,14 @@
     <title>Document</title>
     <%@include file="/WEB-INF/includes/header.jsp"%>
     <link rel="stylesheet" href="/assets/css/book_list.css">
+    <link rel="stylesheet" href="/assets/css/member_list.css">
     <script src="/assets/js/book.js"></script>
+    <script src="/assets/js/member.js"></script>
 </head>
 <body>
     <main>
-        <h1><i class="fas fa-book"></i> 도서 관리</h1>
-        <button id="add_book"><i class="fas fa-plus-circle"></i> 도서 추가</button>
+        <h1><i class="fas fa-user"></i> 회원 관리</h1>
+        <button id="add_book"><i class="fas fa-plus-circle"></i> 회원 추가</button>
         <div class="content_area">
             <div class="menu_area">
                 <div class="search_box">
@@ -95,8 +97,8 @@
                             <tr>
                                 <td>${d.bi_seq}</td>
                                 <td>${d.bi_number}</td>
-                                <td><a href="/book/detail?bi_seq=${d.bi_seq}">${d.bi_name}</a></td>
-                                <td><a href="#">${d.author}</a></td>
+                                <td><button id="book_detail">${d.bi_name}</button></td>
+                                <td><button id="author_detail">${d.author}</button></td>
                                 <c:if test="${d.bi_status==0}">
                                     <td style="color: blue;font-weight: 600;">대출가능</td>
                                 </c:if>
@@ -166,8 +168,6 @@
                     <option value="0">저자명 입력</option>
                 </select>
                 <input type="text" id="b_publisher" placeholder="발행처">
-                <input type="text" id="b_publication_date" placeholder="발행일">
-                <input type="number" id="b_page" placeholder="페이지수">
                 <select id="b_category">
                     <option value="0">총류(000)</option>
                     <option value="100">철학(100)</option>
@@ -180,7 +180,6 @@
                     <option value="800">문학(800)</option>
                     <option value="900">역사(900)</option>
                 </select>
-                <input type="text" id="b_image" placeholder="이미지">
             </div>
             <div class="btn_area">
                 <button id="add_b">등록하기</button>

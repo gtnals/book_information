@@ -30,9 +30,31 @@
             where b.ai_name like #{keyword}
         </if>
     </select>
+    <select id="getBookInfoByDetail" resultType="com.gtnals.book_information.data.BookVO">
+        select a.*, b.ai_name as author
+        from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
+        where bi_name like #{name}
+        and b.ai_name like #{author}
+        and bi_publisher like #{publisher}
+        <if test="category!=-1">
+            and bi_category = #{category}
+        </if>
+        order by bi_seq desc
+        limit 10 offset #{offset}
+    </select>
+    <select id="getBookCountByDetail" resultType="java.lang.Integer">
+        select count(*)
+        from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
+        where bi_name like #{name}
+        and b.ai_name like #{author}
+        and bi_publisher like #{publisher}
+        <if test="category!=-1">
+            and bi_category = #{category}
+        </if>
+    </select>
     <insert id="addBook">
-        insert into book_info(bi_name, bi_number, bi_status, bi_ai_seq)
-        values(#{bi_name}, #{bi_number}, #{bi_status}, #{bi_ai_seq})
+        insert into book_info(bi_name, bi_number, bi_status, bi_ai_seq, bi_publisher, bi_category, bi_publication_date, bi_image, bi_page)
+        values(#{bi_name}, #{bi_number}, #{bi_status}, #{bi_ai_seq}, #{bi_publisher}, #{bi_category}, #{bi_publication_date}, #{bi_image}, #{bi_page})
     </insert>
     <delete id="deleteBook">
         delete from book_info where bi_seq=#{seq}
@@ -44,7 +66,8 @@
     </select>
     <update id="updateBook">
         update book_info
-        set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_mod_dt=NOW()
+        set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_publisher=#{bi_publisher},
+        bi_category=#{bi_category}, bi_publication_date=#{bi_publication_date}, bi_image=#{bi_image}, bi_page=#{bi_page}, bi_mod_dt=NOW()
         where bi_seq=#{bi_seq}
     </update>
     <select id="selectLatestDataSeq" resultType="java.lang.Integer">

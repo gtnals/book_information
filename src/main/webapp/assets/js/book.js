@@ -1,6 +1,20 @@
 // book.js
 $(function(){
     $(".main_menu a:nth-child(2)").addClass("active");
+
+    $("#detail_btn").click(function(){
+        $(".detail_search_box").css("display", "block")
+    })
+    $("#close_btn").click(function(){
+        $(".detail_search_box").css("display", "none")
+    })
+    $("#reset_btn").click(function(){
+        $("#key_b_name").val("");
+        $("#key_b_author").val("");
+        $("#key_b_publisher").val("");
+        $("#key_b_category").val("0").prop("selected", true);
+    })
+
     $("#add_book").click(function(){
         $(".popup_wrap").addClass("open");
         $("#mod_b").css("display","none");
@@ -14,12 +28,22 @@ $(function(){
         let b_number = $("#b_number").val()
         let b_status = $("#b_status option:selected").val()
         let b_author = $("#b_author option:selected").val()
+        let b_publisher = $("#b_publisher").val()
+        let b_category = $("#b_category option:selected").val()
+        let b_publication_date= $("#b_publication_date").val()
+        let b_page= $("#b_page").val()
+        let b_image= $("#b_image").val()
 
         let data = {
             bi_name:b_name,
             bi_number:b_number,
             bi_status:b_status,
-            bi_ai_seq:b_author
+            bi_ai_seq:b_author,
+            bi_publisher:b_publisher,
+            bi_category:b_category,
+            bi_publication_date:b_publication_date,
+            bi_page:b_page,
+            bi_image:b_image
         }
 
         $.ajax({
@@ -41,7 +65,13 @@ $(function(){
         $("#b_number").val("")
         $("#b_status").val("0").prop("selected", true);
         $("#b_author").empty()
+        $("#b_author").append('<option value="0">저자명 입력</option>')
         $("#author_name").val("");
+        $("#b_publisher").val("");
+        $("#b_category").val("0").prop("selected", true);
+        $("#b_publication_date").val("");
+        $("#b_page").val("");
+        $("#b_image").val("");
 
         $(".popup_wrap").removeClass("open");
     });
@@ -103,6 +133,11 @@ $(function(){
                 $("#author_name").val(r.data.author);
                 $("#b_author").empty()
                 $("#b_author").append('<option value='+r.data.bi_ai_seq+'>'+r.data.author_code+'</option>')
+                $("#b_publisher").val(r.data.bi_publisher)
+                $("#b_category").val(r.data.bi_category).prop("selected", true);
+                $("#b_publication_date").val(r.data.bi_publication_date)
+                $("#b_page").val(r.data.bi_page)
+                $("#b_image").val(r.data.bi_image)
             }
         })
     })
@@ -115,13 +150,23 @@ $(function(){
         let b_number = $("#b_number").val()
         let b_status = $("#b_status option:selected").val()
         let b_author = $("#b_author option:selected").val()
+        let b_publisher = $("#b_publisher").val()
+        let b_category = $("#b_category option:selected").val()
+        let b_publication_date= $("#b_publication_date").val()
+        let b_page= $("#b_page").val()
+        let b_image= $("#b_image").val()
 
         let data = {
             bi_seq:modify_data_seq,
             bi_name:b_name,
             bi_number:b_number,
             bi_status:b_status,
-            bi_ai_seq:b_author
+            bi_ai_seq:b_author,
+            bi_publisher:b_publisher,
+            bi_category:b_category,
+            bi_publication_date:b_publication_date,
+            bi_page:b_page,
+            bi_image:b_image
         }
 
         $.ajax({
@@ -140,16 +185,45 @@ $(function(){
         let opt = $("#search_opt").val();
         location.href="/book?keyword="+$("#keyword").val()+"&key_opt="+opt;
     })
+    $("#detail_search_btn").click(function(){
+        let name = $("#key_b_name").val();
+        let author = $("#key_b_author").val();
+        let publisher = $("#key_b_publisher").val();
+        let category = $("#key_b_category").val();
+        location.href = "/book?key_opt=3&name="+name+"&author="+author+"&publisher="+publisher+"&category="+category;
+    })
     $("#keyword").keydown(function(e){
-        console.log(e.keyCode)
+        //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#search_btn").trigger("click");
         }
     })
+
+    $("#key_b_name").keydown(function(e){
+        //console.log(e.keyCode)
+        if(e.keyCode==13){
+            $("#detail_search_btn").trigger("click");
+        }
+    })
+    $("#key_b_author").keydown(function(e){
+        //console.log(e.keyCode)
+        if(e.keyCode==13){
+            $("#detail_search_btn").trigger("click");
+        }
+    })
+    $("#key_b_publisher").keydown(function(e){
+        //console.log(e.keyCode)
+        if(e.keyCode==13){
+            $("#detail_search_btn").trigger("click");
+        }
+    })
+
     $("#author_name").keydown(function(e){
-        console.log(e.keyCode)
+        //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#author_search_btn").trigger("click");
         }
     })
+    
+    
 })

@@ -19,4 +19,6 @@ public interface BookMapper {
 
     public Integer selectLatestDataSeq();
     public void insertBookHistory(BookHistoryVO data);
+    public List<BookVO> getBookInfoByDetail(Integer offset, String name,String author,String publisher, Integer category);
+    public Integer getBookCountByDetail(String name,String author,String publisher, Integer category);
 }

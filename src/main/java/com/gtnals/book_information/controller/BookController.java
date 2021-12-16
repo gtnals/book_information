@@ -19,10 +19,19 @@ public class BookController {
     public String getBook(
         Model model, @RequestParam @Nullable Integer offset,
         @RequestParam @Nullable String keyword,
-        @RequestParam @Nullable Integer key_opt
+        @RequestParam @Nullable Integer key_opt,
+        @RequestParam @Nullable String name,
+        @RequestParam @Nullable String author,
+        @RequestParam @Nullable String publisher,
+        @RequestParam @Nullable Integer category
     ){
-        Map<String, Object> resultMap=service.getBookList(offset,keyword,key_opt);
+        Map<String, Object> resultMap=service.getBookList(offset,keyword,key_opt,name,author,publisher,category);
         model.addAttribute("data", resultMap);
         return "/book/list";
+    }
+    @GetMapping("/book/detail")
+    public String getBookDetail(@RequestParam Integer bi_seq, Model model){
+        model.addAttribute("bi_seq", bi_seq);
+        return "/book/detail";
     }
 }

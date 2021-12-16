@@ -8,7 +8,7 @@ import lombok.Data;
 public class BookVO {
     private Integer bi_seq;
     private Integer bi_ai_seq;
-    private Integer bi_ci_seq;
+    private Integer bi_category;
     private String bi_name;
     private String bi_number;
     private Date bi_reg_dt;
