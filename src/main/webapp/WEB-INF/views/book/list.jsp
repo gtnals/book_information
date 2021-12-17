@@ -28,9 +28,11 @@
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <button id="detail_btn">상세 검색</button>
-                <button id="close_btn">닫기</button>
-                <div class="detail_search_box" style="display: none;">
-                    <div class="search_box">
+                <div class="detail_search_box" 
+                    <c:if test="${data.key_opt!=3}">
+                        style="display: none;"
+                    </c:if>
+                    ><div class="search_box">
                         <label for="key_b_name">도서명: </label>
                         <input type="text" id="key_b_name" value="${data.key_b_name}">
                     </div>

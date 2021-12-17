@@ -4,9 +4,14 @@ $(function(){
 
     $("#detail_btn").click(function(){
         $(".detail_search_box").css("display", "block")
-    })
-    $("#close_btn").click(function(){
-        $(".detail_search_box").css("display", "none")
+        $("#detail_btn").html("닫기")
+        $("#detail_btn").attr("id","close_btn")
+
+        $("#close_btn").click(function(){
+            $(".detail_search_box").css("display", "none")
+            $("#close_btn").html("상세 검색")
+            $("#close_btn").attr("id","detail_btn")
+        })
     })
     $("#reset_btn").click(function(){
         $("#key_b_name").val("");
