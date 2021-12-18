@@ -17,7 +17,7 @@ public class BookService {
     @Autowired
     BookMapper mapper;
 
-    public Map<String, Object> getBookList(Integer offset, String keyword, Integer key_opt, String name,String author,String publisher, Integer category){
+    public Map<String, Object> getBookList(Integer offset, String keyword, Integer key_opt, String name,String author,String publisher, Integer category, Integer order){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         if(offset==null) {
             offset=0;
@@ -27,6 +27,10 @@ public class BookService {
             key_opt = 0;
         }
         resultMap.put("key_opt", key_opt);
+        if(order == null) {
+            order = 0;
+        }
+        resultMap.put("order", order);
 // key_opt이 3 => 상세 검색 처리
         if(key_opt == 3){
             resultMap.put("keyword", "");
@@ -64,7 +68,7 @@ public class BookService {
             else{
                 resultMap.put("key_b_category", category);
             }
-            List<BookVO> list = mapper.getBookInfoByDetail(offset, name,author,publisher, category);
+            List<BookVO> list = mapper.getBookInfoByDetail(offset, name,author,publisher, category, order);
             Integer cnt = mapper.getBookCountByDetail(name,author,publisher, category);
             resultMap.put("list", list);
             resultMap.put("total", cnt);
@@ -86,7 +90,7 @@ public class BookService {
                 resultMap.put("keyword", keyword);
                 keyword = "%"+keyword+"%";
             }
-            List<BookVO> list = mapper.getBookInfo(offset,keyword,key_opt);
+            List<BookVO> list = mapper.getBookInfo(offset,keyword,key_opt, order);
             Integer cnt = mapper.getBookCount(keyword, key_opt);
             resultMap.put("list", list);
             resultMap.put("total", cnt);

@@ -5,4 +5,8 @@
     <select id="getAuthorListByName" resultType="com.gtnals.book_information.data.AuthorVO">
         select * from author_info where ai_name like #{name}
     </select>
+    <insert id="addAuthor">
+        INSERT INTO author_info(ai_number, ai_name, ai_image, ai_email, ai_phone, ai_insta)
+        VALUES(#{ai_number}, #{ai_name}, #{ai_image}, #{ai_email}, #{ai_phone}, #{ai_insta})
+    </insert>
 </mapper>

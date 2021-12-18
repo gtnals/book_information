@@ -32,7 +32,10 @@
                     <c:if test="${data.key_opt!=3}">
                         style="display: none;"
                     </c:if>
-                    ><div class="search_box">
+                    ><div class="icon_close">
+                        <button id="detail_close_btn"><i class="fas fa-window-close"></i></button>
+                    </div>
+                    <div class="search_box">
                         <label for="key_b_name">도서명: </label>
                         <input type="text" id="key_b_name" value="${data.key_b_name}">
                     </div>
@@ -66,11 +69,11 @@
                 <!-- <p>*총 ${data.total}권이 검색되었습니다.</p> -->
             </div>
             <div class="order_select">
-                <select id="order">
-                    <option value="0">최신순</option>
-                    <option value="0">대출순</option>
-                    <option value="0">추천순</option>
-                    <option value="0">이름순</option>
+                <select id="order" onchange="orderList('${data.key_opt}')">
+                    <option value="0" <c:if test="${data.order=='0'}">selected</c:if> >최신순</option>
+                    <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >대출순</option>
+                    <option value="2" <c:if test="${data.order=='2'}">selected</c:if> >추천순</option>
+                    <option value="3" <c:if test="${data.order=='3'}">selected</c:if> >이름순</option>
                 </select>
             </div>
             <div class="table_area">
@@ -99,21 +102,23 @@
                                 <td>${d.bi_number}</td>
                                 <td><a href="/book/detail?bi_seq=${d.bi_seq}">${d.bi_name}</a></td>
                                 <td><a href="#">${d.author}</a></td>
-                                <c:if test="${d.bi_status==0}">
-                                    <td style="color: blue;font-weight: 600;">대출가능</td>
-                                </c:if>
-                                <c:if test="${d.bi_status==1}">
-                                    <td style="color: red;font-weight: 600;">대출중</td>
-                                </c:if>
-                                <c:if test="${d.bi_status==2}">
-                                    <td style="color: darkred;font-weight: 600;">연체중</td>
-                                </c:if>
-                                <c:if test="${d.bi_status==3}">
-                                    <td style="color: coral;font-weight: 600;">예약중</td>
-                                </c:if>
-                                <c:if test="${d.bi_status==4}">
-                                    <td style="color: deeppink;font-weight: 600;">이용불가</td>
-                                </c:if>
+                                <td class="book_status"> 
+                                    <c:if test="${d.bi_status==0}">
+                                        <span style="background-color: rgb(17,226,27);">대출가능</span>
+                                    </c:if>
+                                    <c:if test="${d.bi_status==1}">
+                                        <span style="background-color: rgb(255, 23, 23);">대출중</span>
+                                    </c:if>
+                                    <c:if test="${d.bi_status==2}">
+                                        <span style="background-color: rgb(255, 110, 26);">연체중</span>
+                                    </c:if>
+                                    <c:if test="${d.bi_status==3}">
+                                        <span style="background-color: rgb(251, 186, 64);">예약중</span>
+                                    </c:if>
+                                    <c:if test="${d.bi_status==4}">
+                                        <span style="background-color: rgb(128, 107, 109);">이용불가</span>
+                                    </c:if>
+                                </td>
                                 <td>${d.bi_reg_dt}</td>
                                 <td>${d.bi_mod_dt}</td>
                                 <td>
@@ -130,10 +135,10 @@
                 <div class="pagers">
                     <c:forEach begin="1" end="${data.pageCnt}" var="i">
                         <c:if test="${data.key_opt!=3}">
-                            <a href="/book?offset=${(i-1)*10}&keyword=${data.keyword}">${i}</a>
+                            <a href="/book?offset=${(i-1)*10}&keyword=${data.keyword}&order=${data.order}">${i}</a>
                         </c:if>
                         <c:if test="${data.key_opt==3}">
-                            <a href="/book?offset=${(i-1)*10}&name=${data.key_b_name}&author=${data.key_b_author}&publisher=${data.key_b_publisher}&category=${data.key_b_category}">${i}</a>
+                            <a href="/book?key_opt=3&offset=${(i-1)*10}&name=${data.key_b_name}&author=${data.key_b_author}&publisher=${data.key_b_publisher}&category=${data.key_b_category}&order=${data.order}">${i}</a>
                         </c:if>
                     </c:forEach>
                 </div>
@@ -149,10 +154,10 @@
                 </div>
                 <h2>도서 추가</h2>
                 <p>도서 정보를 입력해주세요</p>
+                <button id="add_author"><i class="fas fa-plus-circle"></i> 저자 추가</button>
             </div>
             <div class="content_area">
-                <input type="text" id="b_name" placeholder="도서명"><br>
-                <input type="text" id="b_number" placeholder="청구번호">
+                <input type="text" id="b_name" placeholder="도서명">
                 <select id="b_status">
                     <option value="0">대출가능</option>
                     <option value="1">대출중</option>
@@ -160,16 +165,7 @@
                     <option value="3">예약중</option>
                     <option value="4">이용불가</option>
                 </select>
-                <div class="author_search_box">
-                    <input type="text" id="author_name" placeholder="저자명">
-                    <button id="author_search_btn"><i class="fas fa-search"></i></button>
-                </div>
-                <select id="b_author">
-                    <option value="0">저자명 입력</option>
-                </select>
-                <input type="text" id="b_publisher" placeholder="발행처">
-                <input type="text" id="b_publication_date" placeholder="발행일">
-                <input type="number" id="b_page" placeholder="페이지수">
+                <input type="text" id="b_number" placeholder="청구번호">
                 <select id="b_category">
                     <option value="0">총류(000)</option>
                     <option value="100">철학(100)</option>
@@ -182,13 +178,42 @@
                     <option value="800">문학(800)</option>
                     <option value="900">역사(900)</option>
                 </select>
+                <div class="author_search_box">
+                    <input type="text" id="author_name" placeholder="지은이">
+                    <button id="author_search_btn"><i class="fas fa-search"></i></button>
+                </div>
+                <select id="b_author">
+                    <option value="0">저자코드</option>
+                </select>
+                
+                <input type="text" id="b_translator" placeholder="옮긴이">
+                <input type="number" id="b_page" placeholder="페이지수">
                 <input type="text" id="b_image" placeholder="이미지">
+                <input type="text" id="b_publisher" placeholder="발행처">
+                <input type="text" id="b_publication_date" placeholder="발행일(YYYYMMDD)">
             </div>
             <div class="btn_area">
                 <button id="add_b">등록하기</button>
                 <button id="mod_b">수정하기</button>
                 <button id="cancel_b">취소하기</button>
             </div>
+        </div>
+    </div>
+    <div class="add_author">
+        <div class="top_area">
+            <p><i class="fas fa-feather"></i> 저자 추가</p>
+        </div>
+        <div class="content_area">
+            <input type="text" id="a_name" placeholder="저자명">
+            <input type="text" id="a_number" placeholder="저자코드">
+            <input type="text" id="a_phone" placeholder="전화번호(01012345678)">
+            <input type="text" id="a_email" placeholder="이메일">
+            <input type="text" id="a_insta" placeholder="인스타ID">
+            <input type="text" id="a_image" placeholder="이미지">
+        </div>
+        <div class="btn_area">
+            <button id="add_a">등록</button>
+            <button id="cancel_a">취소</button>
         </div>
     </div>
 </body>

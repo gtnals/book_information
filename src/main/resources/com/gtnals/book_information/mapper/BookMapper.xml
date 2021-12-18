@@ -14,7 +14,19 @@
         <if test="key_opt==2">
             where b.ai_name like #{keyword}
         </if>
-        order by bi_seq desc
+        order by 
+        <if test="order==0">
+            bi_seq desc
+        </if>
+        <if test="order==1">
+            bi_cnt desc
+        </if>
+        <if test="order==2">
+            bi_like desc
+        </if>
+        <if test="order==3">
+            bi_name
+        </if>
         limit 10 offset #{offset}
     </select>
     <select id="getBookCount" resultType="java.lang.Integer">
@@ -39,7 +51,19 @@
         <if test="category!=-1">
             and bi_category = #{category}
         </if>
-        order by bi_seq desc
+        order by
+        <if test="order==0">
+            bi_seq desc
+        </if>
+        <if test="order==1">
+            bi_cnt desc
+        </if>
+        <if test="order==2">
+            bi_like desc
+        </if>
+        <if test="order==3">
+            bi_name
+        </if>
         limit 10 offset #{offset}
     </select>
     <select id="getBookCountByDetail" resultType="java.lang.Integer">

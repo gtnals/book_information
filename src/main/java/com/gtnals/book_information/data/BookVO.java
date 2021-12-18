@@ -16,7 +16,6 @@ public class BookVO {
     private Integer bi_status;
     private Integer bi_like;
     private Integer bi_cnt;
-    private String bi_sub;
     private String bi_publication_date;
     private String bi_publisher;
     private String bi_translator;

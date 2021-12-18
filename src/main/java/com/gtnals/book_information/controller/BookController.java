@@ -23,9 +23,10 @@ public class BookController {
         @RequestParam @Nullable String name,
         @RequestParam @Nullable String author,
         @RequestParam @Nullable String publisher,
-        @RequestParam @Nullable Integer category
+        @RequestParam @Nullable Integer category,
+        @RequestParam @Nullable Integer order
     ){
-        Map<String, Object> resultMap=service.getBookList(offset,keyword,key_opt,name,author,publisher,category);
+        Map<String, Object> resultMap=service.getBookList(offset,keyword,key_opt,name,author,publisher,category,order);
         model.addAttribute("data", resultMap);
         return "/book/list";
     }

@@ -8,6 +8,7 @@ import com.gtnals.book_information.data.AuthorVO;
 import com.gtnals.book_information.mapper.AuthorMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,22 @@ public class AuthorService {
         List<AuthorVO> list = mapper.getAuthorListByName(name);
         resultMap.put("status", true);
         resultMap.put("list", list);
+        return resultMap;
+    }
+
+    public Map<String, Object> addAuthor(AuthorVO data){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+
+        try{
+            mapper.addAuthor(data);
+        }
+        catch(DuplicateKeyException e){
+            resultMap.put("status", false);
+            resultMap.put("message", "이미 존재하는 저자코드입니다.");
+            return resultMap;    
+        }
+        resultMap.put("status", true);
+        resultMap.put("message", "작가를 추가했습니다.");
         return resultMap;
     }
 }

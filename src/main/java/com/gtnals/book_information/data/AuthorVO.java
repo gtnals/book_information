@@ -11,5 +11,8 @@ public class AuthorVO {
     private String ai_name;
     private Date ai_reg_dt;
     private Date ai_mod_dt;
-    private Integer ai_like;
+    private String ai_image;
+    private String ai_email;
+    private String ai_phone;
+    private String ai_insta;
 }

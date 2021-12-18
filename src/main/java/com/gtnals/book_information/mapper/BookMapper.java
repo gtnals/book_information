@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BookMapper {
-    public List<BookVO>  getBookInfo(Integer offset, String keyword, Integer key_opt);
+    public List<BookVO>  getBookInfo(Integer offset, String keyword, Integer key_opt, Integer order);
     public Integer getBookCount(String keyword, Integer key_opt);
     public void addBook(BookVO data);
     public void deleteBook(Integer seq);
@@ -19,6 +19,6 @@ public interface BookMapper {
 
     public Integer selectLatestDataSeq();
     public void insertBookHistory(BookHistoryVO data);
-    public List<BookVO> getBookInfoByDetail(Integer offset, String name,String author,String publisher, Integer category);
+    public List<BookVO> getBookInfoByDetail(Integer offset, String name,String author,String publisher, Integer category, Integer order);
     public Integer getBookCountByDetail(String name,String author,String publisher, Integer category);
 }

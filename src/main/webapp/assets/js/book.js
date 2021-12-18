@@ -4,20 +4,15 @@ $(function(){
 
     $("#detail_btn").click(function(){
         $(".detail_search_box").css("display", "block")
-        $("#detail_btn").html("닫기")
-        $("#detail_btn").attr("id","close_btn")
-
-        $("#close_btn").click(function(){
-            $(".detail_search_box").css("display", "none")
-            $("#close_btn").html("상세 검색")
-            $("#close_btn").attr("id","detail_btn")
-        })
+    })
+    $("#detail_close_btn").click(function(){
+        $(".detail_search_box").css("display", "none")
     })
     $("#reset_btn").click(function(){
         $("#key_b_name").val("");
         $("#key_b_author").val("");
         $("#key_b_publisher").val("");
-        $("#key_b_category").val("0").prop("selected", true);
+        $("#key_b_category").val("-1").prop("selected", true);
     })
 
     $("#add_book").click(function(){
@@ -103,16 +98,14 @@ $(function(){
             type: "post",
             success: function(r){
                 if(r.list.length==0){
-                    $("#b_author").empty()
-                    $("#b_author").append('<option value="0">해당 작가 없음</option>')
+                    $("#b_author").empty();
+                    $("#b_author").append('<option value="0">해당 작가 없음</option>');
                 }
                 else{
-                    $("#b_author").empty()
-                    for(let i=0; i< r.list.length; i++){
-                        $("#b_author").append('<option value='+r.list[i].ai_seq+'>'+r.list[i].ai_number+'</option>')
-                    }
+                    $("#b_author").empty();
+                    for(let i=0; i< r.list.length; i++)
+                    $("#b_author").append('<option value='+r.list[i].ai_seq+'>'+r.list[i].ai_number+'</option>')
                 }
-                //alert(r.list[0].ai_number)
             }
         })
     })
@@ -188,47 +181,106 @@ $(function(){
 
     $("#search_btn").click(function(){
         let opt = $("#search_opt").val();
-        location.href="/book?keyword="+$("#keyword").val()+"&key_opt="+opt;
+        let order = $("#order option:selected").val();
+        location.href="/book?keyword="+$("#keyword").val()+"&key_opt="+opt+"&order="+order;
     })
     $("#detail_search_btn").click(function(){
         let name = $("#key_b_name").val();
         let author = $("#key_b_author").val();
         let publisher = $("#key_b_publisher").val();
         let category = $("#key_b_category").val();
-        location.href = "/book?key_opt=3&name="+name+"&author="+author+"&publisher="+publisher+"&category="+category;
+        let order = $("#order option:selected").val();
+        location.href = "/book?key_opt=3&name="+name+"&author="+author+"&publisher="+publisher+"&category="+category+"&order="+order;
     })
-    $("#keyword").keydown(function(e){
+    $("#keyword").keyup(function(e){
         //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#search_btn").trigger("click");
         }
     })
 
-    $("#key_b_name").keydown(function(e){
+    $("#key_b_name").keyup(function(e){
         //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#detail_search_btn").trigger("click");
         }
     })
-    $("#key_b_author").keydown(function(e){
+    $("#key_b_author").keyup(function(e){
         //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#detail_search_btn").trigger("click");
         }
     })
-    $("#key_b_publisher").keydown(function(e){
+    $("#key_b_publisher").keyup(function(e){
         //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#detail_search_btn").trigger("click");
         }
     })
 
-    $("#author_name").keydown(function(e){
+    $("#author_name").keyup(function(e){
         //console.log(e.keyCode)
         if(e.keyCode==13){
             $("#author_search_btn").trigger("click");
         }
     })
     
-    
+    $("#add_author").click(function(){
+        $(".add_author").css("display","block")
+    })
+
+    $("#add_a").click(function(){
+        if(confirm("작가를 등록하시겠습니까?")==false) return;
+        let a_name = $("#a_name").val()
+        let a_number = $("#a_number").val()
+        let a_phone = $("#a_phone").val()
+        let a_email = $("#a_email").val()
+        let a_insta = $("#a_insta").val()       
+        let a_image = $("#a_image").val()       
+
+        if(a_name==null || a_name=="") alert("저자명을 입력하세요.");
+        if(a_number==null || a_number=="") alert("저자코드를 입력하세요.");
+
+        let data = {
+            ai_name:a_name,
+            ai_number:a_number,
+            ai_phone:a_phone,
+            ai_email:a_email,
+            ai_insta:a_insta,
+            ai_image:a_image
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/author/add",
+            data:JSON.stringify(data),
+            contentType: "application/json",
+            success: function(r){
+                alert(r.message);
+                if(r.status)
+                    $(".add_author").css("display","")
+            }
+        })
+    })
+    $("#cancel_a").click(function(){
+        if(confirm("취소하시겠습니까?\n(입력된 정보는 저장되지 않습니다.)")==false) return;
+
+        $("#a_name").val("")
+        $("#a_code").val("")
+        $("#a_phone").val("")
+        $("#a_email").val("")
+        $("#a_insta").val("")
+        $("#a_image").val("")
+
+        $(".add_author").css("display","")
+    })
 })
+
+function orderList(current_opt){
+    if(current_opt==3) {
+        $("#detail_search_btn").trigger("click");
+    }
+    else {
+        $("#search_btn").trigger("click");
+    }
+}
