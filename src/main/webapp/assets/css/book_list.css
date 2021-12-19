@@ -43,6 +43,7 @@ color: #333;}
 .table_area tbody td button {margin: 0 8px; background-color: transparent; border: 0; padding: 0;
 font-size: 20px; cursor: pointer; }
 .table_area tbody td a {text-decoration: none; color: #000; font-weight: 500;}
+.table_area tbody td .author_detail_btn {text-decoration: none; color: #000; font-weight: 500; font-size: 14px;}
 .modify_btn {color: rgb(73, 73, 93);}
 .delete_btn {color: rgb(224, 81, 81);}
 #book_detail, #author_detail {font-size: 14px; font-weight: 500;}
@@ -138,8 +139,8 @@ font-size: 20px; cursor: pointer; }
 }
 .btn_area #add_b, .btn_area #add_a {background-color: #999;}
 .btn_area #add_b:hover, .btn_area #add_a:hover {background-color: #333;}
-.btn_area #mod_b {background-color: #999;}
-.btn_area #mod_b:hover {background-color: #333;}
+.btn_area #mod_b, .btn_area #mod_a {background-color: #999;}
+.btn_area #mod_b:hover, .btn_area #mod_a:hover {background-color: #333;}
 .btn_area #cancel_b, .btn_area #cancel_a {background-color: rgb(255,194,194);}
 .btn_area #cancel_b:hover, .btn_area #cancel_a:hover  {background-color: rgb(255,83,83);}
 
@@ -168,3 +169,4 @@ font-size: 20px; cursor: pointer; }
 .add_author .content_area {margin: 20px; text-align: center;}
 .add_author input {border:1px solid #ccc; border-radius: 15px; padding: 5px 15px; margin: 5px; } 
 
+.search_result {margin-top: 20px;}

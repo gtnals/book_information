@@ -10,4 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuthorMapper {
     public List<AuthorVO> getAuthorListByName(String name);
     public void addAuthor(AuthorVO data);
+    public AuthorVO getAuthor(Integer seq);
+    public void updateAuthor(AuthorVO data);
 }

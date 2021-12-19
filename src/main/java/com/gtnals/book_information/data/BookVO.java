@@ -23,5 +23,5 @@ public class BookVO {
     private Integer bi_page;
 
     private String author;
-    private String author_code;
+    private String author_number;
 }

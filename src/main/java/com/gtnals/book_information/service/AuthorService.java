@@ -40,4 +40,26 @@ public class AuthorService {
         resultMap.put("message", "작가를 추가했습니다.");
         return resultMap;
     }
+
+    public Map<String, Object> getAuthor(Integer seq){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        resultMap.put("status", true);
+        resultMap.put("author", mapper.getAuthor(seq));
+        return resultMap;
+    }
+    public Map<String, Object> updateAuthor(AuthorVO data){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        try{
+            mapper.updateAuthor(data);
+        }
+        catch(DuplicateKeyException e){
+            resultMap.put("status", false);
+            resultMap.put("message", "이미 존재하는 저자코드입니다.");
+            return resultMap;    
+        }
+        resultMap.put("status", true);
+        resultMap.put("message", "작가를 수정했습니다.");
+        return resultMap;
+    }
+
 }

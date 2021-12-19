@@ -84,7 +84,7 @@
         delete from book_info where bi_seq=#{seq}
     </delete>
     <select id="getBookInfoBySeq" resultType="com.gtnals.book_information.data.BookVO">
-        select a.*, b.ai_name as author, b.ai_number as author_code
+        select a.*, b.ai_name as author, b.ai_number as author_number
         from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
         where a.bi_seq=#{seq}
     </select>

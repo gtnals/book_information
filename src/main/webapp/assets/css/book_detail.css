@@ -1,17 +1,9 @@
 /* book_detail.css */
-.top_area { padding-bottom: 20px; border-bottom: 1px solid #ccc;}
-.ico {
-    text-align: center;
-    width: 80px; height: 80px; 
-    background-color: #666; color: #fff; font-size: 36px; line-height: 70px; 
-    border-radius: 999px; display: inline-block; margin: 20px;
-}
-h2 {margin-top: 20px; font-size: 24px; display: inline-block;}
+main > p {font-size: 20px; font-weight: 600;}
+.h2 {margin-top: 20px; font-size: 24px; display: inline-block;}
 .content_area {
     padding: 20px 0;
-    /* width: 1000px; */
     margin: 0 20px; 
-    /* font-size: 0; */
     padding-bottom: 20px;
     text-align: center;
 }
@@ -22,19 +14,38 @@ h2 {margin-top: 20px; font-size: 24px; display: inline-block;}
 .content_area .detail_info{
     font-size: 20px;
     display: inline-block;
+    vertical-align: middle;
 }
-.content_area .image { padding: 20px 50px 30px 0; display: inline-block;}
+.content_area .image { padding: 20px 50px 30px 0; display: inline-block; vertical-align: middle;}
 .content_area .image p {margin: 5px; font-size: 12px; color: #bbb;}
 .content_area .detail_info {text-align-last: left;}
 
-.content_area table {width: 100%; margin: 30px 0; border-collapse: separate;
-    outline: #000;
+.content_area .table_area { width: 80%; margin: 20px auto;}
+.content_area table {
+    width: 100%; border-collapse: separate; border-spacing: 0 1px;
+    background-color: #ccc;
 }
+.table_area tbody td:first-child, .table_area tbody td:last-child  { border-radius: 0;}
 .content_area td {text-align: center; }
 .content_area th {
     padding: 10px 0;
 }
-.content_area tbody td {padding: 10px 0; background-color: #fff; margin-bottom: 10px; font-size: 14px;
-color: #333;}
+.table_area th {color: #000; font-weight: 500;} 
+.content_area tbody td {padding: 5px; background-color: #fff; margin-bottom: 10px; font-size: 14px;
+color: #333; vertical-align: middle;}
 .content_area tbody td button {margin: 0 8px; background-color: transparent; border: 0; padding: 0;
 font-size: 20px; cursor: pointer; }
+
+.review_area > p {text-align: left;  margin-bottom: 20px; font-size: 18px;}
+.review_area {margin: 20px auto; margin-top: 50px; width: 80%; }
+.review_area .pager_area {padding-top: 15px;}
+.book_status > span {margin-top: 0;}
+.book_status {padding: 0; text-align: center; vertical-align: middle;}
+
+#reserve_btn {display: inline-block; padding: 5px 10px; color: #fff; font-size: 12px;
+    border-radius: 3px; background-color: pink;}
+#reserve_btn:hover {background-color: rgb(247, 83, 110);}
+
+#list_btn, #review_btn, #like_btn {border: 0; background-color: rgb(103, 103, 124); color: #fff; width: 90px; height: 35px;
+    border-radius: 99px; cursor: pointer; margin: 5px;}
+#list_btn:hover, #review_btn:hover, #like_btn:hover {background-color: rgb(18,18,68);}

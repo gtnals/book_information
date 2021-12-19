@@ -6,7 +6,15 @@
         select * from author_info where ai_name like #{name}
     </select>
     <insert id="addAuthor">
-        INSERT INTO author_info(ai_number, ai_name, ai_image, ai_email, ai_phone, ai_insta)
-        VALUES(#{ai_number}, #{ai_name}, #{ai_image}, #{ai_email}, #{ai_phone}, #{ai_insta})
+        INSERT INTO author_info(ai_number, ai_name, ai_email, ai_phone, ai_insta)
+        VALUES(#{ai_number}, #{ai_name}, #{ai_email}, #{ai_phone}, #{ai_insta})
     </insert>
+    <select id="getAuthor" resultType="com.gtnals.book_information.data.AuthorVO">
+        select * from author_info where ai_seq = #{seq}
+    </select>
+    <update id="updateAuthor">
+        UPDATE author_info
+        SET ai_name=#{ai_name}, ai_number=#{ai_number}, ai_email=#{ai_email}, ai_phone=#{ai_phone}, ai_insta=#{ai_insta}, ai_mod_dt=NOW()
+        WHERE ai_seq = #{ai_seq}
+    </update>
 </mapper>

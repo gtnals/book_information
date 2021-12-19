@@ -55,10 +55,10 @@
                             <option value="100" <c:if test="${data.key_b_category==100}">selected</c:if> >철학(100)</option>
                             <option value="200" <c:if test="${data.key_b_category==200}">selected</c:if> >종교(200)</option>
                             <option value="300" <c:if test="${data.key_b_category==300}">selected</c:if> >사회학(300)</option>
-                            <option value="400" <c:if test="${data.key_b_category==400}">selected</c:if> >언어(400)</option>
-                            <option value="500" <c:if test="${data.key_b_category==500}">selected</c:if> >자연과학(500)</option>
-                            <option value="600" <c:if test="${data.key_b_category==600}">selected</c:if> >기술과학(600)</option>
-                            <option value="700" <c:if test="${data.key_b_category==700}">selected</c:if> >예술(700)</option>
+                            <option value="400" <c:if test="${data.key_b_category==400}">selected</c:if> >자연과학(400)</option>
+                            <option value="500" <c:if test="${data.key_b_category==500}">selected</c:if> >기술과학(500)</option>
+                            <option value="600" <c:if test="${data.key_b_category==600}">selected</c:if> >예술(600)</option>
+                            <option value="700" <c:if test="${data.key_b_category==700}">selected</c:if> >언어(700)</option>
                             <option value="800" <c:if test="${data.key_b_category==800}">selected</c:if> >문학(800)</option>
                             <option value="900" <c:if test="${data.key_b_category==900}">selected</c:if> >역사(900)</option>
                         </select>
@@ -66,14 +66,18 @@
                     <button id="detail_search_btn">검색</button>
                     <button id="reset_btn">초기화</button>
                 </div>
-                <!-- <p>*총 ${data.total}권이 검색되었습니다.</p> -->
+                <div class="search_result" 
+                    <c:if test="${data.keyword!=''||data.key_b_name!=''||data.key_b_author!=''||data.key_b_publisher!=''||data.key_b_category!=-1}">
+                        <p>*총 ${data.total}권이 검색되었습니다.</p>
+                    </c:if>
+                </div>
             </div>
             <div class="order_select">
                 <select id="order" onchange="orderList('${data.key_opt}')">
                     <option value="0" <c:if test="${data.order=='0'}">selected</c:if> >최신순</option>
                     <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >대출순</option>
                     <option value="2" <c:if test="${data.order=='2'}">selected</c:if> >추천순</option>
-                    <option value="3" <c:if test="${data.order=='3'}">selected</c:if> >이름순</option>
+                    <option value="3" <c:if test="${data.order=='3'}">selected</c:if> >제목순</option>
                 </select>
             </div>
             <div class="table_area">
@@ -100,8 +104,8 @@
                             <tr>
                                 <td>${d.bi_seq}</td>
                                 <td>${d.bi_number}</td>
-                                <td><a href="/book/detail?bi_seq=${d.bi_seq}">${d.bi_name}</a></td>
-                                <td><a href="#">${d.author}</a></td>
+                                <td><a href="/book/detail?bi_seq=${d.bi_seq}">${d.bi_name} <i class="fas fa-search-plus"></i></a></td>
+                                <td><button class="author_detail_btn" data-seq="${d.bi_ai_seq}">${d.author} <i class="fas fa-pencil-alt"></i></button></td>
                                 <td class="book_status"> 
                                     <c:if test="${d.bi_status==0}">
                                         <span style="background-color: rgb(17,226,27);">대출가능</span>
@@ -171,10 +175,10 @@
                     <option value="100">철학(100)</option>
                     <option value="200">종교(200)</option>
                     <option value="300">사회학(300)</option>
-                    <option value="400">언어(400)</option>
-                    <option value="500">자연과학(500)</option>
-                    <option value="600">기술과학(600)</option>
-                    <option value="700">예술(700)</option>
+                    <option value="400">자연과학(400)</option>
+                    <option value="500">기술과학(500)</option>
+                    <option value="600">예술(600)</option>
+                    <option value="700">언어(700)</option>
                     <option value="800">문학(800)</option>
                     <option value="900">역사(900)</option>
                 </select>
@@ -209,10 +213,10 @@
             <input type="text" id="a_phone" placeholder="전화번호(01012345678)">
             <input type="text" id="a_email" placeholder="이메일">
             <input type="text" id="a_insta" placeholder="인스타ID">
-            <input type="text" id="a_image" placeholder="이미지">
         </div>
         <div class="btn_area">
             <button id="add_a">등록</button>
+            <button id="mod_a">수정</button>
             <button id="cancel_a">취소</button>
         </div>
     </div>

@@ -130,7 +130,7 @@ $(function(){
                 $("#b_status").val(r.data.bi_status).prop("selected", true);
                 $("#author_name").val(r.data.author);
                 $("#b_author").empty()
-                $("#b_author").append('<option value='+r.data.bi_ai_seq+'>'+r.data.author_code+'</option>')
+                $("#b_author").append('<option value='+r.data.bi_ai_seq+'>'+r.data.author_number+'</option>')
                 $("#b_publisher").val(r.data.bi_publisher)
                 $("#b_category").val(r.data.bi_category).prop("selected", true);
                 $("#b_publication_date").val(r.data.bi_publication_date)
@@ -227,6 +227,9 @@ $(function(){
     
     $("#add_author").click(function(){
         $(".add_author").css("display","block")
+        $("#mod_a").css("display","none");
+        $("#add_a").css("display","inline-block");
+        $(".add_author .top_area p").html('<i class="fas fa-feather"></i> 저자 추가');
     })
 
     $("#add_a").click(function(){
@@ -236,7 +239,6 @@ $(function(){
         let a_phone = $("#a_phone").val()
         let a_email = $("#a_email").val()
         let a_insta = $("#a_insta").val()       
-        let a_image = $("#a_image").val()       
 
         if(a_name==null || a_name=="") alert("저자명을 입력하세요.");
         if(a_number==null || a_number=="") alert("저자코드를 입력하세요.");
@@ -247,7 +249,6 @@ $(function(){
             ai_phone:a_phone,
             ai_email:a_email,
             ai_insta:a_insta,
-            ai_image:a_image
         }
 
         $.ajax({
@@ -266,13 +267,70 @@ $(function(){
         if(confirm("취소하시겠습니까?\n(입력된 정보는 저장되지 않습니다.)")==false) return;
 
         $("#a_name").val("")
-        $("#a_code").val("")
+        $("#a_number").val("")
         $("#a_phone").val("")
         $("#a_email").val("")
         $("#a_insta").val("")
-        $("#a_image").val("")
 
         $(".add_author").css("display","")
+    })
+
+    let author_mod_seq = 0
+
+    $(".author_detail_btn").click(function(){
+        author_mod_seq = $(this).attr("data-seq")
+        
+        $(".add_author").css("display","block")
+        $("#add_a").css("display","none");
+        $("#mod_a").css("display","inline-block");
+        $(".add_author .top_area p").html('<i class="fas fa-feather"></i> 저자 수정');
+
+        $.ajax({
+            type:"get",
+            url:"/author/get?seq="+author_mod_seq,
+            success:function(r){
+                console.log(r)
+                $("#a_name").val(r.author.ai_name)
+                $("#a_number").val(r.author.ai_number)
+                $("#a_phone").val(r.author.ai_phone)
+                $("#a_email").val(r.author.ai_email)
+                $("#a_insta").val(r.author.ai_insta)
+            }
+        })
+
+    })
+    $("#mod_a").click(function(){
+        if(confirm("수정하시겠습니까?")==false) return;
+        let a_name = $("#a_name").val()
+        let a_number = $("#a_number").val()
+        let a_phone = $("#a_phone").val()
+        let a_email = $("#a_email").val()
+        let a_insta = $("#a_insta").val()       
+
+        if(a_name==null || a_name=="") alert("저자명을 입력하세요.");
+        if(a_number==null || a_number=="") alert("저자코드를 입력하세요.");
+
+        let data = {
+            ai_seq:author_mod_seq,
+            ai_name:a_name,
+            ai_number:a_number,
+            ai_phone:a_phone,
+            ai_email:a_email,
+            ai_insta:a_insta,
+        }
+
+        $.ajax({
+            type: "patch",
+            url: "/author/update",
+            data:JSON.stringify(data),
+            contentType: "application/json",
+            success: function(r){
+                alert(r.message);
+                if(r.status)
+                    // $(".add_author").css("display","")
+                    location.reload()
+            }
+        })
     })
 })
 

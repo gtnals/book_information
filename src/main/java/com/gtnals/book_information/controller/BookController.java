@@ -32,7 +32,8 @@ public class BookController {
     }
     @GetMapping("/book/detail")
     public String getBookDetail(@RequestParam Integer bi_seq, Model model){
-        model.addAttribute("bi_seq", bi_seq);
+        Map<String, Object> resultMap=service.getBookInfoBySeq(bi_seq);
+        model.addAttribute("book", resultMap);
         return "/book/detail";
     }
 }
