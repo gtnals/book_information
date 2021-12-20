@@ -141,7 +141,6 @@ $(function(){
     })
 
     $("#mod_b").click(function(){
-        //alert(modify_data_seq)
         if(confirm("수정하시겠습니까?")==false) return;
 
         let b_name = $("#b_name").val()
@@ -174,7 +173,8 @@ $(function(){
             contentType:"application/json",
             success:function(r){
                 alert(r.message);
-                location.reload();
+                if(r.status)
+                    location.reload();
             }
         })
     })

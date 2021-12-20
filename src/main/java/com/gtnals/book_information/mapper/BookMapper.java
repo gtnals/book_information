@@ -14,11 +14,11 @@ public interface BookMapper {
     public void addBook(BookVO data);
     public void deleteBook(Integer seq);
     public BookVO getBookInfoBySeq(Integer seq);
-
     public void updateBook(BookVO data);
-
     public Integer selectLatestDataSeq();
     public void insertBookHistory(BookHistoryVO data);
     public List<BookVO> getBookInfoByDetail(Integer offset, String name,String author,String publisher, Integer category, Integer order);
     public Integer getBookCountByDetail(String name,String author,String publisher, Integer category);
+
+    public BookVO getBookInfoByNum(String bi_number);
 }

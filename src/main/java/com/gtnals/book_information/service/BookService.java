@@ -178,9 +178,42 @@ public class BookService {
 
     public Map<String, Object> updateBookInfo(BookVO data){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-
-        mapper.updateBook(data);
-
+        if(data.getBi_name()==null || data.getBi_name().equals("")) {
+            resultMap.put("status", false);
+            resultMap.put("message", "도서명을 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_number()==null || data.getBi_number().equals("")) {
+            resultMap.put("status", false);
+            resultMap.put("message", "청구번호를 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_ai_seq()==null || data.getBi_ai_seq()==0) {
+            resultMap.put("status", false);
+            resultMap.put("message", "저자를 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_publisher()==null || data.getBi_publisher().equals("")) {
+            resultMap.put("status", false);
+            resultMap.put("message", "발행처를 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_category()==null) {
+            resultMap.put("status", false);
+            resultMap.put("message", "분류를 입력하세요.");
+            return resultMap;
+        }
+        
+        try{
+            mapper.updateBook(data);
+        } catch(DuplicateKeyException e){
+            resultMap.put("status", false);
+            resultMap.put("message", "이미 존재하는 청구번호입니다.");
+            return resultMap;    
+        } catch(Exception e){
+            resultMap.put("status", false);
+            resultMap.put("message", "오류가 발생했습니다.");
+        }
         resultMap.put("status", true);
         resultMap.put("message", "수정되었습니다.");
 

@@ -11,7 +11,6 @@
     <%@include file="/WEB-INF/includes/header.jsp"%>
     <link rel="stylesheet" href="/assets/css/book_list.css">
     <link rel="stylesheet" href="/assets/css/book_detail.css">
-    <script src="/assets/js/book.js"></script>
     <script src="/assets/js/book_detail.js"></script>
 </head>
 <body>
@@ -22,7 +21,7 @@
             <h1>${book.data.bi_name}</h1>
             <div class="book_detail_info">
                 <div class="image">
-                    <img src="/assets/image/book1.PNG" onerror="this.src='/assets/image/noimage.PNG'">
+                    <img src="/assets/images/book.PNG" onerror="this.src='/assets/images/noimage.PNG'">
                     <p>이미지 출처: Naver 책정보</p>
                 </div>
                 <div class="detail_info">

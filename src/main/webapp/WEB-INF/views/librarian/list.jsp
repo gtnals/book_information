@@ -10,13 +10,13 @@
     <title>Document</title>
     <%@include file="/WEB-INF/includes/header.jsp"%>
     <link rel="stylesheet" href="/assets/css/book_list.css">
-    <link rel="stylesheet" href="/assets/css/member_list.css">
-    <script src="/assets/js/member.js"></script>
+    <link rel="stylesheet" href="/assets/css/librarian_list.css">
+    <script src="/assets/js/librarian.js"></script>
 </head>
 <body>
     <main>
-        <h1><i class="fas fa-book-reader"></i> 회원 관리</h1>
-        <button id="add_book"><i class="fas fa-plus-circle"></i> 회원 추가</button>
+        <h1><i class="fas fa-user"></i> 사서 관리</h1>
+        <button id="add_book"><i class="fas fa-plus-circle"></i> 사서 추가</button>
         <div class="content_area">
             <div class="menu_area">
                 <div class="search_box">
@@ -54,6 +54,7 @@
                             <th>전화번호</th>
                             <th>이메일</th>
                             <th>상태</th>
+                            <th>역할</th>
                             <th>등록일</th>
                             <th>수정일</th>
                             <th>조작</th>
@@ -84,6 +85,8 @@
                                         <span style="background-color: rgb(255, 23, 23);">정지</span>
                                     </c:if>
                                 </td>
+                                <c:if test="${d.mi_role==0}"><td>회원</td></c:if>
+                                <c:if test="${d.mi_role==99}"><td>관리자</td></c:if>
                                 <td>${d.mi_reg_dt}</td>
                                 <td>${d.mi_mod_dt}</td>
                                 <td>
