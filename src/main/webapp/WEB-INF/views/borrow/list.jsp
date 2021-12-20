@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,8 +69,9 @@
                                 <td>${d.bbi_seq}</td>
                                 <td>${d.mem_id}</td>
                                 <td>${d.book_num}</td>
-                                <td>${d.bbi_borrow_date}</td>
-                                <td>${d.bbi_due_date}</td>
+
+                                <td><fmt:formatDate value="${d.bbi_borrow_date}" pattern="yyyy-MM-dd" /></td>
+                                <td><fmt:formatDate value="${d.bbi_due_date}" pattern="yyyy-MM-dd" /></td>
                                 <td>${d.bbi_reg_dt}</td>
                                 <td>${d.bbi_mod_dt}</td>
                                 <td>
@@ -104,14 +106,9 @@
             <div class="content_area">
                 <input type="text" id="bb_mem_id" placeholder="회원ID">
                 <input type="text" id="bb_book_num" placeholder="도서 청구번호">
-                <!-- <input type="date" id="bb_borrow_date" value="${borrow_date}" disabled>
-                <input type="date" id="bb_due_date" value="${due_date}" disabled> -->
-                <input type="date" id="bb_borrow_date" onchange="setDate()">
-                <input type="date" id="bb_due_date" min="${due_date}" max="${due_date}">
-                <!-- 뒤에 애는 자동 2주 후 선택하게 -min max. -->
+                <input type="date" id="bb_borrow_date" value="${borrow_date}" disabled>
+                <input type="date" id="bb_due_date" value="${due_date}" disabled>
 
-                <!-- <input type="text" id="bb_borrow_date" placeholder="대출일(YYYYMMDD)">
-                <input type="text" id="bb_due_date" placeholder="반납일(YYYYMMDD)"> -->
             </div>
             <div class="btn_area">
                 <button id="add_bb">등록하기</button>

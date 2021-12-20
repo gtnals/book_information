@@ -46,6 +46,13 @@ $(function(){
     })
 })
 
-function setDate(){
-    alert("날짜 선택")
-}
+
+
+// function setDate(){
+//     // let dateString = $("#bb_borrow_date").val()
+//     // let year=dateString.substr(0,4)
+//     // let month=dateString.substr(5,2)
+//     // let date=dateString.substr(8,2)
+//     // let due_date=new Date(year, month-1, date)
+//     // due_date.setDate(due_date.getDate()+14)
+// }

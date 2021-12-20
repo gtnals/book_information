@@ -4,9 +4,9 @@
 <mapper namespace="com.gtnals.book_information.mapper.BorrowMapper">
     <insert id="addBorrow">
         INSERT INTO book_borrow_info
-        (bbi_bi_seq, bbi_mi_seq, bbi_borrow_date, bbi_due_date)
+        (bbi_bi_seq, bbi_mi_seq, bbi_due_date)
         VALUES
-        (#{bbi_bi_seq}, #{bbi_mi_seq}, current_date(), adddate(current_date(), 14))
+        (#{bbi_bi_seq}, #{bbi_mi_seq}, adddate(current_date(), 14))
     </insert>
     <select id="getBorrowList" resultType="com.gtnals.book_information.data.BorrowVO">
         select c.*, d.mi_id as mem_id from
