@@ -47,7 +47,7 @@
                 <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
             </div>
             <div class="member_board_info">
-                <h2><i class="fas fa-file-alt"></i> 게시판 정보</h2> <!-- 1 -->
+                <h2><i class="fas fa-list-ul"></i> 게시판 정보</h2> <!-- 1 -->
                 <p>총 등록 글 : <span>${cnt.board[0]}건</span></p> <!-- 2 -->
                 <p class="small">-답변 대기 : <span>${cnt.board[4]}건</span></p> <!-- 3 -->
                 <p class="small">-답변 완료 : <span>${cnt.board[5]}건</span></p>

@@ -6,6 +6,52 @@
         INSERT INTO book_borrow_info
         (bbi_bi_seq, bbi_mi_seq, bbi_borrow_date, bbi_due_date)
         VALUES
-        (#{bbi_bi_seq}, #{bbi_mi_seq}, #{bbi_borrow_date}, #{bbi_due_date})
+        (#{bbi_bi_seq}, #{bbi_mi_seq}, current_date(), adddate(current_date(), 14))
     </insert>
+    <select id="getBorrowList" resultType="com.gtnals.book_information.data.BorrowVO">
+        select c.*, d.mi_id as mem_id from
+        (
+            select a.*, b.bi_number as book_num 
+            from book_borrow_info a left outer join book_info b on bbi_bi_seq=bi_seq
+        )c left outer join member_info d on c.bbi_mi_seq=d.mi_seq
+        <if test="key_opt==0">
+            where d.mi_id like #{keyword} or book_num like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where book_num like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where d.mi_id like #{keyword}
+        </if>
+        order by
+        <if test="order==0">
+            bbi_seq desc
+        </if>
+        <if test="order==1">
+            bbi_due_date 
+        </if>
+        <if test="order==2">
+            d.mi_id
+        </if>
+        <if test="order==3">
+            book_num
+        </if>
+        limit 10 offset #{offset}
+    </select>
+    <select id="getBorrowCnt" resultType="java.lang.Integer">
+        select count(*) from
+        (
+            select a.*, b.bi_number as book_num 
+            from book_borrow_info a left outer join book_info b on bbi_bi_seq=bi_seq
+        )c left outer join member_info d on c.bbi_mi_seq=d.mi_seq
+        <if test="key_opt==0">
+            where d.mi_id like #{keyword} or book_num like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where book_num like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where d.mi_id like #{keyword}
+        </if>
+    </select>
 </mapper>

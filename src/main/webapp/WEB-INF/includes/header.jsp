@@ -27,11 +27,9 @@
             <div class="main_menu">
                 <a href="/"><i class="fas fa-columns"></i> 대시보드</a>
                 <a href="/book"><i class="fas fa-book"></i> 도서 관리</a>
-                <!-- <a href="/borrow"><i class="fas fa-book-open"></i> 대출 관리</a>
-                <a href="/reservation"><i class="fas fa-bookmark"></i> 예약 관리</a> -->
-                <a href="/librarian"><i class="fas fa-user"></i> 사서 관리</a>
-                <a href="/member"><i class="fas fa-book-reader"></i> 회원 관리</a>
-                <a href="/comment"><i class="fas fa-comment-alt"></i> 리뷰 관리</a>
+                <a href="/borrow"><i class="fas fa-book-open"></i> 대출 관리</a>
+                <a href="/reservation"><i class="fas fa-bookmark"></i> 예약 관리</a>
+                <a href="/member"><i class="fas fa-user"></i> 회원 관리</a>
                 <a href="/board"><i class="fas fa-list-ul"></i> 게시판 관리</a>
             </div>
         </div>

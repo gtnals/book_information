@@ -22,8 +22,8 @@
                 <div class="search_box">
                     <select id="search_opt">
                         <option value="0" <c:if test="${data.key_opt==0}">selected</c:if> >전체</option>
-                        <option value="1" <c:if test="${data.key_opt==1}">selected</c:if> >도서명</option>
-                        <option value="2" <c:if test="${data.key_opt==2}">selected</c:if> >회원명</option>
+                        <option value="1" <c:if test="${data.key_opt==1}">selected</c:if> >청구번호</option>
+                        <option value="2" <c:if test="${data.key_opt==2}">selected</c:if> >회원ID</option>
                     </select>
                     <input type="text" id="keyword" placeholder="검색어 입력" value="${data.keyword}">
                     <button id="search_btn"><i class="fas fa-search"></i></button>
@@ -66,8 +66,8 @@
                         <c:forEach items="${data.list}" var="d">
                             <tr>
                                 <td>${d.bbi_seq}</td>
-                                <td>${d.bbi_mem_id}</td>
-                                <td>${d.bbi_book_num}</td>
+                                <td>${d.mem_id}</td>
+                                <td>${d.book_num}</td>
                                 <td>${d.bbi_borrow_date}</td>
                                 <td>${d.bbi_due_date}</td>
                                 <td>${d.bbi_reg_dt}</td>
@@ -85,12 +85,7 @@
                 <button id="prev"><i class="fas fa-chevron-left"></i></button>
                 <div class="pagers">
                     <c:forEach begin="1" end="${data.pageCnt}" var="i">
-                        <c:if test="${data.key_opt!=3}">
-                            <a href="/book?offset=${(i-1)*10}&keyword=${data.keyword}&order=${data.order}">${i}</a>
-                        </c:if>
-                        <c:if test="${data.key_opt==3}">
-                            <a href="/book?key_opt=3&offset=${(i-1)*10}&name=${data.key_b_name}&author=${data.key_b_author}&publisher=${data.key_b_publisher}&category=${data.key_b_category}&order=${data.order}">${i}</a>
-                        </c:if>
+                        <a href="/borrow?offset=${(i-1)*10}&keyword=${data.keyword}&order=${data.order}">${i}</a>
                     </c:forEach>
                 </div>
                 <button id="next"><i class="fas fa-chevron-right"></i></button>
@@ -109,15 +104,17 @@
             <div class="content_area">
                 <input type="text" id="bb_mem_id" placeholder="회원ID">
                 <input type="text" id="bb_book_num" placeholder="도서 청구번호">
-                <input type="text" id="bb_borrow_date" placeholder="대출일(YYYYMMDD)">
-                <input type="text" id="bb_due_date" placeholder="반납일(YYYYMMDD)">
+                <!-- <input type="date" id="bb_borrow_date" value="${borrow_date}" disabled>
+                <input type="date" id="bb_due_date" value="${due_date}" disabled> -->
+                <input type="date" id="bb_borrow_date" onchange="setDate()">
+                <input type="date" id="bb_due_date" min="${due_date}" max="${due_date}">
+                <!-- 뒤에 애는 자동 2주 후 선택하게 -min max. -->
 
-                <!-- <input type="text" id="bb_borrow_date" value="${borrow_date}" disabled>
-                <input type="text" id="bb_due_date" value="${due_date}" disabled> -->
+                <!-- <input type="text" id="bb_borrow_date" placeholder="대출일(YYYYMMDD)">
+                <input type="text" id="bb_due_date" placeholder="반납일(YYYYMMDD)"> -->
             </div>
             <div class="btn_area">
                 <button id="add_bb">등록하기</button>
-                <button id="mod_bb">수정하기</button>
                 <button id="cancel_bb">취소하기</button>
             </div>
         </div>

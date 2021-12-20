@@ -1,7 +1,7 @@
 // member.js
 $(function(){
     // $(".main_menu a:nth-child(2)").removeClass("active");
-    $(".main_menu a:nth-child(4)").addClass("active");
+    $(".main_menu a:nth-child(5)").addClass("active");
 
     $("#add_book").click(function(){
         $(".popup_wrap").css("display", "block");
