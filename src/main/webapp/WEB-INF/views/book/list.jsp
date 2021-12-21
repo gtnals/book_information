@@ -193,7 +193,7 @@
                 
                 <input type="text" id="b_translator" placeholder="옮긴이">
                 <input type="number" id="b_page" placeholder="페이지수">
-                <input type="text" id="b_image" placeholder="이미지">
+                <input type="text" id="b_image" placeholder="이미지" disabled>
                 <input type="text" id="b_publisher" placeholder="발행처">
                 <input type="text" id="b_publication_date" placeholder="발행일(YYYYMMDD)">
             </div>

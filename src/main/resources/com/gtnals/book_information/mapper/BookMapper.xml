@@ -77,8 +77,8 @@
         </if>
     </select>
     <insert id="addBook">
-        insert into book_info(bi_name, bi_number, bi_status, bi_ai_seq, bi_publisher, bi_category, bi_publication_date, bi_image, bi_page)
-        values(#{bi_name}, #{bi_number}, #{bi_status}, #{bi_ai_seq}, #{bi_publisher}, #{bi_category}, #{bi_publication_date}, #{bi_image}, #{bi_page})
+        insert into book_info(bi_name, bi_number, bi_status, bi_ai_seq, bi_publisher, bi_category, bi_publication_date, bi_image, bi_page, bi_translator)
+        values(#{bi_name}, #{bi_number}, #{bi_status}, #{bi_ai_seq}, #{bi_publisher}, #{bi_category}, #{bi_publication_date}, #{bi_image}, #{bi_page}, #{bi_translator})
     </insert>
     <delete id="deleteBook">
         delete from book_info where bi_seq=#{seq}
@@ -90,7 +90,7 @@
     </select>
     <update id="updateBook">
         update book_info
-        set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_publisher=#{bi_publisher},
+        set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_publisher=#{bi_publisher}, bi_translator=#{bi_translator}, 
         bi_category=#{bi_category}, bi_publication_date=#{bi_publication_date}, bi_image=#{bi_image}, bi_page=#{bi_page}, bi_mod_dt=NOW()
         <if test="bi_cnt!=null">
             , bi_cnt=#{bi_cnt}

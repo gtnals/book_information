@@ -102,7 +102,7 @@ $(function(){
             type:"get",
             success:function(r){
                 $("#m_name").val(r.data.mi_name);
-                $("#m_id").val(r.data.mi_id);
+                $("#m_id").val(r.data.mi_id).attr("disabled", true);
                 $("#m_pwd").val("*****");
                 $("#m_pwd_confirm").val("*****");
                 $("#m_pwd").attr("disabled", true)

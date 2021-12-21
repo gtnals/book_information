@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,8 +72,10 @@
                                 <td>${d.mi_seq}</td>
                                 <td>${d.mi_id}</td>
                                 <td>${d.mi_name}</td>
-                                <td>${d.mi_birth}</td>
-                                <td>${d.mi_phone}</td>
+                                <fmt:parseDate value="${d.mi_birth}" var="date" pattern="yyyyMMdd"/>
+                                <td><fmt:formatDate value="${date}" pattern="yyyy.MM.dd"/></td>
+                                <fmt:formatNumber var="phone" value="${d.mi_phone}" pattern="###,####,####"/>
+                                <td><c:out value="0${fn:replace(phone, ',', '-')}" /></td>
                                 <td>${d.mi_email}</td>
                                 <td class="book_status">
                                     <c:if test="${d.mi_status==0}">
@@ -124,14 +127,10 @@
                 <input type="text" id="m_birth" placeholder="생년월일 (YYYYMMDD)">
                 <input type="text" id="m_phone" placeholder="전화번호 (01012345678)">
                 <input type="text" id="m_email" placeholder="이메일 (mail@mail.com)">
-                <select id="m_status">
+                <select id="m_status" disabled>
                     <option value="0">정상</option>
                     <option value="1">경고</option>
                     <option value="2">정지</option>
-                </select>
-                <select id="m_role">
-                    <option value="0">일반</option>
-                    <option value="99">관리자</option>
                 </select>
             </div>
             <div class="btn_area">

@@ -16,4 +16,13 @@ public class MainController {
         model.addAttribute(("update"), service.getUpdateDate());
         return "/index";
     }
+    
+    @GetMapping("/board")
+    public String getBoard(){
+        return "/board/list";
+    }
+    @GetMapping("/reservation")
+    public String getRservation(){
+        return "/reservation/list";
+    }
 }

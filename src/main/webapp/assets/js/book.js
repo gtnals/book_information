@@ -29,6 +29,7 @@ $(function(){
         let b_status = $("#b_status option:selected").val()
         let b_author = $("#b_author option:selected").val()
         let b_publisher = $("#b_publisher").val()
+        let b_translator = $("#b_translator").val()
         let b_category = $("#b_category option:selected").val()
         let b_publication_date= $("#b_publication_date").val()
         let b_page= $("#b_page").val()
@@ -43,7 +44,8 @@ $(function(){
             bi_category:b_category,
             bi_publication_date:b_publication_date,
             bi_page:b_page,
-            bi_image:b_image
+            bi_image:b_image,
+            bi_translator:b_translator
         }
 
         $.ajax({
@@ -67,6 +69,7 @@ $(function(){
         $("#b_author").empty()
         $("#b_author").append('<option value="0">저자코드</option>')
         $("#author_name").val("");
+        $("#b_translator").val("");
         $("#b_publisher").val("");
         $("#b_category").val("0").prop("selected", true);
         $("#b_publication_date").val("");
@@ -140,6 +143,7 @@ $(function(){
                 $("#b_author").empty()
                 $("#b_author").append('<option value='+r.data.bi_ai_seq+'>'+r.data.author_number+'</option>')
                 $("#b_publisher").val(r.data.bi_publisher)
+                $("#b_translator").val(r.data.bi_translator)
                 $("#b_category").val(r.data.bi_category).prop("selected", true);
                 $("#b_publication_date").val(r.data.bi_publication_date)
                 $("#b_page").val(r.data.bi_page)
@@ -156,6 +160,7 @@ $(function(){
         let b_status = $("#b_status option:selected").val()
         let b_author = $("#b_author option:selected").val()
         let b_publisher = $("#b_publisher").val()
+        let b_translator = $("#b_translator").val()
         let b_category = $("#b_category option:selected").val()
         let b_publication_date= $("#b_publication_date").val()
         let b_page= $("#b_page").val()
@@ -171,7 +176,8 @@ $(function(){
             bi_category:b_category,
             bi_publication_date:b_publication_date,
             bi_page:b_page,
-            bi_image:b_image
+            bi_image:b_image,
+            bi_translator:b_translator
         }
 
         $.ajax({

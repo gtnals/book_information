@@ -158,4 +158,6 @@ font-size: 20px; cursor: pointer; }
 .add_author .content_area {margin: 20px; text-align: center;}
 .add_author input {border:1px solid #ccc; border-radius: 15px; padding: 5px 15px; margin: 5px; } 
 
+#insta_icon { font-size: 14px; }
+
 .search_result {margin-top: 20px;}
