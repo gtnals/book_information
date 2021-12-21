@@ -72,4 +72,13 @@
         FROM member_info
         where mi_id= #{mi_id}
     </select>
+
+    <insert id="insertMemberHistory">
+        INSERT INTO member_info_history
+        (mih_mi_seq, mih_type, mih_mi_content)
+        VALUES(#{mih_mi_seq}, #{mih_type}, #{mih_mi_content})
+    </insert>
+    <select id="getRecentAddedMemberSeq" resultType="java.lang.Integer">
+        select mi_seq from member_info order by mi_seq desc limit 1
+    </select> 
 </mapper>

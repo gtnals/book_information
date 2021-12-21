@@ -11,4 +11,6 @@ public interface BorrowMapper {
     public void addBorrow(BorrowVO data);
     public List<BorrowVO> getBorrowList(Integer offset, String keyword, Integer key_opt, Integer order);
     public Integer getBorrowCnt(String keyword, Integer key_opt);
+    public Integer getMemBorrowCnt(Integer mi_seq);
+    public void deleteBorrowInfo(Integer seq);
 }

@@ -63,9 +63,9 @@ $(function(){
 
         $("#b_name").val("")
         $("#b_number").val("")
-        $("#b_status").val("0").prop("selected", true);
+        $("#b_status").val("0").prop("selected", true).attr("disabled", false);
         $("#b_author").empty()
-        $("#b_author").append('<option value="0">저자명 입력</option>')
+        $("#b_author").append('<option value="0">저자코드</option>')
         $("#author_name").val("");
         $("#b_publisher").val("");
         $("#b_category").val("0").prop("selected", true);
@@ -77,6 +77,11 @@ $(function(){
     });
 
     $(".delete_btn").click(function(){
+        let book_status = $(this).attr("book-status")
+        if(book_status==1||book_status==2){
+            alert("삭제가 불가능한 도서입니다. (대출 중)")
+            return;
+        }
         if(confirm("도서를 삭제하시겠습니까?\n(이 동작은 되돌릴 수 없습니다.)")==false) return;
         let seq = $(this).attr("data-seq");
         
@@ -127,7 +132,10 @@ $(function(){
                 console.log(r);
                 $("#b_name").val(r.data.bi_name)
                 $("#b_number").val(r.data.bi_number)
-                $("#b_status").val(r.data.bi_status).prop("selected", true);
+                if(r.data.bi_status==0 ||r.data.bi_status==3)
+                    $("#b_status").val(r.data.bi_status).prop("selected", true);
+                else
+                    $("#b_status").val(r.data.bi_status).prop("selected", true).attr("disabled", true);
                 $("#author_name").val(r.data.author);
                 $("#b_author").empty()
                 $("#b_author").append('<option value='+r.data.bi_ai_seq+'>'+r.data.author_number+'</option>')

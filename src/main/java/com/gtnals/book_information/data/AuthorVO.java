@@ -14,4 +14,8 @@ public class AuthorVO {
     private String ai_email;
     private String ai_phone;
     private String ai_insta;
+
+    public String makeHistoryStr(){
+        return ai_number+"|"+ai_name+"|"+ai_email+"|"+ai_phone+"|"+ai_insta;
+    }
 }

@@ -17,4 +17,13 @@
         SET ai_name=#{ai_name}, ai_number=#{ai_number}, ai_email=#{ai_email}, ai_phone=#{ai_phone}, ai_insta=#{ai_insta}, ai_mod_dt=NOW()
         WHERE ai_seq = #{ai_seq}
     </update>
+
+    <insert id="insertAuthorHistory">
+        INSERT INTO author_info_history
+        (aih_ai_seq, aih_type, aih_ai_content)
+        VALUES(#{aih_ai_seq}, #{aih_type}, #{aih_ai_content})
+    </insert>
+    <select id="getRecentAddedAuthorSeq" resultType="java.lang.Integer">
+        select ai_seq from author_info order by ai_seq desc limit 1
+    </select> 
 </mapper>

@@ -50,4 +50,12 @@ public class DashboardService {
         map.put("board", boardCntList);
         return map;
     }
+
+    public Map<String, Object> getUpdateDate(){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object> ();
+
+        resultMap.put("book", mapper.getBookUpdatedate());
+        resultMap.put("member", mapper.getMemberUpdatedate());
+        return resultMap;
+    }
 }

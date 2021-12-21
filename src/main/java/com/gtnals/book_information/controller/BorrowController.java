@@ -25,7 +25,7 @@ public class BorrowController {
         //대출 추가 팝업의 대출일 및 반납일 지정
         Calendar c = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat();
-        formatter.applyPattern("yyyy-MM-dd");
+        formatter.applyPattern("yyyy-MM-dd (EE)");
         String today = formatter.format(c.getTime());
         model.addAttribute("borrow_date", today);  //대출일(오늘)
         

@@ -2,6 +2,7 @@ package com.gtnals.book_information.mapper;
 
 import java.util.List;
 
+import com.gtnals.book_information.data.MemberHistoryVO;
 import com.gtnals.book_information.data.MemberVO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,7 @@ public interface MemberMapper {
     public void updateMember(MemberVO data);
 
     public MemberVO getMemberByID(String mi_id);
+
+    public void insertMemberHistory(MemberHistoryVO data);
+    public Integer getRecentAddedMemberSeq();
 }   

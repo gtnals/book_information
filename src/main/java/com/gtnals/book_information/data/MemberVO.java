@@ -16,4 +16,8 @@ public class MemberVO {
     private Integer mi_status;
     private Date mi_mod_dt;
     private Date mi_reg_dt;
+
+    public String makeHistoryStr(){
+        return mi_id+"|"+mi_name+"|"+mi_birth+"|"+mi_phone+"|"+mi_email+"|"+mi_status;
+    }
 }

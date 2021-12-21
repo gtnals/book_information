@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
                 <p>연체 중 도서 : <span>${cnt.book[3]}건</span></p>
                 <p>예약 중 도서 : <span>${cnt.book[4]}건</span></p>
                 <p>이용 불가 도서 : <span>${cnt.book[5]}건</span></p>
-                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
+                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span><fmt:formatDate value="${update.book}" pattern="yyyy-MM-dd HH:mm:ss"/></span></p>
             </div>
             <div class="member_info">
                 <h2><i class="fas fa-user"></i> 회원 정보</h2>
@@ -36,7 +37,7 @@
                 <p>정상 회원 : <span>${cnt.member[1]}명</span></p>
                 <p>경고 회원 : <span>${cnt.member[2]}명</span></p>
                 <p>정지 회원 : <span>${cnt.member[3]}명</span></p>
-                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
+                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span><fmt:formatDate value="${update.member}" pattern="yyyy-MM-dd HH:mm:ss"/></span></p>
             </div>
             <div class="review_info">
                 <h2><i class="fas fa-comment-alt"></i> 리뷰 정보</h2>

@@ -92,6 +92,9 @@
         update book_info
         set bi_name=#{bi_name}, bi_number=#{bi_number}, bi_status=#{bi_status}, bi_ai_seq=#{bi_ai_seq}, bi_publisher=#{bi_publisher},
         bi_category=#{bi_category}, bi_publication_date=#{bi_publication_date}, bi_image=#{bi_image}, bi_page=#{bi_page}, bi_mod_dt=NOW()
+        <if test="bi_cnt!=null">
+            , bi_cnt=#{bi_cnt}
+        </if>
         where bi_seq=#{bi_seq}
     </update>
     <select id="selectLatestDataSeq" resultType="java.lang.Integer">

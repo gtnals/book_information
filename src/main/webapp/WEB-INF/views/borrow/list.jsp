@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="order_select">
-                <select id="order" onchange="orderList('${data.key_opt}')">
+                <select id="order" onchange="orderList()">
                     <option value="0" <c:if test="${data.order=='0'}">selected</c:if> >최신순</option>
                     <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >반납일순</option>
                     <option value="2" <c:if test="${data.order=='2'}">selected</c:if> >회원ID순</option>
@@ -70,13 +70,18 @@
                                 <td>${d.mem_id}</td>
                                 <td>${d.book_num}</td>
 
-                                <td><fmt:formatDate value="${d.bbi_borrow_date}" pattern="yyyy-MM-dd" /></td>
-                                <td><fmt:formatDate value="${d.bbi_due_date}" pattern="yyyy-MM-dd" /></td>
-                                <td>${d.bbi_reg_dt}</td>
-                                <td>${d.bbi_mod_dt}</td>
+                                <td><fmt:formatDate value="${d.bbi_borrow_date}" pattern="yyyy-MM-dd (EE)" /></td>
+                                <td 
+                                <fmt:parseDate var="today" value="${borrow_date}" pattern="yyyy-MM-dd (EE)" />
+                                <c:if test="${d.bbi_due_date < today}">
+                                    style="color: rgb(255, 23, 23); font-weight: 600;"
+                                </c:if>
+                                ><fmt:formatDate value="${d.bbi_due_date}" pattern="yyyy-MM-dd (EE)" /></td>
+                                <td><fmt:formatDate value="${d.bbi_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <td><fmt:formatDate value="${d.bbi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
-                                    <button class="modify_btn" data-seq="${d.bbi_seq}"><i class="fas fa-pencil-alt"></i></button>
-                                    <button class="delete_btn" data-seq="${d.bbi_seq}"><i class="fas fa-minus-circle"></i></button>
+                                    <button class="modify_btn" data-seq="${d.bbi_seq}"><i class="far fa-calendar-plus"></i></button>
+                                    <button class="delete_btn" bi_seq="${d.bbi_bi_seq}" data-seq="${d.bbi_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -106,8 +111,15 @@
             <div class="content_area">
                 <input type="text" id="bb_mem_id" placeholder="회원ID">
                 <input type="text" id="bb_book_num" placeholder="도서 청구번호">
-                <input type="date" id="bb_borrow_date" value="${borrow_date}" disabled>
-                <input type="date" id="bb_due_date" value="${due_date}" disabled>
+                <div class="bo_date">
+                    <p>대출일</p>
+                    <c:set var="today"><fmt:formatDate value='${today}' pattern='yyyy-MM-dd' /></c:set>
+                    <input type="text" id="bb_borrow_date" value="${borrow_date}" disabled>
+                </div>
+                <div class="due_date">
+                    <p>반납일</p>
+                    <input type="text" id="bb_due_date" value="${due_date}" disabled>
+                </div>
 
             </div>
             <div class="btn_area">

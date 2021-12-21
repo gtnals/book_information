@@ -40,8 +40,32 @@ public class BorrowService {
             resultMap.put("message", "존재하지 않는 회원ID입니다.");
             return resultMap;
         }
+    //인당 5권 제한=>
+        if(mapper.getMemBorrowCnt(bbi_mi_seq)==5){
+            resultMap.put("status", false);
+            resultMap.put("message", "최대 대출 권수를 초과하셨습니다. (1인당 5권)");
+            return resultMap;
+        }
+    // 도서 상태 판단=>
+        if(book.getBi_status()==1){
+            resultMap.put("status", false);
+            resultMap.put("message", "이미 대출중인 도서입니다.");
+            return resultMap;
+        }
+        else if(book.getBi_status()==2){
+            resultMap.put("status", false);
+            resultMap.put("message", "예약중인 도서입니다.");
+            return resultMap;
+        }
+        else if(book.getBi_status()==3){
+            resultMap.put("status", false);
+            resultMap.put("message", "이용불가 도서입니다.");
+            return resultMap;
+        }
+    //모든 조건 만족 시 대출 진행 =>
         book.setBi_status(1);
-        b_mapper.updateBook(book); //도서 상태를 대출중으로 변경
+        book.setBi_cnt(book.getBi_cnt()+1);
+        b_mapper.updateBook(book); //도서 상태를 대출중으로 변경, 대출수+1
         data.setBbi_bi_seq(bbi_bi_seq);
         data.setBbi_mi_seq(bbi_mi_seq);
         mapper.addBorrow(data);
@@ -75,6 +99,27 @@ public class BorrowService {
         resultMap.put("total", cnt);
         resultMap.put("pageCnt", page_cnt);
         resultMap.put("status", true);
+        return resultMap;
+    }
+
+    public Map<String, Object> deleteBorrow(Integer seq, Integer bi_seq){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        //도서 상태 변경
+        BookVO book= b_mapper.getBookInfoBySeq(bi_seq);
+        // if(){    //예약 안 걸린 경우, 대출가능(0)
+        //     book.setBi_status(0);
+        // }
+        // else {   //예약 걸려 있는 경우, 2(예약 중) 설정
+        //     book.setBi_status(2);
+        // }
+
+        book.setBi_status(0);
+        b_mapper.updateBook(book);
+
+        //seq로 대출 정보 삭제
+        mapper.deleteBorrowInfo(seq);
+        resultMap.put("status", true);
+        resultMap.put("message", "반납 처리되었습니다.");
         return resultMap;
     }
 }

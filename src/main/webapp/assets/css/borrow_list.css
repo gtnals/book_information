@@ -1,2 +1,17 @@
 /* borrow_list.css */
 #detail_btn {width: 130px;}
+
+.btn_area #add_bb {background-color: #999;}
+.btn_area #add_bb:hover{background-color: #333;}
+.btn_area #cancel_bb{background-color: rgb(255,194,194);}
+.btn_area #cancel_bb:hover {background-color: rgb(255,83,83);}
+
+.popup .content_area div
+{
+    width: calc(50% - 10px); padding: 0; margin: 0; border: 1px solid #ccc;
+    font-size: 14px; font-weight: 400; padding: 5px 10px; box-sizing: border-box;
+    border-radius: 15px; margin-bottom: 10px; outline: none; margin: 5px; display: inline-block;
+}
+.popup .content_area div p {font-size: 14px; color: #666; margin: 5px;}
+#bb_borrow_date, #bb_due_date {width: calc(100% - 5px); }
+

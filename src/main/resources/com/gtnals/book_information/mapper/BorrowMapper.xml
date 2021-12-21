@@ -54,4 +54,11 @@
             where d.mi_id like #{keyword}
         </if>
     </select>
+    <select id="getMemBorrowCnt" resultType="java.lang.Integer">
+        select count(*) from book_borrow_info
+        where bbi_mi_seq=#{mi_seq}
+    </select>
+    <delete id="deleteBorrowInfo">
+        delete from book_borrow_info where bbi_seq=#{seq}
+    </delete>
 </mapper>

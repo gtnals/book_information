@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,11 +124,11 @@
                                         <span style="background-color: rgb(128, 107, 109);">이용불가</span>
                                     </c:if>
                                 </td>
-                                <td>${d.bi_reg_dt}</td>
-                                <td>${d.bi_mod_dt}</td>
+                                <td><fmt:formatDate value="${d.bi_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <td><fmt:formatDate value="${d.bi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
                                     <button class="modify_btn" data-seq="${d.bi_seq}"><i class="fas fa-pencil-alt"></i></button>
-                                    <button class="delete_btn" data-seq="${d.bi_seq}"><i class="fas fa-minus-circle"></i></button>
+                                    <button class="delete_btn" book-status="${d.bi_status}" data-seq="${d.bi_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -164,9 +165,9 @@
                 <input type="text" id="b_name" placeholder="도서명">
                 <select id="b_status">
                     <option value="0">대출가능</option>
-                    <option value="1">대출중</option>
-                    <option value="2">연체중</option>
-                    <option value="3">예약중</option>
+                    <option value="1" style="display: none;">대출중</option>
+                    <option value="2" style="display: none;">연체중</option>
+                    <option value="3" style="display: none;">예약중</option>
                     <option value="4">이용불가</option>
                 </select>
                 <input type="text" id="b_number" placeholder="청구번호">
@@ -183,7 +184,7 @@
                     <option value="900">역사(900)</option>
                 </select>
                 <div class="author_search_box">
-                    <input type="text" id="author_name" placeholder="지은이">
+                    <input type="text" id="author_name" placeholder="지은이 (이름 입력)">
                     <button id="author_search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <select id="b_author">

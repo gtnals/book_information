@@ -13,6 +13,7 @@ public class MainController {
     @GetMapping("/")
     public String getMain(Model model){
         model.addAttribute("cnt", service.getCounts());
+        model.addAttribute(("update"), service.getUpdateDate());
         return "/index";
     }
 }

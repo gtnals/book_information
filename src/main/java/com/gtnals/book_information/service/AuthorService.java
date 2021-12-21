@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.AuthorHistoryVO;
 import com.gtnals.book_information.data.AuthorVO;
 import com.gtnals.book_information.mapper.AuthorMapper;
 
@@ -36,6 +37,15 @@ public class AuthorService {
             resultMap.put("message", "이미 존재하는 저자코드입니다.");
             return resultMap;    
         }
+
+        AuthorHistoryVO history = new AuthorHistoryVO();
+        history.setAih_type("new");
+        history.setAih_ai_content(data.makeHistoryStr());
+        Integer recent_seq=mapper.getRecentAddedAuthorSeq();
+        history.setAih_ai_seq(recent_seq);
+
+        mapper.insertAuthorHistory(history);
+
         resultMap.put("status", true);
         resultMap.put("message", "작가를 추가했습니다.");
         return resultMap;
@@ -59,6 +69,13 @@ public class AuthorService {
         }
         resultMap.put("status", true);
         resultMap.put("message", "작가를 수정했습니다.");
+
+        AuthorHistoryVO history = new AuthorHistoryVO();
+        history.setAih_type("modify");
+        history.setAih_ai_content(data.makeHistoryStr());
+        history.setAih_ai_seq(data.getAi_seq());
+        mapper.insertAuthorHistory(history);
+
         return resultMap;
     }
 

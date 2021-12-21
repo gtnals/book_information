@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.MemberHistoryVO;
 import com.gtnals.book_information.data.MemberVO;
 import com.gtnals.book_information.mapper.MemberMapper;
 import com.gtnals.book_information.utils.AESAlgorithm;
@@ -79,7 +80,16 @@ public class MemberService {
         } catch(Exception e){
             resultMap.put("status", false);
             resultMap.put("message", "오류가 발생했습니다.");
+            return resultMap; 
         }
+
+        MemberHistoryVO history = new MemberHistoryVO();
+        history.setMih_type("new");
+        history.setMih_mi_content(data.makeHistoryStr());
+        Integer recent_seq=mapper.getRecentAddedMemberSeq();
+        history.setMih_mi_seq(recent_seq);
+        mapper.insertMemberHistory(history);
+
         resultMap.put("status", true);
         resultMap.put("message", "회원 정보가 추가되었습니다.");
         return resultMap;
@@ -90,6 +100,12 @@ public class MemberService {
         mapper.deleteMember(seq);
         resultMap.put("status", true);
         resultMap.put("message", "회원이 삭제되었습니다.");
+
+        MemberHistoryVO history = new MemberHistoryVO();
+        history.setMih_type("delete");
+        history.setMih_mi_seq(seq);
+        mapper.insertMemberHistory(history);
+
         return resultMap;
     }
 
@@ -133,6 +149,13 @@ public class MemberService {
         }
         resultMap.put("status", true);
         resultMap.put("message", "수정되었습니다.");
+
+        MemberHistoryVO history = new MemberHistoryVO();
+        history.setMih_type("modify");
+        history.setMih_mi_content(data.makeHistoryStr());
+        history.setMih_mi_seq(data.getMi_seq());
+        mapper.insertMemberHistory(history);
+
         return resultMap;
     }
 }

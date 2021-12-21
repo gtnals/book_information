@@ -1,5 +1,7 @@
 package com.gtnals.book_information.mapper;
 
+import java.util.Date;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -27,4 +29,7 @@ public interface DashboardMapper {
     public Integer getEtcBoardCnt();
     public Integer getCompleteBoardCnt();
     public Integer getWaitBoardCnt();
+
+    public Date getBookUpdatedate();
+    public Date getMemberUpdatedate();
 }

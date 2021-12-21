@@ -157,6 +157,7 @@ public class BookService {
 
     public Map<String, Object> deleteBook(Integer seq){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+
         mapper.deleteBook(seq);
         resultMap.put("status", true);
         resultMap.put("message", "도서가 삭제되었습니다.");

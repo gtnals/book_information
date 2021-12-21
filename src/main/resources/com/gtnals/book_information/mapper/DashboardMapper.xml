@@ -65,4 +65,12 @@
     <select id="getWaitBoardCnt" resultType="java.lang.Integer">
         select count(*) from member_board_info where mbi_status = 0
     </select>
+
+    <select id="getBookUpdatedate" resultType="java.util.Date">
+        select bh_reg_dt from book_history order by bh_reg_dt desc limit 1
+
+    </select>
+    <select id="getMemberUpdatedate" resultType="java.util.Date">
+        select mih_reg_dt from member_info_history order by mih_reg_dt desc limit 1
+    </select>
 </mapper>
