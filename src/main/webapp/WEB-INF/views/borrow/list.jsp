@@ -29,7 +29,7 @@
                     <input type="text" id="keyword" placeholder="검색어 입력" value="${data.keyword}">
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>
-                <button id="detail_btn" overdue_check="0">연체도서만 표시</button>
+                <!-- <button id="detail_btn" overdue_check="0">연체건만 표시</button> -->
                 <div class="search_result" 
                     <c:if test="${data.keyword!=''||data.overdue_check==1}">
                         <p>*총 ${data.total}건이 검색되었습니다.</p>
@@ -109,8 +109,10 @@
                 <p>대출 정보를 입력해주세요</p>
             </div>
             <div class="content_area">
-                <input type="text" id="bb_mem_id" placeholder="회원ID">
-                <input type="text" id="bb_book_num" placeholder="도서 청구번호">
+                <input type="text" id="bb_mem_id" placeholder="회원명 (회원ID)" disabled>
+                <button id="search_mem">회원검색</button>
+                <input type="text" id="bb_book_num" placeholder="도서명 (청구번호)" disabled>
+                <button id="search_bo">도서검색</button>
                 <div class="bo_date">
                     <p>대출일</p>
                     <c:set var="today"><fmt:formatDate value='${today}' pattern='yyyy-MM-dd' /></c:set>
@@ -120,12 +122,27 @@
                     <p>반납일</p>
                     <input type="text" id="bb_due_date" value="${due_date}" disabled>
                 </div>
-
             </div>
             <div class="btn_area">
                 <button id="add_bb">등록하기</button>
                 <button id="cancel_bb">취소하기</button>
             </div>
+        </div>
+    </div>
+    <div class="department_search">
+        <div class="dep_search_box">
+            <input type="text" id="mem_keyword" placeholder="회원 이름 입력">
+            <input type="text" id="book_keyword" placeholder="도서 이름 입력">
+            <button id="mem_search_btn"><i class="fas fa-search"></i></button>
+            <button id="book_search_btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="result">
+            <ul>
+
+            </ul>
+        </div>
+        <div class="dep_search_buttons">
+            <button id="dep_search_close">닫기</button>
         </div>
     </div>
 </body>

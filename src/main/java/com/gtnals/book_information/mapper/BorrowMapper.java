@@ -13,4 +13,6 @@ public interface BorrowMapper {
     public Integer getBorrowCnt(String keyword, Integer key_opt);
     public Integer getMemBorrowCnt(Integer mi_seq);
     public void deleteBorrowInfo(Integer seq);
+
+    public List<BorrowVO> checkDate();
 }

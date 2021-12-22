@@ -57,7 +57,7 @@
         delete from member_info where mi_seq=#{seq}
     </delete>
     <select id="getMember" resultType="com.gtnals.book_information.data.MemberVO">
-        select mi_id, mi_name, mi_birth, mi_phone, mi_email, mi_status
+        select mi_seq, mi_id, mi_name, mi_birth, mi_phone, mi_email, mi_status
         from member_info
         where mi_seq = #{seq}
     </select>
@@ -81,4 +81,8 @@
     <select id="getRecentAddedMemberSeq" resultType="java.lang.Integer">
         select mi_seq from member_info order by mi_seq desc limit 1
     </select> 
+
+    <select id="getMemberbyKeyword" resultType="com.gtnals.book_information.data.MemberVO">
+        select mi_seq, mi_id, mi_name, mi_status from member_info where mi_name like #{keyword} 
+    </select>
 </mapper>

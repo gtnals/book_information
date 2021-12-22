@@ -61,4 +61,12 @@
     <delete id="deleteBorrowInfo">
         delete from book_borrow_info where bbi_seq=#{seq}
     </delete>
+    <select id="checkDate" resultType="com.gtnals.book_information.data.BorrowVO">
+        select a.*
+        from book_borrow_info a left outer join book_info b
+        on bbi_bi_seq = bi_seq
+        where
+        <![CDATA[bbi_due_date < current_date()]]>
+        and bi_status=1
+    </select>
 </mapper>

@@ -135,7 +135,7 @@ $(function(){
                 console.log(r);
                 $("#b_name").val(r.data.bi_name)
                 $("#b_number").val(r.data.bi_number)
-                if(r.data.bi_status==0 ||r.data.bi_status==3)
+                if(r.data.bi_status==0 ||r.data.bi_status==4)
                     $("#b_status").val(r.data.bi_status).prop("selected", true);
                 else
                     $("#b_status").val(r.data.bi_status).prop("selected", true).attr("disabled", true);

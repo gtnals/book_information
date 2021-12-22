@@ -158,4 +158,14 @@ public class MemberService {
 
         return resultMap;
     }
+
+    public Map<String, Object> getMemberByKeyword(String keyword){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        if(keyword==null) keyword="%%";
+        keyword="%"+keyword+"%";
+        List<MemberVO> list = mapper.getMemberbyKeyword(keyword);
+        resultMap.put("status", true);
+        resultMap.put("list", list);
+        return resultMap;
+    }
 }

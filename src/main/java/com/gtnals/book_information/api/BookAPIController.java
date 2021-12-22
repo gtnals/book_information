@@ -6,6 +6,7 @@ import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.service.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,4 +35,9 @@ public class BookAPIController {
     public Map<String, Object> patchBookInfo(@RequestBody BookVO data){
         return service.updateBookInfo(data);
     }
+    @GetMapping("/book/keyword")
+    public Map<String, Object> getBookbyKeyword(@RequestParam @Nullable String keyword){
+        return service.getBookbyKeyword(keyword);
+    }
+
 }

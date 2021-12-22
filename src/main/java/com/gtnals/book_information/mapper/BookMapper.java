@@ -21,4 +21,6 @@ public interface BookMapper {
     public Integer getBookCountByDetail(String name,String author,String publisher, Integer category);
 
     public BookVO getBookInfoByNum(String bi_number);
+
+    public List<BookVO> getBookbyKeyword(String keyword);
 }

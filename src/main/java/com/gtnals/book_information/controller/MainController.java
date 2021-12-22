@@ -12,6 +12,7 @@ public class MainController {
     @Autowired DashboardService service;
     @GetMapping("/")
     public String getMain(Model model){
+        service.getUpdate();
         model.addAttribute("cnt", service.getCounts());
         model.addAttribute(("update"), service.getUpdateDate());
         return "/index";

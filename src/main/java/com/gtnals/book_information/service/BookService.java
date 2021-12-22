@@ -6,7 +6,9 @@ import java.util.Map;
 
 import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
+import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.mapper.BookMapper;
+import com.gtnals.book_information.mapper.BorrowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -227,6 +229,16 @@ public class BookService {
         history.setBh_content(content);
         mapper.insertBookHistory(history);
 
+        return resultMap;
+    }
+
+    public Map<String, Object> getBookbyKeyword(String keyword){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        if(keyword==null) keyword="%%";
+        keyword="%"+keyword+"%";
+        List<BookVO> list = mapper.getBookbyKeyword(keyword);
+        resultMap.put("status", true);
+        resultMap.put("list", list);
         return resultMap;
     }
 }

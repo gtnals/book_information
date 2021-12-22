@@ -6,6 +6,7 @@ import com.gtnals.book_information.data.MemberVO;
 import com.gtnals.book_information.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -33,5 +34,9 @@ public class MemberAPIController {
     @PatchMapping("/member/update")
     public Map<String, Object> patchMember(@RequestBody MemberVO data){
         return service.updateMember(data);
+    }
+    @GetMapping("/member/keyword")
+    public Map<String, Object> getMemberByKeyword(@RequestParam @Nullable String keyword){
+        return service.getMemberByKeyword(keyword);
     }
 }

@@ -79,6 +79,7 @@
                     <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >대출순</option>
                     <option value="2" <c:if test="${data.order=='2'}">selected</c:if> >추천순</option>
                     <option value="3" <c:if test="${data.order=='3'}">selected</c:if> >제목순</option>
+                    <option value="4" <c:if test="${data.order=='4'}">selected</c:if> >상태순</option>
                 </select>
             </div>
             <div class="table_area">
@@ -184,7 +185,7 @@
                     <option value="900">역사(900)</option>
                 </select>
                 <div class="author_search_box">
-                    <input type="text" id="author_name" placeholder="지은이 (이름 입력)">
+                    <input type="text" id="author_name" placeholder="저자명 검색 후 코드 선택">
                     <button id="author_search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <select id="b_author">

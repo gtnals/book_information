@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowVO;
+import com.gtnals.book_information.data.MemberVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.MemberMapper;
@@ -20,54 +21,20 @@ public class BorrowService {
     @Autowired BookMapper b_mapper;
     public Map<String, Object> addBorrow(BorrowVO data){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-        Integer bbi_bi_seq = 0;
-        BookVO book = b_mapper.getBookInfoByNum(data.getBook_num());
-        try{
-            bbi_bi_seq = book.getBi_seq();
-        }
-        catch(NullPointerException e){
-            resultMap.put("status", false);
-            resultMap.put("message", "존재하지 않는 도서 청구번호입니다.");
-            return resultMap;
-        }
+        BookVO book = b_mapper.getBookInfoBySeq(data.getBbi_bi_seq());
+        MemberVO mem = m_mapper.getMember(data.getBbi_mi_seq());
 
-        Integer bbi_mi_seq=0;
-        try{
-            bbi_mi_seq = m_mapper.getMemberByID(data.getMem_id()).getMi_seq();
-        }
-        catch(NullPointerException e){
-            resultMap.put("status", false);
-            resultMap.put("message", "존재하지 않는 회원ID입니다.");
-            return resultMap;
-        }
     //인당 5권 제한=>
-        if(mapper.getMemBorrowCnt(bbi_mi_seq)==5){
+        if(mapper.getMemBorrowCnt(mem.getMi_seq())==5){
             resultMap.put("status", false);
             resultMap.put("message", "최대 대출 권수를 초과하셨습니다. (1인당 5권)");
             return resultMap;
         }
-    // 도서 상태 판단=>
-        if(book.getBi_status()==1){
-            resultMap.put("status", false);
-            resultMap.put("message", "이미 대출중인 도서입니다.");
-            return resultMap;
-        }
-        else if(book.getBi_status()==2){
-            resultMap.put("status", false);
-            resultMap.put("message", "예약중인 도서입니다.");
-            return resultMap;
-        }
-        else if(book.getBi_status()==3){
-            resultMap.put("status", false);
-            resultMap.put("message", "이용불가 도서입니다.");
-            return resultMap;
-        }
-    //모든 조건 만족 시 대출 진행 =>
+    //대출 진행 =>
         book.setBi_status(1);
         book.setBi_cnt(book.getBi_cnt()+1);
         b_mapper.updateBook(book); //도서 상태를 대출중으로 변경, 대출수+1
-        data.setBbi_bi_seq(bbi_bi_seq);
-        data.setBbi_mi_seq(bbi_mi_seq);
+        
         mapper.addBorrow(data);
         resultMap.put("status", true);
         resultMap.put("message", "대출 정보를 등록했습니다.");

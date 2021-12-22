@@ -20,4 +20,6 @@ public interface MemberMapper {
 
     public void insertMemberHistory(MemberHistoryVO data);
     public Integer getRecentAddedMemberSeq();
+
+    public List<MemberVO> getMemberbyKeyword(String keyword);
 }   

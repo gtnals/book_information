@@ -15,3 +15,43 @@
 .popup .content_area div p {font-size: 14px; color: #666; margin: 5px;}
 #bb_borrow_date, #bb_due_date {width: calc(100% - 5px); }
 
+/*  */
+.department_search {position: fixed; z-index: 99999999999;
+    background-color: #fff; left: 50%; margin-left: -200px;
+    top: 50%; margin-top: -200px; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    width: 350px; display: none;
+}
+.dep_search_box {
+    padding: 0 10px; font-size: 0; border-bottom: 1px solid #000;
+}
+.dep_search_box * {font-size: 18px;}
+.dep_search_box input {border: 0; padding: 0; margin: 0; outline: none; width: 95%;
+padding: 10px 0;}
+.dep_search_box button {border: 0; padding: 0; margin: 0; outline: none; cursor: pointer;
+position: absolute; right: 10px; top: 10px; background-color: transparent; color: #666;
+}
+.result {
+    max-height: 300px; overflow-y: scroll; height: 200px; 
+}
+.result ul li {padding: 10px;}
+.result a {text-decoration: none; color: #555; display: inline-block; vertical-align: middle;}
+.result a:hover {text-decoration: underline; color: #333; font-weight: 700;}
+.result span {font-size: 11px; display: inline-block; vertical-align: middle; padding: 5px 10px; margin-left: 10px;
+    color: #fff; background-color: #333; border-radius: 20px;
+}
+.result .status0{ background-color: rgb(17,226,27);}
+.result .status1{background-color: rgb(251, 186, 64);}
+.result .status2{background-color: rgb(255, 23, 23);}
+.dep_search_buttons {text-align: center; padding: 10px; border-top: 1px solid #ddd;
+background-color: #f3f3f3;} 
+#dep_search_close {border: 0; background-color: #666; color: #fff;
+    border-radius: 3px; width: 80px; height: 30px; cursor: pointer;
+}
+#bb_mem_id, #bb_book_num {width: calc(70% - 10px);}
+#search_mem, #search_bo
+{
+    width: calc(30% - 10px); padding: 0; margin: 0; border: 1px solid #ccc;
+    font-size: 14px; font-weight: 400; padding: 5px 15px; box-sizing: border-box;
+    border-radius: 15px; margin-bottom: 10px; outline: none; margin: 5px; 
+}

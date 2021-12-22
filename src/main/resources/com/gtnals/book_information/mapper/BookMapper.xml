@@ -27,6 +27,9 @@
         <if test="order==3">
             bi_name
         </if>
+        <if test="order==4">
+            bi_status desc
+        </if>
         limit 10 offset #{offset}
     </select>
     <select id="getBookCount" resultType="java.lang.Integer">
@@ -63,6 +66,9 @@
         </if>
         <if test="order==3">
             bi_name
+        </if>
+        <if test="order==4">
+            bi_status desc
         </if>
         limit 10 offset #{offset}
     </select>
@@ -110,5 +116,9 @@
         select a.*, b.ai_name as author, b.ai_number as author_number
         from book_info a left outer join author_info b on a.bi_ai_seq=b.ai_seq
         where a.bi_number=#{bi_number}
+    </select>
+
+    <select id="getBookbyKeyword" resultType="com.gtnals.book_information.data.BookVO">
+        select bi_seq, bi_number, bi_name, bi_status from book_info where bi_name like #{keyword} 
     </select>
 </mapper>
