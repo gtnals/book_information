@@ -77,7 +77,7 @@
                                 <fmt:formatNumber var="phone" value="${d.mi_phone}" pattern="###,####,####"/>
                                 <td><c:out value="0${fn:replace(phone, ',', '-')}" /></td>
                                 <td>${d.mi_email}</td>
-                                <td class="book_status">
+                                <td title='<fmt:formatDate value="${d.end_date}" pattern="yyyy-MM-dd"/>까지' class="book_status">
                                     <c:if test="${d.mi_status==0}">
                                         <span style="background-color: rgb(17,226,27);">정상</span>
                                     </c:if>

@@ -7,7 +7,6 @@ import java.util.Map;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.data.MemberVO;
-import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.MemberMapper;

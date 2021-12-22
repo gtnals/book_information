@@ -8,6 +8,7 @@ import java.util.Map;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.DashboardMapper;
@@ -68,8 +69,8 @@ public class DashboardService {
     }
 
     public void getUpdate(){
-        ArrayList<Integer> mlist = new ArrayList<>();  //회원 중복 검사
-        List<BorrowVO> uplist = borrow_mapper.checkDate(); //반납일 지난 대출 건 검색
+        ArrayList<Integer> mlist = new ArrayList<>();  
+        List<BorrowVO> uplist = borrow_mapper.checkDate(); //반납일 지난 대출 건 검색(연체 처리)
         for(BorrowVO b:uplist){
             BookVO book = book_mapper.getBookInfoBySeq(b.getBbi_bi_seq());
             book.setBi_status(2);
@@ -84,7 +85,16 @@ public class DashboardService {
             }
         }
 
-        //정지회원 정지만료일 체크, 업뎃
-        
+        //정지만료일 지난 정지 정보 삭제
+        List<SuspendVO> slist = mem_mapper.checkSuspendInfo();  //만료일 지난 정지정보들
+        for(SuspendVO s:slist){
+            Integer mi_seq = s.getSi_mi_seq();
+            if(mem_mapper.getSuspendCntBymem(mi_seq)==1){   //정지 정보가 1개 뿐이면
+                MemberVO mem = mem_mapper.getMember(mi_seq);
+                mem.setMi_status(0);    
+                mem_mapper.updateMember(mem);   //정상 회원으로 변경
+            }
+            mem_mapper.deleteSuspendInfo(s.getSi_seq());
+        }
     }
 }

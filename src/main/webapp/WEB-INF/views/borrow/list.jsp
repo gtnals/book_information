@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,6 @@
                     <input type="text" id="keyword" placeholder="검색어 입력" value="${data.keyword}">
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>
-                <!-- <button id="detail_btn" overdue_check="0">연체건만 표시</button> -->
                 <div class="search_result" 
                     <c:if test="${data.keyword!=''||data.overdue_check==1}">
                         <p>*총 ${data.total}건이 검색되었습니다.</p>
@@ -49,7 +49,7 @@
                     <thead>
                         <tr>
                             <th>번호</th>
-                            <th>회원ID</th>
+                            <th>이름(회원ID)</th>
                             <th>청구번호</th>
                             <th>대출일</th>
                             <th>반납일</th>
@@ -67,9 +67,9 @@
                         <c:forEach items="${data.list}" var="d">
                             <tr>
                                 <td>${d.bbi_seq}</td>
-                                <td>${d.mem_id}</td>
-                                <td>${d.book_num}</td>
-
+                                <fmt:formatNumber var="phone" value="${d.mem_phone}" pattern="###,####,####"/>
+                                <td title=<c:out value="0${fn:replace(phone, ',', '-')}" /> >${d.mem_name} (${d.mem_id})</td>
+                                <td title="${d.book_name}">${d.book_num}</td>
                                 <td><fmt:formatDate value="${d.bbi_borrow_date}" pattern="yyyy-MM-dd (EE)" /></td>
                                 <td 
                                 <fmt:parseDate var="today" value="${borrow_date}" pattern="yyyy-MM-dd (EE)" />

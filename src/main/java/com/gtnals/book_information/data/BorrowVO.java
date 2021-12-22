@@ -16,4 +16,8 @@ public class BorrowVO {
 
     private String mem_id;
     private String book_num;
+
+    private String mem_name;
+    private String mem_phone;
+    private String book_name;
 }

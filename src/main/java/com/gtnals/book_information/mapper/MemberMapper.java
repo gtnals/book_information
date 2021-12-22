@@ -25,4 +25,8 @@ public interface MemberMapper {
     public List<MemberVO> getMemberbyKeyword(String keyword);
 
     public void addSuspendInfo(Integer si_mi_seq, Integer days);
+
+    public List<SuspendVO> checkSuspendInfo();
+    public void deleteSuspendInfo(Integer si_seq);
+    public Integer getSuspendCntBymem(Integer mi_seq);
 }   

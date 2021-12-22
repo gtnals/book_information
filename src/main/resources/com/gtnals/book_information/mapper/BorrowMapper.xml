@@ -9,9 +9,9 @@
         (#{bbi_bi_seq}, #{bbi_mi_seq}, adddate(current_date(), 14))
     </insert>
     <select id="getBorrowList" resultType="com.gtnals.book_information.data.BorrowVO">
-        select c.*, d.mi_id as mem_id from
+        select c.*, d.mi_id as mem_id, d.mi_name as mem_name, d.mi_phone as mem_phone from
         (
-            select a.*, b.bi_number as book_num 
+            select a.*, b.bi_number as book_num, b.bi_name as book_name
             from book_borrow_info a left outer join book_info b on bbi_bi_seq=bi_seq
         )c left outer join member_info d on c.bbi_mi_seq=d.mi_seq
         <if test="key_opt==0">
@@ -68,13 +68,5 @@
         where
         <![CDATA[bbi_due_date < current_date()]]>
         and bi_status=1
-    </select>
-    <select id="checkSuspendDate" resultType="com.gtnals.book_information.data.SuspendVO">
-        select * from suspend_info
-        where <![CDATA[si_end_dt < current_date()]]>
-    </select>
-    <select id="getSuspendCntBymem" resultType="java.lang.Integer">
-        select count(*) from suspend_info
-        where si_mi_seq=#{mi_seq}
     </select>
 </mapper>
