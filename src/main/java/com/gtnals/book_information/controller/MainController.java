@@ -14,7 +14,7 @@ public class MainController {
     public String getMain(Model model){
         service.getUpdate();
         model.addAttribute("cnt", service.getCounts());
-        model.addAttribute(("update"), service.getUpdateDate());
+        model.addAttribute("update", service.getUpdateDate());
         return "/index";
     }
     

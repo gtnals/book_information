@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gtnals.book_information.data.MemberHistoryVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.SuspendVO;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,4 +23,6 @@ public interface MemberMapper {
     public Integer getRecentAddedMemberSeq();
 
     public List<MemberVO> getMemberbyKeyword(String keyword);
+
+    public void addSuspendInfo(Integer si_mi_seq, Integer days);
 }   

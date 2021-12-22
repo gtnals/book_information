@@ -62,9 +62,11 @@ $(function(){
         if(!confirm("반납하시겠습니까?")) return
         let seq = $(this).attr("data-seq");
         let bi_seq = $(this).attr("bi_seq");
+        let mi_seq = $(this).attr("mi_seq")
+        let days = $(this).attr("days")
         
         $.ajax({
-            url:"/borrow/delete?seq="+seq+"&bi_seq="+bi_seq,
+            url:"/borrow/delete?seq="+seq+"&bi_seq="+bi_seq+"&mi_seq="+mi_seq+"&days="+days,
             type:"delete",
             success:function(r){
                 alert(r.message)

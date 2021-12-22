@@ -15,4 +15,5 @@ public interface BorrowMapper {
     public void deleteBorrowInfo(Integer seq);
 
     public List<BorrowVO> checkDate();
+    public Integer getSuspendCntBymem(Integer mi_seq);
 }

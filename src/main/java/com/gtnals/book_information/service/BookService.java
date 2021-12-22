@@ -6,9 +6,7 @@ import java.util.Map;
 
 import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
-import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.mapper.BookMapper;
-import com.gtnals.book_information.mapper.BorrowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

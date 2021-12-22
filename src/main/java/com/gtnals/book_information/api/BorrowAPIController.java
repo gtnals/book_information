@@ -20,7 +20,10 @@ public class BorrowAPIController {
         return service.addBorrow(data);
     }
     @DeleteMapping("/borrow/delete")
-    public Map<String, Object> deleteBorrow(@RequestParam Integer seq, @RequestParam Integer bi_seq){
-        return service.deleteBorrow(seq, bi_seq);
+    public Map<String, Object> deleteBorrow(
+        @RequestParam Integer seq, @RequestParam Integer bi_seq, 
+        @RequestParam Integer mi_seq, @RequestParam Integer days
+    ){
+        return service.deleteBorrow(seq, bi_seq, mi_seq, days);
     }
 }

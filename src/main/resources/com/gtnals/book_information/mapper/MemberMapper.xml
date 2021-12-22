@@ -85,4 +85,11 @@
     <select id="getMemberbyKeyword" resultType="com.gtnals.book_information.data.MemberVO">
         select mi_seq, mi_id, mi_name, mi_status from member_info where mi_name like #{keyword} 
     </select>
+
+    <insert id="addSuspendInfo">
+        INSERT INTO suspend_info
+        (si_mi_seq, si_start_dt, si_end_dt)
+        VALUES
+        (#{si_mi_seq}, current_date(), adddate(current_date(), #{days}))
+    </insert>
 </mapper>

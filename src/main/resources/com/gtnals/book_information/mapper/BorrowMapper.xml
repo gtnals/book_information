@@ -69,4 +69,12 @@
         <![CDATA[bbi_due_date < current_date()]]>
         and bi_status=1
     </select>
+    <select id="checkSuspendDate" resultType="com.gtnals.book_information.data.SuspendVO">
+        select * from suspend_info
+        where <![CDATA[si_end_dt < current_date()]]>
+    </select>
+    <select id="getSuspendCntBymem" resultType="java.lang.Integer">
+        select count(*) from suspend_info
+        where si_mi_seq=#{mi_seq}
+    </select>
 </mapper>

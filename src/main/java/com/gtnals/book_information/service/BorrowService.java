@@ -7,6 +7,7 @@ import java.util.Map;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.MemberMapper;
@@ -69,16 +70,18 @@ public class BorrowService {
         return resultMap;
     }
 
-    public Map<String, Object> deleteBorrow(Integer seq, Integer bi_seq){
+    public Map<String, Object> deleteBorrow(Integer seq, Integer bi_seq, Integer mi_seq, Integer days){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         //도서 상태 변경
         BookVO book= b_mapper.getBookInfoBySeq(bi_seq);
-        // if(){    //예약 안 걸린 경우, 대출가능(0)
+        //예약 관리 페이지 생성&예약 정보 추가 후 작업=>
+        // if(){    //예약 안 걸린 경우, 대출가능(0) 설정
         //     book.setBi_status(0);
         // }
         // else {   //예약 걸려 있는 경우, 2(예약 중) 설정
         //     book.setBi_status(2);
         // }
+        Integer this_book = book.getBi_status();
 
         book.setBi_status(0);
         b_mapper.updateBook(book);
@@ -86,6 +89,14 @@ public class BorrowService {
         //seq로 대출 정보 삭제
         mapper.deleteBorrowInfo(seq);
         resultMap.put("status", true);
+
+        //정지 회원이고, 연체 도서인 경우 정지 정보 추가
+        if(m_mapper.getMember(mi_seq).getMi_status()==2&&this_book==2){
+            m_mapper.addSuspendInfo(mi_seq, days*2);    //연체일수*2일 간 정지
+            resultMap.put("message", "반납 및 회원정지 처리되었습니다.");
+            return resultMap;
+        }
+
         resultMap.put("message", "반납 처리되었습니다.");
         return resultMap;
     }
