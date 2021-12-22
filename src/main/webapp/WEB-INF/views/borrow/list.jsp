@@ -17,7 +17,7 @@
 <body>
     <main>
         <h1><i class="fas fa-book-open"></i> 대출 관리</h1>
-        <button id="add_book"><i class="fas fa-plus-circle"></i> 대출</button>
+        <button id="add_book"><i class="fas fa-plus-circle"></i> 대출 정보 추가</button>
         <div class="content_area">
             <div class="menu_area">
                 <div class="search_box">
@@ -105,7 +105,7 @@
                 <div class="ico">
                     <i class="fas fa-book"></i>
                 </div>
-                <h2>대출</h2>
+                <h2>대출 정보 추가</h2>
                 <p>대출 정보를 입력해주세요</p>
             </div>
             <div class="content_area">

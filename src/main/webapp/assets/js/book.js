@@ -272,8 +272,14 @@ $(function(){
             contentType: "application/json",
             success: function(r){
                 alert(r.message);
-                if(r.status)
+                if(r.status){
                     $(".add_author").css("display","")
+                    $("#a_name").val("")
+                    $("#a_number").val("")
+                    $("#a_phone").val("")
+                    $("#a_email").val("")
+                    $("#a_insta").val("")
+                }
             }
         })
     })

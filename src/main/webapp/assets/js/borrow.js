@@ -10,7 +10,7 @@ $(function(){
         $(".popup_wrap").addClass("open");
         $("#mod_bb").css("display","none");
         $("#add_bb").css("display","inline-block");
-        $(".popup .top_area h2").html("대출");
+        $(".popup .top_area h2").html("대출 정보 추가");
         $(".popup .top_area p").html("대출 정보를 입력해주세요.");
     })
 
