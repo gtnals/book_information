@@ -62,10 +62,10 @@ public class BorrowService {
         List<BorrowVO> list = mapper.getBorrowList(offset, keyword, key_opt, order);
         Integer cnt = mapper.getBorrowCnt(keyword, key_opt);
         Integer page_cnt = cnt/10 + (cnt%10>0?1:0);
+        resultMap.put("status", true);
         resultMap.put("list", list);
         resultMap.put("total", cnt);
         resultMap.put("pageCnt", page_cnt);
-        resultMap.put("status", true);
         return resultMap;
     }
 

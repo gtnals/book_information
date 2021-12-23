@@ -204,9 +204,19 @@ public class BookService {
             resultMap.put("message", "저자를 입력하세요.");
             return resultMap;
         }
+        if(data.getBi_page()==null || data.getBi_page()==0) {
+            resultMap.put("status", false);
+            resultMap.put("message", "페이지를 입력하세요.");
+            return resultMap;
+        }
         if(data.getBi_publisher()==null || data.getBi_publisher().equals("")) {
             resultMap.put("status", false);
             resultMap.put("message", "발행처를 입력하세요.");
+            return resultMap;
+        }
+        if(data.getBi_publication_date()==null || data.getBi_publication_date().equals("")) {
+            resultMap.put("status", false);
+            resultMap.put("message", "발행일을 입력하세요.");
             return resultMap;
         }
         if(data.getBi_category()==null) {

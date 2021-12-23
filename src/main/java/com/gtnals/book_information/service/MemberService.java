@@ -39,10 +39,10 @@ public class MemberService {
         List<MemberVO> list = mapper.getMemberInfo(offset, keyword, key_opt, order);
         Integer cnt = mapper.getMemberCnt(keyword, key_opt);
         Integer page_cnt = cnt/10 + (cnt%10>0?1:0);
+        resultMap.put("status", true);
         resultMap.put("list", list);
         resultMap.put("total", cnt);
         resultMap.put("pageCnt", page_cnt);
-        resultMap.put("status", true);
         return resultMap;
     }
     
@@ -51,19 +51,19 @@ public class MemberService {
         if(data.getMi_birth().equals("") || data.getMi_birth()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "birth");
-            resultMap.put("message", "생년월일을 입력해주세요");
+            resultMap.put("message", "생년월일을 입력하세요");
             return resultMap;
         }
         if(data.getMi_email().equals("") || data.getMi_email()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "email");
-            resultMap.put("message", "이메일을 입력해주세요");
+            resultMap.put("message", "이메일을 입력하세요");
             return resultMap;
         }
         if(data.getMi_phone().equals("") || data.getMi_phone()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "phone");
-            resultMap.put("message", "전화번호를 입력해주세요");
+            resultMap.put("message", "전화번호를 입력하세요");
             return resultMap;
         }
         String pwd=data.getMi_pwd();
@@ -82,6 +82,8 @@ public class MemberService {
             resultMap.put("message", "오류가 발생했습니다.");
             return resultMap; 
         }
+        resultMap.put("status", true);
+        resultMap.put("message", "회원이 추가되었습니다.");
 
         MemberHistoryVO history = new MemberHistoryVO();
         history.setMih_type("new");
@@ -90,8 +92,6 @@ public class MemberService {
         history.setMih_mi_seq(recent_seq);
         mapper.insertMemberHistory(history);
 
-        resultMap.put("status", true);
-        resultMap.put("message", "회원 정보가 추가되었습니다.");
         return resultMap;
     }
 
@@ -121,19 +121,19 @@ public class MemberService {
         if(data.getMi_birth().equals("") || data.getMi_birth()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "birth");
-            resultMap.put("message", "생년월일을 입력해주세요");
+            resultMap.put("message", "생년월일을 입력하세요");
             return resultMap;
         }
         if(data.getMi_email().equals("") || data.getMi_email()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "email");
-            resultMap.put("message", "이메일을 입력해주세요");
+            resultMap.put("message", "이메일을 입력하세요");
             return resultMap;
         }
         if(data.getMi_phone().equals("") || data.getMi_phone()==null){
             resultMap.put("status", false);
             resultMap.put("reason", "phone");
-            resultMap.put("message", "전화번호를 입력해주세요");
+            resultMap.put("message", "전화번호를 입력하세요");
             return resultMap;
         }
         try{
