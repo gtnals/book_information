@@ -18,10 +18,6 @@ public class MainController {
         return "/index";
     }
     
-    @GetMapping("/board")
-    public String getBoard(){
-        return "/board/list";
-    }
     @GetMapping("/reservation")
     public String getRservation(){
         return "/reservation/list";

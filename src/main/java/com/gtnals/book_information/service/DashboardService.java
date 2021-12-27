@@ -49,8 +49,8 @@ public class DashboardService {
         boardCntList.add(mapper.getAddBookBoardCnt());
         boardCntList.add(mapper.getReportBookBoardCnt());
         boardCntList.add(mapper.getEtcBoardCnt());
-        boardCntList.add(mapper.getCompleteBoardCnt());
         boardCntList.add(mapper.getWaitBoardCnt());
+        boardCntList.add(mapper.getCompleteBoardCnt());
 
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         map.put("book", bookCntList);
