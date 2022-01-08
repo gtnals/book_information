@@ -14,6 +14,7 @@ public class BoardVO {
     private Date mbi_reg_dt;
     private Integer mbi_status;
     private Integer mbi_category;
+    private String mbi_reply;
 
     private String mem_phone;
     private String mem_name;

@@ -32,6 +32,27 @@ $(function(){
     })
 
     $(".author_detail_btn").click(function(){
-        alert("클릭")
+        let seq = "content"+$(this).attr("data-seq");
+        $('#'+seq).css("display","table-row");
+        
+    })
+    $(".detail_close_btn").click(function(){
+        let seq = "content"+$(this).attr("data-seq");
+        $('#'+seq).css("display","none");
+    })
+    $(".ans_content_btn").click(function(){
+        let seq = "answer"+$(this).attr("data-seq");
+        $('#'+seq).css("display","table-row");
+        
+    })
+    $(".answer_close_btn").click(function(){
+        let seq = "answer"+$(this).attr("data-seq");
+        $('#'+seq).css("display","none");
+    })
+
+    $(".answer_btn").click(function(){
+        alert("답변 클릭")
+        //답변 작성 팝업 띄우기
+        //ㄴ> 답변 등록. 만 가능하게
     })
 })

@@ -5,3 +5,8 @@ table { table-layout: fixed; }
 
 .content_row .content_head {font-weight: 600; font-size: 16px;}
 .content_row .content {  text-align: center;}
+
+.table_area .admin_ans td, .table_area .ans_content_row td { background-color: #e6e0e0;}
+
+.table_area tbody td .ans_content_btn {font-weight: 700; font-size: 14px;}
+.table_area tbody .admin_ans td {font-weight: 700; font-size: 16px;}

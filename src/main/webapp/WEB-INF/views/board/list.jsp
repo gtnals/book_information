@@ -65,7 +65,7 @@
                             </tr>
                         </c:if>
                         <c:forEach items="${data.list}" var="d">
-                            <tr>
+                            <tr class="title_row">
                                 <td>${d.mbi_seq}</td>
                                 <td class="book_status">
                                     <c:if test="${d.mbi_category==0}">
@@ -87,23 +87,42 @@
                                     <c:if test="${d.mbi_status==1}">
                                         <span style="background-color: rgb(17,226,27);">완료</span>
                                     </c:if>
-                                    <c:if test="${d.mbi_status==2}">
-                                        <span style="background-color: rgb(255, 23, 23);">답변</span>
-                                    </c:if>
                                 </td>
                                 <td><fmt:formatDate value="${d.mbi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <!-- 오전/오후: a hh:~ -->
                                 <td><fmt:formatDate value="${d.mbi_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
-                                    <button class="modify_btn" data-seq="${d.mbi_seq}"><i class="fas fa-comment-dots"></i></button>
+                                    <c:if test="${d.mbi_status!=1}">
+                                        <button class="answer_btn" data-seq="${d.mbi_seq}"><i class="fas fa-comment-dots"></i></button>
+                                    </c:if>
                                     <button class="delete_btn" data-seq="${d.mbi_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
-                            <tr class="content_row">
-                                <td class="content_head" colspan="2">닫기버튼</td>
+                            <tr id="content${d.mbi_seq}" class="content_row" style="display: none;">
+                                <td class="content_head" colspan="2">
+                                    <div class="icon_close">
+                                        <button class="detail_close_btn" data-seq="${d.mbi_seq}"><i class="fas fa-window-close"></i></button>
+                                    </div>
+                                </td>
                                 <td class="content" colspan="5"><div>${d.mbi_content}</div></td>
                                 <td></td>
                             </tr>
+                            <c:if test="${d.mbi_status==1}">
+                                <tr class="admin_ans">
+                                    <td colspan="8"><span style="color: brown;"><i class="fas fa-arrow-circle-right"></i>RE:&nbsp;&nbsp;&nbsp;</span><button data-seq="${d.mbi_seq}" class="ans_content_btn">${d.mbi_title}</button></td>
+                                </tr>
+                                <tr id="answer${d.mbi_seq}" class="ans_content_row" style="display: none;">
+                                    <td class="content_head" colspan="2">
+                                        <div class="icon_close">
+                                            <button class="answer_close_btn" data-seq="${d.mbi_seq}"><i class="fas fa-window-close"></i></button>
+                                        </div>
+                                    </td>
+                                    <td class="content" colspan="5"><div>${d.mbi_reply}</div></td>
+                                    <%-- <td class="content" colspan="5"><div>${d.mbi_seq}에 대한 답변 내용내용</div></td> --%>
+                                    <td></td>
+                                </tr>
+                            </c:if>
+                            
                         </c:forEach>
                     </tbody>
                 </table>
