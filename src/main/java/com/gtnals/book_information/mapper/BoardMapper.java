@@ -11,4 +11,5 @@ public interface BoardMapper {
     public List<BoardVO> getBoardInfo(Integer offset, String keyword, Integer key_opt, Integer order);
     public Integer getBoardCnt(String keyword, Integer key_opt);
     public void deleteBoard(Integer seq);
+    public void addReply(BoardVO data);
 }

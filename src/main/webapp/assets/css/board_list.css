@@ -10,3 +10,10 @@ table { table-layout: fixed; }
 
 .table_area tbody td .ans_content_btn {font-weight: 700; font-size: 14px;}
 .table_area tbody .admin_ans td {font-weight: 700; font-size: 16px;}
+
+.btn_area #add_bb {background-color: #999;}
+.btn_area #add_bb:hover{background-color: #333;}
+.btn_area #cancel_bb{background-color: rgb(255,194,194);}
+.btn_area #cancel_bb:hover {background-color: rgb(255,83,83);}
+
+#admin_answer {width: 100%; height: 150px;}

@@ -50,4 +50,11 @@ public class BoardService {
         return resultMap;
     }
 
+    public Map<String, Object> addReply(BoardVO data){
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        mapper.addReply(data);
+        resultMap.put("status", true);
+        resultMap.put("message", "답변이 등록되었습니다.");
+        return resultMap;
+    }
 }

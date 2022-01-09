@@ -50,9 +50,34 @@ $(function(){
         $('#'+seq).css("display","none");
     })
 
+    let answer_seq=0;
     $(".answer_btn").click(function(){
-        alert("답변 클릭")
-        //답변 작성 팝업 띄우기
-        //ㄴ> 답변 등록. 만 가능하게
+        answer_seq=$(this).attr("data-seq");
+        $(".popup_wrap").addClass("open");
+        $("#mod_bb").css("display","none");
+        $("#add_bb").css("display","inline-block");
+    })
+    $("#cancel_bb").click(function(){
+        if(confirm("취소하시겠습니까?\n(입력된 정보는 저장되지 않습니다.)")==false) return;
+        $("#admin_answer").val("")
+        $(".popup_wrap").removeClass("open");
+    })
+    $("#add_bb").click(function(){
+        if(confirm("등록하시겠습니까?\n(*등록 후에는 답변 수정과 삭제가 불가능합니다.)")==false) return;
+        content = $("#admin_answer").val().replace(/\n/g, '<br/>');
+        let data = {
+            mbi_seq: answer_seq,
+            mbi_reply: content,
+        }
+        $.ajax({
+            url:"/board/reply",
+            type:"post",
+            data: JSON.stringify(data),
+            contentType:"application/json",
+            success: function(r){
+                alert(r.message);
+                if(r.status) location.reload();
+            }
+        })
     })
 })

@@ -54,4 +54,9 @@
         delete from member_board_info
         where mbi_seq=#{seq}
     </delete>
+    <update id="addReply">
+        UPDATE member_board_info
+        SET mbi_status=1, mbi_reply=#{mbi_reply}
+        WHERE mbi_seq=#{mbi_seq};
+    </update>
 </mapper>

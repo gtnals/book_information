@@ -39,7 +39,7 @@
             <div class="order_select">
                 <select id="order" onchange="orderList()">
                     <option value="0" <c:if test="${data.order=='0'}">selected</c:if> >최신순</option>
-                    <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >반납일순</option>
+                    <option value="1" <c:if test="${data.order=='1'}">selected</c:if> >만료일순</option>
                     <option value="2" <c:if test="${data.order=='2'}">selected</c:if> >회원ID순</option>
                     <option value="3" <c:if test="${data.order=='3'}">selected</c:if> >청구번호순</option>
                 </select>
@@ -51,8 +51,8 @@
                             <th>번호</th>
                             <th>이름(회원ID)</th>
                             <th>청구번호</th>
-                            <th>대출일</th>
-                            <th>반납일</th>
+                            <th>대기번호</th>
+                            <th>예약만료일</th>
                             <th>등록일</th>
                             <th>수정일</th>
                             <th>조작</th>
@@ -66,25 +66,17 @@
                         </c:if>
                         <c:forEach items="${data.list}" var="d">
                             <tr>
-                                <td>${d.bbi_seq}</td>
+                                <td>${d.bri_seq}</td>
                                 <fmt:formatNumber var="phone" value="${d.mem_phone}" pattern="###,####,####"/>
                                 <td title=<c:out value="0${fn:replace(phone, ',', '-')}" /> >${d.mem_name} (${d.mem_id})</td>
                                 <td title="${d.book_name}">${d.book_num}</td>
-                                <td><fmt:formatDate value="${d.bbi_borrow_date}" pattern="yyyy-MM-dd (EE)" /></td>
-                                <td 
-                                <fmt:parseDate var="today" value="${borrow_date}" pattern="yyyy-MM-dd (EE)" />
-                                <c:if test="${d.bbi_due_date < today}">
-                                    style="color: rgb(255, 23, 23); font-weight: 600;"
-                                </c:if>
-                                ><fmt:formatDate value="${d.bbi_due_date}" pattern="yyyy-MM-dd (EE)" /></td>
-                                <td><fmt:formatDate value="${d.bbi_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
-                                <td><fmt:formatDate value="${d.bbi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
-
-                                <fmt:parseNumber value="${d.bbi_due_date.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
-                                <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+                                <td>${d.bri_priority}</td>
+                                <td><fmt:formatDate value="${d.bri_due_date}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <td><fmt:formatDate value="${d.bri_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <td><fmt:formatDate value="${d.bri_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
-                                    <button class="modify_btn" data-seq="${d.bbi_seq}"><i class="far fa-calendar-plus"></i></button>
-                                    <button class="delete_btn" days="${endDate - strDate}" mi_seq="${d.bbi_mi_seq}" bi_seq="${d.bbi_bi_seq}" data-seq="${d.bbi_seq}"><i class="fas fa-minus-circle"></i></button>
+                                    <button class="modify_btn" data-seq="${d.bri_seq}"><i class="far fa-calendar-plus"></i></button>
+                                    <button class="delete_btn" days="${endDate - strDate}" mi_seq="${d.bri_mi_seq}" bi_seq="${d.bri_bi_seq}" data-seq="${d.bri_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -95,7 +87,7 @@
                 <button id="prev"><i class="fas fa-chevron-left"></i></button>
                 <div class="pagers">
                     <c:forEach begin="1" end="${data.pageCnt}" var="i">
-                        <a href="/borrow?offset=${(i-1)*10}&keyword=${data.keyword}&order=${data.order}">${i}</a>
+                        <a href="/reservation?offset=${(i-1)*10}&keyword=${data.keyword}&order=${data.order}">${i}</a>
                     </c:forEach>
                 </div>
                 <button id="next"><i class="fas fa-chevron-right"></i></button>

@@ -118,7 +118,6 @@
                                         </div>
                                     </td>
                                     <td class="content" colspan="5"><div>${d.mbi_reply}</div></td>
-                                    <%-- <td class="content" colspan="5"><div>${d.mbi_seq}에 대한 답변 내용내용</div></td> --%>
                                     <td></td>
                                 </tr>
                             </c:if>
@@ -138,5 +137,24 @@
             </div>
         </div>
     </main>
+    <div class="popup_wrap">
+        <div class="popup" id="book_add">
+            <div class="top_area">
+                <div class="ico">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h2>답변 작성</h2>
+                <br>
+                <p style="color: red;">*등록된 답변은 수정 및 삭제가 불가능합니다.</p>
+            </div>
+            <div class="content_area">
+                <textarea id="admin_answer" placeholder="답변 내용을 입력해주세요."></textarea>
+            </div>
+            <div class="btn_area">
+                <button id="add_bb">등록하기</button>
+                <button id="cancel_bb">취소하기</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
