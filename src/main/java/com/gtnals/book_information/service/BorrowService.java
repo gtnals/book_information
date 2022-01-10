@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.gtnals.book_information.data.BookVO;
+import com.gtnals.book_information.data.BorrowHistoryVO;
 import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.SuspendHistoryVO;
+import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.MemberMapper;
+import com.gtnals.book_information.mapper.ReservationMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ public class BorrowService {
     @Autowired BorrowMapper mapper;
     @Autowired MemberMapper m_mapper;
     @Autowired BookMapper b_mapper;
+    @Autowired ReservationMapper r_mapper;
     public Map<String, Object> addBorrow(BorrowVO data){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         BookVO book = b_mapper.getBookInfoBySeq(data.getBbi_bi_seq());
@@ -38,6 +43,15 @@ public class BorrowService {
         mapper.addBorrow(data);
         resultMap.put("status", true);
         resultMap.put("message", "대출 정보를 등록했습니다.");
+
+        BorrowHistoryVO history = new BorrowHistoryVO();
+        history.setBbh_type("new");
+        history.setBbh_content(data.makeHistoryStr());
+        Integer recent_seq=mapper.getRecentAddedBorrowSeq();
+        history.setBbh_bbi_seq(recent_seq);
+
+        mapper.insertBorrowHistory(history);
+
         return resultMap;
     }
 
@@ -71,32 +85,45 @@ public class BorrowService {
 
     public Map<String, Object> deleteBorrow(Integer seq, Integer bi_seq, Integer mi_seq, Integer days){
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-        //도서 상태 변경
         BookVO book= b_mapper.getBookInfoBySeq(bi_seq);
-        //예약 관리 페이지 생성&예약 정보 추가 후 작업=>
-        // if(){    //예약 안 걸린 경우, 대출가능(0) 설정
-        //     book.setBi_status(0);
-        // }
-        // else {   //예약 걸려 있는 경우, 2(예약 중) 설정
-        //     book.setBi_status(2);
-        // }
-        Integer this_book = book.getBi_status();
+        Integer this_book = book.getBi_status();    //연체 도서인지 확인 및 상태 저장
 
-        book.setBi_status(0);
+        //예약 여부 따라 도서 상태 변경
+        if(r_mapper.getReservationCntByBook(bi_seq)==0){    //예약 안 걸린 경우, 대출가능(0) 설정
+            book.setBi_status(0);
+        }
+        else {   //예약 걸려 있는 경우, 3(예약 중) 설정하고, 해당 예약 정보에 예약 만료일 지정
+            book.setBi_status(3);
+            r_mapper.updateDuedate(bi_seq);
+        }
         b_mapper.updateBook(book);
 
         //seq로 대출 정보 삭제
         mapper.deleteBorrowInfo(seq);
         resultMap.put("status", true);
 
-        //정지 회원이고, 연체 도서인 경우 정지 정보 추가
+        //정지 회원이고, 연체 도서였던 경우 정지 정보 추가
         if(m_mapper.getMember(mi_seq).getMi_status()==2&&this_book==2){
             m_mapper.addSuspendInfo(mi_seq, days*2);    //연체일수*2일 간 정지
             resultMap.put("message", "반납 및 회원정지 처리되었습니다.");
+
+            SuspendHistoryVO history = new SuspendHistoryVO();
+            history.setSh_type("new");
+            Integer recent_seq=m_mapper.getRecentAddedSuspendSeq();
+            history.setSh_si_seq(recent_seq);
+            SuspendVO data = m_mapper.getSuspendInfo(recent_seq);
+            history.setSh_content(data.makeHistoryStr());
+            m_mapper.insertSuspendHistory(history);
+
             return resultMap;
         }
-
         resultMap.put("message", "반납 처리되었습니다.");
+
+        BorrowHistoryVO history = new BorrowHistoryVO();
+        history.setBbh_bbi_seq(seq);
+        history.setBbh_type("delete");
+        mapper.insertBorrowHistory(history);
+
         return resultMap;
     }
 }

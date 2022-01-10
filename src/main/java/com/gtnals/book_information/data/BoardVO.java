@@ -19,4 +19,8 @@ public class BoardVO {
     private String mem_phone;
     private String mem_name;
     private String mem_id;
+
+    public String makeHistoryStr(){
+        return mbi_mi_seq+"|"+mbi_title+"|"+mbi_status+"|"+mbi_category;
+    }
 }

@@ -2,10 +2,6 @@
 $(function(){
     $(".main_menu a:nth-child(4)").addClass("active");
 
-    $("#detail_btn").click(function(){
-        $(this).attr("overdue_check", "1")
-    })
-
     $("#add_book").click(function(){
         $(".popup_wrap").addClass("open");
         $("#mod_bb").css("display","none");
@@ -19,11 +15,11 @@ $(function(){
         let mi_seq=$("#bb_mem_id").attr("data-dep-seq")
         let bi_seq=$("#bb_book_num").attr("data-dep-seq")
 
-        if(mi_seq==undefined){
+        if(mi_seq==undefined||mi_seq==""){
             alert("회원정보를 입력해주세요");
             return;
         }
-        if(bi_seq==undefined){
+        if(bi_seq==undefined||bi_seq==""){
             alert("도서정보를 입력해주세요");
             return;
         }
@@ -74,13 +70,6 @@ $(function(){
                     location.reload()
             }
         })
-    })
-
-    $(".modify_btn").click(function(){
-        alert("연장 버튼 클릭")
-        //if(!confirm("연장하시겠습니까?")) return;
-
-        //대출기한 연장 처리 -반납일 알림 띄움
     })
 
     $("#search_btn").click(function(){
@@ -179,7 +168,7 @@ $(function(){
                     '<li>'+
                         '<a href="#" data-dep-seq="'+r.list[i].bi_seq+'" b_st="'+r.list[i].bi_status+'">'+
                             r.list[i].bi_name + " ("+ r.list[i].bi_number+")"+'</a>'+
-                        '<span class="status'+r.list[i].bi_status+'">'+str_status+'</span>'+
+                        '<span class="bstatus'+r.list[i].bi_status+'">'+str_status+'</span>'+
                     '</li>';
                     $(".result ul").append(tag);
                 }

@@ -20,4 +20,8 @@ public class ReservationVO {
     private String mem_name;
     private String mem_phone;
     private String book_name;
+
+    public String makeHistoryStr(){
+        return bri_bi_seq+"|"+bri_mi_seq+"|"+bri_priority+"|"+bri_due_date;
+    }
 }

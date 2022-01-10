@@ -61,6 +61,7 @@
     <delete id="deleteBorrowInfo">
         delete from book_borrow_info where bbi_seq=#{seq}
     </delete>
+
     <select id="checkDate" resultType="com.gtnals.book_information.data.BorrowVO">
         select a.*
         from book_borrow_info a left outer join book_info b
@@ -69,4 +70,17 @@
         <![CDATA[bbi_due_date < current_date()]]>
         and bi_status=1
     </select>
+    <select id="isExistBorrow" resultType="java.lang.Integer">
+        select count(*) from book_borrow_info
+        where bbi_mi_seq=#{mi_seq} and bbi_bi_seq=#{bi_seq}
+    </select>
+
+    <insert id="insertBorrowHistory">
+        INSERT INTO book_borrow_history
+        (bbh_bbi_seq, bbh_type, bbh_content)
+        VALUES(#{bbh_bbi_seq}, #{bbh_type}, #{bbh_content})
+    </insert>
+    <select id="getRecentAddedBorrowSeq" resultType="java.lang.Integer">
+        select ai_seq from book_borrow_info order by bbi_seq desc limit 1
+    </select> 
 </mapper>

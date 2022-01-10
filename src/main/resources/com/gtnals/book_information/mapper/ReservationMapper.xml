@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gtnals.book_information.mapper.ReservationMapper">
+    <select id="getReservationList" resultType="com.gtnals.book_information.data.ReservationVO">
+        select c.*, d.mi_id as mem_id, d.mi_name as mem_name, d.mi_phone as mem_phone from
+        (
+            select a.*, b.bi_number as book_num, b.bi_name as book_name
+            from book_reservation_info a left outer join book_info b on bri_bi_seq=bi_seq
+        )c left outer join member_info d on c.bri_mi_seq=d.mi_seq
+        <if test="key_opt==0">
+            where d.mi_id like #{keyword} or book_num like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where book_num like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where d.mi_id like #{keyword}
+        </if>
+        order by
+        <if test="order==0">
+            bri_seq desc
+        </if>
+        <if test="order==1">
+            bri_due_date 
+        </if>
+        <if test="order==2">
+            d.mi_id
+        </if>
+        <if test="order==3">
+            book_num
+        </if>
+        limit 10 offset #{offset}
+    </select>
+    <select id="getReservationCnt" resultType="java.lang.Integer">
+        select count(*) from
+        (
+            select a.*, b.bi_number as book_num 
+            from book_reservation_info a left outer join book_info b on bri_bi_seq=bi_seq
+        )c left outer join member_info d on c.bri_mi_seq=d.mi_seq
+        <if test="key_opt==0">
+            where d.mi_id like #{keyword} or book_num like #{keyword}
+        </if>
+        <if test="key_opt==1">
+            where book_num like #{keyword}
+        </if>
+        <if test="key_opt==2">
+            where d.mi_id like #{keyword}
+        </if>
+    </select>
+    <select id="getReservationCntByBook" resultType="java.lang.Integer">
+        select count(*) from book_reservation_info
+        where bri_bi_seq=#{seq}
+    </select>
+    <select id="getReservationCntByMember" resultType="java.lang.Integer">
+        select count(*) from book_reservation_info
+        where bri_mi_seq=#{seq}
+    </select>
+    <select id="isExistReservation" resultType="java.lang.Integer">
+        select count(*) from book_reservation_info
+        where bri_mi_seq=#{mi_seq} and bri_bi_seq=#{bi_seq}
+    </select>
+    <insert id="addReservation">
+        INSERT INTO book_reservation_info
+        (bri_bi_seq, bri_mi_seq, bri_priority)
+        VALUES(#{bri_bi_seq}, #{bri_mi_seq}, #{bri_priority});
+    </insert>
+    <delete id="deleteReservation">
+        delete from book_reservation_info
+        where bri_seq=#{bri_seq}
+    </delete>
+    <update id="changePriority">
+        UPDATE book_reservation_info
+        SET bri_priority=1
+        WHERE bri_bi_seq=#{bi_seq} and bri_priority=2
+    </update>
+
+    <update id="updateDuedate">
+        UPDATE book_reservation_info
+        SET bri_due_date=adddate(current_date(), 3)
+        WHERE bri_bi_seq=#{bi_seq} and bri_priority=1
+    </update>
+
+    <select id="checkReservationInfo" resultType="com.gtnals.book_information.data.ReservationVO">
+        select * from book_reservation_info
+        where <![CDATA[bri_due_date < current_date()]]>
+    </select>
+
+    <insert id="insertReservationHistory">
+        INSERT INTO book_reservation_history
+        (brh_si_seq, brh_type, brh_content)
+        VALUES(#{brh_si_seq}, #{brh_type}, #{brh_content})
+    </insert>
+    <select id="getRecentAddedReservationSeq" resultType="java.lang.Integer">
+        select ai_seq from book_reservation_info order by bri_seq desc limit 1
+    </select> 
+</mapper>

@@ -20,4 +20,8 @@ public class BorrowVO {
     private String mem_name;
     private String mem_phone;
     private String book_name;
+
+    public String makeHistoryStr(){
+        return bbi_bi_seq+"|"+bbi_mi_seq+"|"+bbi_borrow_date+"|"+bbi_due_date;
+    }
 }

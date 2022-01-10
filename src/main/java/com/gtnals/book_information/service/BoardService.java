@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.BoardHistoryVO;
 import com.gtnals.book_information.data.BoardVO;
 import com.gtnals.book_information.mapper.BoardMapper;
 
@@ -47,6 +48,11 @@ public class BoardService {
         resultMap.put("status", true);
         resultMap.put("message", "게시글이 삭제되었습니다.");
 
+        BoardHistoryVO history = new BoardHistoryVO();
+        history.setMbh_mbi_seq(seq);
+        history.setMbh_type("delete");
+        mapper.insertBoardHistory(history);
+
         return resultMap;
     }
 
@@ -55,6 +61,13 @@ public class BoardService {
         mapper.addReply(data);
         resultMap.put("status", true);
         resultMap.put("message", "답변이 등록되었습니다.");
+
+        BoardHistoryVO history = new BoardHistoryVO();
+        history.setMbh_type("modify");
+        history.setMbh_content(data.makeHistoryStr());
+        history.setMbh_mbi_seq(data.getMbi_seq());
+        mapper.insertBoardHistory(history);
+
         return resultMap;
     }
 }

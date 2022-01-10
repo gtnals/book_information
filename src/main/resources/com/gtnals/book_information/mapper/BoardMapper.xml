@@ -59,4 +59,13 @@
         SET mbi_status=1, mbi_reply=#{mbi_reply}
         WHERE mbi_seq=#{mbi_seq};
     </update>
+
+    <insert id="insertBoardHistory">
+        INSERT INTO member_board_history
+        (mbh_mbi_seq, mbh_type, mbh_content)
+        VALUES(#{mbh_mbi_seq}, #{mbh_type}, #{mbh_content})
+    </insert>
+    <select id="getRecentAddedBoardSeq" resultType="java.lang.Integer">
+        select ai_seq from member_board_info order by mbi_seq desc limit 1
+    </select> 
 </mapper>

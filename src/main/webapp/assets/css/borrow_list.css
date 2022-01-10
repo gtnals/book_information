@@ -43,6 +43,13 @@ position: absolute; right: 10px; top: 10px; background-color: transparent; color
 .result .status0{ background-color: rgb(17,226,27);}
 .result .status1{background-color: rgb(251, 186, 64);}
 .result .status2{background-color: rgb(255, 23, 23);}
+
+.result .bstatus0{ background-color:rgb(17, 226, 27);}
+.result .bstatus1{background-color: rgb(255, 23, 23);}
+.result .bstatus2{background-color: rgb(255, 110, 26);}
+.result .bstatus3{background-color: rgb(251, 186, 64);}
+.result .bstatus4{background-color: rgb(128, 107, 109);}
+
 .dep_search_buttons {text-align: center; padding: 10px; border-top: 1px solid #ddd;
 background-color: #f3f3f3;} 
 #dep_search_close {border: 0; background-color: #666; color: #fff;

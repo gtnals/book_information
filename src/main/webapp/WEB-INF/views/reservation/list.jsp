@@ -12,6 +12,7 @@
     <title>Document</title>
     <%@include file="/WEB-INF/includes/header.jsp"%>
     <link rel="stylesheet" href="/assets/css/book_list.css">
+    <link rel="stylesheet" href="/assets/css/borrow_list.css">
     <link rel="stylesheet" href="/assets/css/reservation_list.css">
     <script src="/assets/js/reservation.js"></script>
 </head>
@@ -31,7 +32,7 @@
                     <button id="search_btn"><i class="fas fa-search"></i></button>
                 </div>
                 <div class="search_result" 
-                    <c:if test="${data.keyword!=''||data.overdue_check==1}">
+                    <c:if test="${data.keyword!=''}">
                         <p>*총 ${data.total}건이 검색되었습니다.</p>
                     </c:if>
                 </div>
@@ -71,11 +72,10 @@
                                 <td title=<c:out value="0${fn:replace(phone, ',', '-')}" /> >${d.mem_name} (${d.mem_id})</td>
                                 <td title="${d.book_name}">${d.book_num}</td>
                                 <td>${d.bri_priority}</td>
-                                <td><fmt:formatDate value="${d.bri_due_date}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <td><fmt:formatDate value="${d.bri_due_date}" pattern="yyyy-MM-dd (EE)"/></td>
                                 <td><fmt:formatDate value="${d.bri_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td><fmt:formatDate value="${d.bri_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
-                                    <button class="modify_btn" data-seq="${d.bri_seq}"><i class="far fa-calendar-plus"></i></button>
                                     <button class="delete_btn" days="${endDate - strDate}" mi_seq="${d.bri_mi_seq}" bi_seq="${d.bri_bi_seq}" data-seq="${d.bri_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
@@ -98,10 +98,10 @@
         <div class="popup" id="book_add">
             <div class="top_area">
                 <div class="ico">
-                    <i class="fas fa-book"></i>
+                    <i class="fas fa-bookmark"></i>
                 </div>
-                <h2>대출 정보 추가</h2>
-                <p>대출 정보를 입력해주세요</p>
+                <h2>예약 정보 추가</h2>
+                <p>예약 정보를 입력해주세요</p>
             </div>
             <div class="content_area">
                 <input type="text" id="bb_mem_id" placeholder="회원명 (회원ID)" disabled>
@@ -109,13 +109,13 @@
                 <input type="text" id="bb_book_num" placeholder="도서명 (청구번호)" disabled>
                 <button id="search_bo">도서검색</button>
                 <div class="bo_date">
-                    <p>대출일</p>
+                    <p>예약 신청일</p>
                     <c:set var="today"><fmt:formatDate value='${today}' pattern='yyyy-MM-dd' /></c:set>
                     <input type="text" id="bb_borrow_date" value="${borrow_date}" disabled>
                 </div>
                 <div class="due_date">
-                    <p>반납일</p>
-                    <input type="text" id="bb_due_date" value="${due_date}" disabled>
+                    <p>대기번호</p>
+                    <input type="text" id="bb_due_date" value="도서를 선택하세요." disabled>
                 </div>
             </div>
             <div class="btn_area">

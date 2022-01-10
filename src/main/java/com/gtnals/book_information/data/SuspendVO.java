@@ -14,4 +14,8 @@ public class SuspendVO {
     private Date si_mod_dt;
 
     private Integer days;
+
+    public String makeHistoryStr(){
+        return si_mi_seq+"|"+si_start_dt+"|"+si_end_dt;
+    }
 }

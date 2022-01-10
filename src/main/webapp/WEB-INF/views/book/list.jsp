@@ -110,7 +110,7 @@
                                 <td><button class="author_detail_btn" data-seq="${d.bi_ai_seq}">${d.author} <i class="fas fa-pencil-alt"></i></button></td>
                                 <td class="book_status"> 
                                     <c:if test="${d.bi_status==0}">
-                                        <span style="background-color: rgb(17,226,27);">대출가능</span>
+                                        <span style="background-color: rgb(17, 226, 27);">대출가능</span>
                                     </c:if>
                                     <c:if test="${d.bi_status==1}">
                                         <span style="background-color: rgb(255, 23, 23);">대출중</span>

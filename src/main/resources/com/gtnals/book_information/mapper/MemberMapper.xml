@@ -110,4 +110,16 @@
         where si_mi_seq=#{mi_seq}
     </select>
     
+    <insert id="insertSuspendHistory">
+        INSERT INTO suspend_history
+        (sh_si_seq, sh_type, sh_content)
+        VALUES(#{sh_si_seq}, #{sh_type}, #{sh_content})
+    </insert>
+    <select id="getRecentAddedSuspendSeq" resultType="java.lang.Integer">
+        select ai_seq from suspend_info order by si_seq desc limit 1
+    </select> 
+
+    <select id="getSuspendInfo" resultType="com.gtnals.book_information.data.SuspendVO">
+        select * from suspend_info where si_seq=#{seq}
+    </select>
 </mapper>

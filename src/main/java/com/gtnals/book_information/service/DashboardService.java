@@ -5,14 +5,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowVO;
+import com.gtnals.book_information.data.MemberHistoryVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.ReservationHistoryVO;
+import com.gtnals.book_information.data.ReservationVO;
+import com.gtnals.book_information.data.SuspendHistoryVO;
 import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
 import com.gtnals.book_information.mapper.BorrowMapper;
 import com.gtnals.book_information.mapper.DashboardMapper;
 import com.gtnals.book_information.mapper.MemberMapper;
+import com.gtnals.book_information.mapper.ReservationMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +29,7 @@ public class DashboardService {
     @Autowired BookMapper book_mapper;
     @Autowired BorrowMapper borrow_mapper;
     @Autowired MemberMapper mem_mapper;
+    @Autowired ReservationMapper reserve_mapper;
     public Map<String, Object> getCounts(){
         List<Integer> bookCntList = new ArrayList<Integer>();
         bookCntList.add(mapper.getTotalBookCnt());
@@ -75,6 +82,15 @@ public class DashboardService {
             BookVO book = book_mapper.getBookInfoBySeq(b.getBbi_bi_seq());
             book.setBi_status(2);
             book_mapper.updateBook(book);  //도서 상태 연체중으로 변경
+            
+            BookHistoryVO history = new BookHistoryVO();
+            history.setBh_bi_seq(book.getBi_seq());
+            history.setBh_type("update");
+            String content = book.getBi_name()+"|"+book.getBi_number()+"|"+book.getBi_ai_seq()+"|"+book.getBi_status()+"|"+
+                book.getBi_publisher()+"|"+book.getBi_category()+"|"+book.getBi_publication_date()+"|"+book.getBi_page()+"|"+
+                book.getBi_image();
+            history.setBh_content(content);
+            book_mapper.insertBookHistory(history);
 
             MemberVO mem = mem_mapper.getMember(b.getBbi_mi_seq());
             if(!mlist.contains(mem.getMi_seq())){
@@ -82,9 +98,14 @@ public class DashboardService {
                 if(mem.getMi_status()==0) mem.setMi_status(1); 
                 else if(mem.getMi_status()==1) mem.setMi_status(2); 
                 mem_mapper.updateMember(mem); //회원상태 변경
+
+                MemberHistoryVO mhistory = new MemberHistoryVO();
+                mhistory.setMih_type("modify");
+                mhistory.setMih_mi_content(mem.makeHistoryStr());
+                mhistory.setMih_mi_seq(mem.getMi_seq());
+                mem_mapper.insertMemberHistory(mhistory);
             }
         }
-
         //정지만료일 지난 정지 정보 삭제
         List<SuspendVO> slist = mem_mapper.checkSuspendInfo();  //만료일 지난 정지정보들
         for(SuspendVO s:slist){
@@ -95,6 +116,33 @@ public class DashboardService {
                 mem_mapper.updateMember(mem);   //정상 회원으로 변경
             }
             mem_mapper.deleteSuspendInfo(s.getSi_seq());
+
+            SuspendHistoryVO history = new SuspendHistoryVO();
+            history.setSh_si_seq(s.getSi_seq());
+            history.setSh_type("delete");
+            mem_mapper.insertSuspendHistory(history);            
+        }
+        //예약만료일 지난 예약 정보 삭제
+        List<ReservationVO> rlist = reserve_mapper.checkReservationInfo(); //만료일 지난 예약정보들
+        for(ReservationVO r: rlist){
+            Integer bi_seq = r.getBri_bi_seq();
+            //해당 도서에 다른 예약 없으면 도서상태 대출가능(0)으로 변경
+            if(reserve_mapper.getReservationCntByBook(bi_seq)==1){
+                BookVO book = book_mapper.getBookInfoBySeq(bi_seq);
+                book.setBi_status(0);
+                book_mapper.updateBook(book);
+            }
+            //다른 예약(대기번호 2) 있으면 1로 변경 및 예약만료일 지정
+            else{
+                reserve_mapper.changePriority(bi_seq);
+                reserve_mapper.updateDuedate(bi_seq);
+            }
+            reserve_mapper.deleteReservation(r.getBri_seq());   //예약정보 삭제
+            
+            ReservationHistoryVO history = new ReservationHistoryVO();
+            history.setBrh_bri_seq(r.getBri_seq());
+            history.setBrh_type("delete");
+            reserve_mapper.insertReservationHistory(history);
         }
     }
 }

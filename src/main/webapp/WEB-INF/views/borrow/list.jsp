@@ -83,7 +83,6 @@
                                 <fmt:parseNumber value="${d.bbi_due_date.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
                                 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
                                 <td>
-                                    <button class="modify_btn" data-seq="${d.bbi_seq}"><i class="far fa-calendar-plus"></i></button>
                                     <button class="delete_btn" days="${endDate - strDate}" mi_seq="${d.bbi_mi_seq}" bi_seq="${d.bbi_bi_seq}" data-seq="${d.bbi_seq}"><i class="fas fa-minus-circle"></i></button>
                                 </td>
                             </tr>
