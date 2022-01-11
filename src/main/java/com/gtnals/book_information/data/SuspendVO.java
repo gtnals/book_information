@@ -1,5 +1,6 @@
 package com.gtnals.book_information.data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -16,6 +17,9 @@ public class SuspendVO {
     private Integer days;
 
     public String makeHistoryStr(){
-        return si_mi_seq+"|"+si_start_dt+"|"+si_end_dt;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String start_dt = formatter.format(si_start_dt);
+        String end_dt = formatter.format(si_end_dt);
+        return si_mi_seq+"|"+start_dt+"|"+end_dt;
     }
 }

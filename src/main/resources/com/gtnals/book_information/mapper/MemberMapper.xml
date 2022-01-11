@@ -116,7 +116,7 @@
         VALUES(#{sh_si_seq}, #{sh_type}, #{sh_content})
     </insert>
     <select id="getRecentAddedSuspendSeq" resultType="java.lang.Integer">
-        select ai_seq from suspend_info order by si_seq desc limit 1
+        select si_seq from suspend_info order by si_seq desc limit 1
     </select> 
 
     <select id="getSuspendInfo" resultType="com.gtnals.book_information.data.SuspendVO">

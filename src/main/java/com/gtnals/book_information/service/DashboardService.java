@@ -72,6 +72,7 @@ public class DashboardService {
 
         resultMap.put("book", mapper.getBookUpdatedate());
         resultMap.put("member", mapper.getMemberUpdatedate());
+        resultMap.put("board", mapper.getBoardUpdatedate());
         return resultMap;
     }
 
@@ -114,6 +115,13 @@ public class DashboardService {
                 MemberVO mem = mem_mapper.getMember(mi_seq);
                 mem.setMi_status(0);    
                 mem_mapper.updateMember(mem);   //정상 회원으로 변경
+
+                //*회원 로그 추가(업뎃에 대한)
+                MemberHistoryVO memhistory = new MemberHistoryVO();
+                memhistory.setMih_type("modify");
+                memhistory.setMih_mi_content(mem.makeHistoryStr());
+                memhistory.setMih_mi_seq(mem.getMi_seq());
+                mem_mapper.insertMemberHistory(memhistory);
             }
             mem_mapper.deleteSuspendInfo(s.getSi_seq());
 
@@ -131,11 +139,28 @@ public class DashboardService {
                 BookVO book = book_mapper.getBookInfoBySeq(bi_seq);
                 book.setBi_status(0);
                 book_mapper.updateBook(book);
+                //*도서 로그 추가 (업뎃에 대한)
+                BookHistoryVO bhistory = new BookHistoryVO();
+                bhistory.setBh_bi_seq(book.getBi_seq());
+                bhistory.setBh_type("update");
+                String content = book.getBi_name()+"|"+book.getBi_number()+"|"+book.getBi_ai_seq()+"|"+book.getBi_status()+"|"+
+                    book.getBi_publisher()+"|"+book.getBi_category()+"|"+book.getBi_publication_date()+"|"+book.getBi_page()+"|"+
+                    book.getBi_image();
+                bhistory.setBh_content(content);
+                book_mapper.insertBookHistory(bhistory);
             }
             //다른 예약(대기번호 2) 있으면 1로 변경 및 예약만료일 지정
             else{
                 reserve_mapper.changePriority(bi_seq);
                 reserve_mapper.updateDuedate(bi_seq);
+
+                //*예약 로그 추가 (업뎃에 대한)
+                ReservationHistoryVO rhistory = new ReservationHistoryVO();
+                ReservationVO rdata = reserve_mapper.getReservation(reserve_mapper.getRecentUpdatedReservationSeq());
+                rhistory.setBrh_bri_seq(rdata.getBri_seq());
+                rhistory.setBrh_type("update");
+                rhistory.setBrh_content(rdata.makeHistoryStr());
+                reserve_mapper.insertReservationHistory(rhistory);
             }
             reserve_mapper.deleteReservation(r.getBri_seq());   //예약정보 삭제
             

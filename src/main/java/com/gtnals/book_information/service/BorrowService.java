@@ -4,10 +4,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gtnals.book_information.data.BookHistoryVO;
 import com.gtnals.book_information.data.BookVO;
 import com.gtnals.book_information.data.BorrowHistoryVO;
 import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.data.MemberVO;
+import com.gtnals.book_information.data.ReservationHistoryVO;
+import com.gtnals.book_information.data.ReservationVO;
 import com.gtnals.book_information.data.SuspendHistoryVO;
 import com.gtnals.book_information.data.SuspendVO;
 import com.gtnals.book_information.mapper.BookMapper;
@@ -35,6 +38,37 @@ public class BorrowService {
             resultMap.put("message", "최대 대출 권수를 초과하셨습니다. (1인당 5권)");
             return resultMap;
         }
+
+    //예약 도서인 경우, 예약 정보 확인해서 해당 회원 아니면 거부->
+        if(book.getBi_status()==3){
+            if(r_mapper.isFirstReservation(data.getBbi_bi_seq(), data.getBbi_mi_seq())==0){
+                resultMap.put("status", false);
+                resultMap.put("message", "예약 중인 도서입니다. (대기번호 1인 회원만 대출 가능)");
+                return resultMap;
+            }
+            //해당 예약 정보는 삭제. 대기2 있으면 1로 변경
+            else {
+                r_mapper.deleteFirstReservation(data.getBbi_bi_seq(), data.getBbi_mi_seq());
+                if(r_mapper.getReservationCntByBook(book.getBi_seq())==1){
+                    r_mapper.changePriority(book.getBi_seq());
+    
+                    //*예약 로그 추가 (업뎃에 대한)
+                    ReservationHistoryVO rhistory = new ReservationHistoryVO();
+                    ReservationVO rdata = r_mapper.getReservation(r_mapper.getRecentUpdatedReservationSeq());
+                    rhistory.setBrh_bri_seq(rdata.getBri_seq());
+                    rhistory.setBrh_type("update");
+                    rhistory.setBrh_content(rdata.makeHistoryStr());
+                    r_mapper.insertReservationHistory(rhistory);
+    
+                    //*예약 로그 추가 (삭제에 대한)
+                    rhistory.setBrh_bri_seq(r_mapper.getRecentUpdatedReservationSeq());
+                    rhistory.setBrh_type("delete");
+                    rhistory.setBrh_content(null);
+                    r_mapper.insertReservationHistory(rhistory);
+                }
+            }
+        }
+
     //대출 진행 =>
         book.setBi_status(1);
         book.setBi_cnt(book.getBi_cnt()+1);
@@ -44,12 +78,21 @@ public class BorrowService {
         resultMap.put("status", true);
         resultMap.put("message", "대출 정보를 등록했습니다.");
 
+        BookHistoryVO bhistory = new BookHistoryVO();
+        bhistory.setBh_bi_seq(book.getBi_seq());
+        bhistory.setBh_type("update");
+        String content = book.getBi_name()+"|"+book.getBi_number()+"|"+book.getBi_ai_seq()+"|"+book.getBi_status()+"|"+
+            book.getBi_publisher()+"|"+book.getBi_category()+"|"+book.getBi_publication_date()+"|"+book.getBi_page()+"|"+
+            book.getBi_image();
+        bhistory.setBh_content(content);
+        b_mapper.insertBookHistory(bhistory);
+
         BorrowHistoryVO history = new BorrowHistoryVO();
         history.setBbh_type("new");
-        history.setBbh_content(data.makeHistoryStr());
         Integer recent_seq=mapper.getRecentAddedBorrowSeq();
         history.setBbh_bbi_seq(recent_seq);
-
+        BorrowVO borrow_data = mapper.getBorrow(recent_seq);
+        history.setBbh_content(borrow_data.makeHistoryStr());
         mapper.insertBorrowHistory(history);
 
         return resultMap;
@@ -95,8 +138,26 @@ public class BorrowService {
         else {   //예약 걸려 있는 경우, 3(예약 중) 설정하고, 해당 예약 정보에 예약 만료일 지정
             book.setBi_status(3);
             r_mapper.updateDuedate(bi_seq);
+
+            //*예약 로그 추가 (업뎃에 대한)
+            ReservationHistoryVO rhistory = new ReservationHistoryVO();
+            ReservationVO rdata = r_mapper.getReservation(r_mapper.getRecentUpdatedReservationSeq());
+            rhistory.setBrh_bri_seq(rdata.getBri_seq());
+            rhistory.setBrh_type("update");
+            rhistory.setBrh_content(rdata.makeHistoryStr());
+            r_mapper.insertReservationHistory(rhistory);
         }
         b_mapper.updateBook(book);
+
+        //*도서 로그 추가 (업뎃에 대한)
+        BookHistoryVO bhistory = new BookHistoryVO();
+        bhistory.setBh_bi_seq(book.getBi_seq());
+        bhistory.setBh_type("update");
+        String content = book.getBi_name()+"|"+book.getBi_number()+"|"+book.getBi_ai_seq()+"|"+book.getBi_status()+"|"+
+            book.getBi_publisher()+"|"+book.getBi_category()+"|"+book.getBi_publication_date()+"|"+book.getBi_page()+"|"+
+            book.getBi_image();
+        bhistory.setBh_content(content);
+        b_mapper.insertBookHistory(bhistory);
 
         //seq로 대출 정보 삭제
         mapper.deleteBorrowInfo(seq);
@@ -119,11 +180,16 @@ public class BorrowService {
         }
         resultMap.put("message", "반납 처리되었습니다.");
 
+        //*대출 로그 추가 (삭제에 대한)
         BorrowHistoryVO history = new BorrowHistoryVO();
         history.setBbh_bbi_seq(seq);
         history.setBbh_type("delete");
         mapper.insertBorrowHistory(history);
 
         return resultMap;
+    }
+
+    public BorrowVO getBorrowByBook(Integer seq){
+        return mapper.getBorrowByBook(seq);
     }
 }

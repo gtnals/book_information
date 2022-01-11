@@ -69,7 +69,6 @@ public class MemberService {
         String pwd=data.getMi_pwd();
         String encrypted = AESAlgorithm.Encrypt(pwd);
         data.setMi_pwd(encrypted);
-        System.err.println(encrypted);
         try{
             mapper.addMemberInfo(data);
         }

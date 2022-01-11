@@ -13,7 +13,9 @@ public interface BoardMapper {
     public Integer getBoardCnt(String keyword, Integer key_opt);
     public void deleteBoard(Integer seq);
     public void addReply(BoardVO data);
+    public BoardVO getBoard(Integer seq);
 
     public void insertBoardHistory(BoardHistoryVO data);
     public Integer getRecentAddedBoardSeq();
+    public Integer getRecentUpdatedBoardSeq();
 }

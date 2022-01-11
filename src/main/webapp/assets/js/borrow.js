@@ -175,7 +175,7 @@ $(function(){
 
                 $(".result ul a").click(function(e){
                     e.preventDefault(); //a태그의 링크 기능 제거
-                    if($(this).attr("b_st")!=0){
+                    if($(this).attr("b_st")!=0 && $(this).attr("b_st")!=3){
                         alert("대출 불가 도서입니다.")
                         return;
                     }

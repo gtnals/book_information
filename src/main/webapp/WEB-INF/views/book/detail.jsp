@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,17 +22,17 @@
             <h1>${book.data.bi_name}</h1>
             <div class="book_detail_info">
                 <div class="image">
-                    <img src="/assets/images/book.PNG" onerror="this.src='/assets/images/noimage.PNG'">
+                    <img src="/assets/images/${book.data.bi_number}.PNG" onerror="this.src='/assets/images/noimage.PNG'">
                     <p>이미지 출처: Naver 책정보</p>
                 </div>
                 <div class="detail_info">
                     <p>저자정보: ${book.data.author} 지음 
-                        <c:if test="${book.data.bi_translator!=null}">
+                        <c:if test="${book.data.bi_translator!=null && book.data.bi_translator!=''}">
                             / ${book.data.bi_translator} 옮김 
                         </c:if>
                     </p><br>
                     <p>발행정보: ${book.data.bi_publisher} 
-                        <c:if test="${book.data.bi_translator!=null}">
+                        <c:if test="${book.data.bi_publication_date!=null && book.data.bi_publication_date!=''}">
                             / ${book.data.bi_publication_date} 
                         </c:if>
                     </p><br>
@@ -83,21 +84,23 @@
                                     <span style="background-color: rgb(128, 107, 109);">이용불가</span>
                                 </c:if>
                             </td>
-                            <c:if test="${book.data.bi_status==1}"><td>2021-12-30</td></c:if>
-                            <c:if test="${book.data.bi_status!=1}"><td></td></c:if>
+                            <c:if test="${book.data.bi_status==1}"><td><fmt:formatDate value="${duedate}" pattern="yyyy-MM-dd (EE)"/></td></c:if>
+                            <c:if test="${book.data.bi_status!=1}"><td>-</td></c:if>
+                            <%--
                             <c:if test="${book.data.bi_status!=4}">
                                 <td><button id="reserve_btn">예약하기(1/2)</button></td>
                             </c:if>
+                            --%>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="button_area">
-                <button id="review_btn">리뷰 작성</button>
+                <!-- <button id="review_btn">리뷰 작성</button> -->
                 <button id="list_btn">목록으로</button>
-                <button id="like_btn"><i class="far fa-thumbs-up"></i> 추천 </button>
+                <!-- <button id="like_btn"><i class="far fa-thumbs-up"></i> 추천 </button> -->
             </div>
-            <div class="review_area">
+            <!-- <div class="review_area">
                 <p><i class="fas fa-comment-alt"></i> 리뷰</p>
                 <table>
                     <thead>
@@ -158,7 +161,7 @@
                     </div>
                     <button id="next"><i class="fas fa-chevron-right"></i></button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 </body>

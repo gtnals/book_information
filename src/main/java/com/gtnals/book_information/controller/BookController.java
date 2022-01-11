@@ -2,7 +2,9 @@ package com.gtnals.book_information.controller;
 
 import java.util.Map;
 
+import com.gtnals.book_information.data.BorrowVO;
 import com.gtnals.book_information.service.BookService;
+import com.gtnals.book_information.service.BorrowService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -13,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookController {
-    @Autowired
-    BookService service;
+    @Autowired BookService service;
+    @Autowired BorrowService borrow_service;
+
     @GetMapping("/book")
     public String getBook(
         Model model, @RequestParam @Nullable Integer offset,
@@ -34,6 +37,10 @@ public class BookController {
     public String getBookDetail(@RequestParam Integer bi_seq, Model model){
         Map<String, Object> resultMap=service.getBookInfoBySeq(bi_seq);
         model.addAttribute("book", resultMap);
+        BorrowVO borrow = borrow_service.getBorrowByBook(bi_seq);
+        if(borrow!=null){
+            model.addAttribute("duedate", borrow.getBbi_due_date());
+        }
         return "/book/detail";
     }
 }

@@ -32,4 +32,5 @@ public interface DashboardMapper {
 
     public Date getBookUpdatedate();
     public Date getMemberUpdatedate();
+    public Date getBoardUpdatedate();
 }

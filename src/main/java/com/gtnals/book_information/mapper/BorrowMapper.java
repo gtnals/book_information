@@ -14,6 +14,8 @@ public interface BorrowMapper {
     public Integer getBorrowCnt(String keyword, Integer key_opt);
     public Integer getMemBorrowCnt(Integer mi_seq);
     public void deleteBorrowInfo(Integer seq);
+    public BorrowVO getBorrow(Integer seq);
+    public BorrowVO getBorrowByBook(Integer seq);
 
     public List<BorrowVO> checkDate();
     public Integer isExistBorrow(Integer mi_seq, Integer bi_seq);

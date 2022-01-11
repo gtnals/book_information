@@ -68,9 +68,11 @@
 
     <select id="getBookUpdatedate" resultType="java.util.Date">
         select bh_reg_dt from book_history order by bh_reg_dt desc limit 1
-
     </select>
     <select id="getMemberUpdatedate" resultType="java.util.Date">
         select mih_reg_dt from member_info_history order by mih_reg_dt desc limit 1
+    </select>
+    <select id="getBoardUpdatedate" resultType="java.util.Date">
+        select mbh_reg_dt from member_board_history order by mbh_reg_dt desc limit 1
     </select>
 </mapper>

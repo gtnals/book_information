@@ -20,8 +20,8 @@
 
     <insert id="insertAuthorHistory">
         INSERT INTO author_info_history
-        (aih_ai_seq, aih_type, aih_ai_content)
-        VALUES(#{aih_ai_seq}, #{aih_type}, #{aih_ai_content})
+        (aih_ai_seq, aih_type, aih_content)
+        VALUES(#{aih_ai_seq}, #{aih_type}, #{aih_content})
     </insert>
     <select id="getRecentAddedAuthorSeq" resultType="java.lang.Integer">
         select ai_seq from author_info order by ai_seq desc limit 1

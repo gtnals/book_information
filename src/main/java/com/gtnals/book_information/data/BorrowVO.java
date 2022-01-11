@@ -1,5 +1,6 @@
 package com.gtnals.book_information.data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -22,6 +23,9 @@ public class BorrowVO {
     private String book_name;
 
     public String makeHistoryStr(){
-        return bbi_bi_seq+"|"+bbi_mi_seq+"|"+bbi_borrow_date+"|"+bbi_due_date;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String borrow_dt = formatter.format(bbi_borrow_date);
+        String due_dt = formatter.format(bbi_due_date);
+        return bbi_bi_seq+"|"+bbi_mi_seq+"|"+borrow_dt+"|"+due_dt;
     }
 }

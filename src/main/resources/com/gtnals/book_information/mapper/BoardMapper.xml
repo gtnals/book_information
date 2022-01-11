@@ -56,9 +56,12 @@
     </delete>
     <update id="addReply">
         UPDATE member_board_info
-        SET mbi_status=1, mbi_reply=#{mbi_reply}
+        SET mbi_status=1, mbi_reply=#{mbi_reply}, mbi_mod_dt=NOW()
         WHERE mbi_seq=#{mbi_seq};
     </update>
+    <select id="getBoard" resultType="com.gtnals.book_information.data.BoardVO">
+        select * from member_board_info where mbi_seq=#{seq}
+    </select>
 
     <insert id="insertBoardHistory">
         INSERT INTO member_board_history
@@ -66,6 +69,9 @@
         VALUES(#{mbh_mbi_seq}, #{mbh_type}, #{mbh_content})
     </insert>
     <select id="getRecentAddedBoardSeq" resultType="java.lang.Integer">
-        select ai_seq from member_board_info order by mbi_seq desc limit 1
+        select mbi_seq from member_board_info order by mbi_seq desc limit 1
+    </select>
+    <select id="getRecentUpdatedBoardSeq" resultType="java.lang.Integer">
+        select mbi_seq from member_board_info order by mbi_mod_dt desc limit 1
     </select> 
 </mapper>

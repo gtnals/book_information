@@ -64,8 +64,9 @@ public class BoardService {
 
         BoardHistoryVO history = new BoardHistoryVO();
         history.setMbh_type("modify");
-        history.setMbh_content(data.makeHistoryStr());
-        history.setMbh_mbi_seq(data.getMbi_seq());
+        BoardVO board = mapper.getBoard(data.getMbi_seq());
+        history.setMbh_content(board.makeHistoryStr());
+        history.setMbh_mbi_seq(board.getMbi_seq());
         mapper.insertBoardHistory(history);
 
         return resultMap;

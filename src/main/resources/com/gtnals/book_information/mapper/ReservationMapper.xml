@@ -60,6 +60,10 @@
         select count(*) from book_reservation_info
         where bri_mi_seq=#{mi_seq} and bri_bi_seq=#{bi_seq}
     </select>
+    <select id="isFirstReservation" resultType="java.lang.Integer">
+        select count(*) from book_reservation_info
+        where bri_mi_seq=#{mi_seq} and bri_bi_seq=#{bi_seq} and bri_priority=1
+    </select>
     <insert id="addReservation">
         INSERT INTO book_reservation_info
         (bri_bi_seq, bri_mi_seq, bri_priority)
@@ -69,17 +73,24 @@
         delete from book_reservation_info
         where bri_seq=#{bri_seq}
     </delete>
+    <delete id="deleteFirstReservation">
+        delete from book_reservation_info
+        where bri_mi_seq=#{mi_seq} and bri_bi_seq=#{bi_seq} and bri_priority=1
+    </delete>
     <update id="changePriority">
         UPDATE book_reservation_info
-        SET bri_priority=1
+        SET bri_priority=1, bri_mod_dt=NOW()
         WHERE bri_bi_seq=#{bi_seq} and bri_priority=2
     </update>
 
     <update id="updateDuedate">
         UPDATE book_reservation_info
-        SET bri_due_date=adddate(current_date(), 3)
+        SET bri_due_date=adddate(current_date(), 3), bri_mod_dt=NOW()
         WHERE bri_bi_seq=#{bi_seq} and bri_priority=1
     </update>
+    <select id="getReservation" resultType="com.gtnals.book_information.data.ReservationVO">
+        select * from book_reservation_info where bri_seq=#{seq}
+    </select>
 
     <select id="checkReservationInfo" resultType="com.gtnals.book_information.data.ReservationVO">
         select * from book_reservation_info
@@ -88,10 +99,13 @@
 
     <insert id="insertReservationHistory">
         INSERT INTO book_reservation_history
-        (brh_si_seq, brh_type, brh_content)
-        VALUES(#{brh_si_seq}, #{brh_type}, #{brh_content})
+        (brh_bri_seq, brh_type, brh_content)
+        VALUES(#{brh_bri_seq}, #{brh_type}, #{brh_content})
     </insert>
     <select id="getRecentAddedReservationSeq" resultType="java.lang.Integer">
-        select ai_seq from book_reservation_info order by bri_seq desc limit 1
+        select bri_seq from book_reservation_info order by bri_seq desc limit 1
+    </select>
+    <select id="getRecentUpdatedReservationSeq" resultType="java.lang.Integer">
+        select bri_seq from book_reservation_info order by bri_mod_dt desc limit 1
     </select> 
 </mapper>

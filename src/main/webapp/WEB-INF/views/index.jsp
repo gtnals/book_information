@@ -39,14 +39,14 @@
                 <p>정지 회원 : <span>${cnt.member[3]}명</span></p>
                 <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span><fmt:formatDate value="${update.member}" pattern="yyyy-MM-dd HH:mm:ss"/></span></p>
             </div>
-            <div class="review_info">
+            <!-- <div class="review_info">
                 <h2><i class="fas fa-comment-alt"></i> 리뷰 정보</h2>
                 <p>총 등록 리뷰 : <span>${cnt.review[0]}건</span></p>
                 <p>비공개 리뷰 : <span>${cnt.review[1]}건</span></p>
                 <p>정상 리뷰 : <span>${cnt.review[2]}건</span></p>
                 <p>신고 접수 리뷰 : <span>${cnt.review[3]}건</span></p>
                 <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
-            </div>
+            </div> -->
             <div class="member_board_info">
                 <h2><i class="fas fa-list-ul"></i> 게시판 정보</h2> <!-- 1 -->
                 <p>총 등록 글 : <span>${cnt.board[0]}건</span></p> <!-- 2 -->
@@ -55,7 +55,7 @@
                 <p>도서 신청 글 : <span>${cnt.board[1]}건</span></p>
                 <p>도서 훼손 신고 글 : <span>${cnt.board[2]}건</span></p>
                 <p>기타 글 : <span>${cnt.board[3]}건</span></p>
-                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span>2021-12-09 12:00:00</span></p>
+                <p><i class="fas fa-clock"></i> 업데이트 날짜 : <span><fmt:formatDate value="${update.board}" pattern="yyyy-MM-dd HH:mm:ss"/></span></p>
             </div>
         </div>
     </main>

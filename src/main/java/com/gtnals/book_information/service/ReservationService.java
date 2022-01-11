@@ -110,6 +110,14 @@ public class ReservationService {
         else{
             mapper.changePriority(bi_seq);
             mapper.updateDuedate(bi_seq);
+
+            //*예약 로그 추가 (업뎃에 대한)
+            ReservationHistoryVO rhistory = new ReservationHistoryVO();
+            ReservationVO rdata = mapper.getReservation(mapper.getRecentUpdatedReservationSeq());
+            rhistory.setBrh_bri_seq(rdata.getBri_seq());
+            rhistory.setBrh_type("update");
+            rhistory.setBrh_content(rdata.makeHistoryStr());
+            mapper.insertReservationHistory(rhistory);
         }
         mapper.deleteReservation(bri_seq);
         resultMap.put("status", true);
