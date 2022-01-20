@@ -1,0 +1,36 @@
+/* login.css */
+/* html, body { height: 100%;}
+.content_area { height: 100%; display: table-cell; vertical-align: middle;}
+.content_area > div {height: 200px; width: 200px; background-color: pink;} */
+
+main{
+    width: 90%; height: 600px; 
+    position: absolute; left: 50%; top: 50%;
+    margin-left: -45%; margin-top: -300px;
+}
+
+main {background-color: #f7f7f7; text-align: center;}
+main > h1 {font-size: 36px; margin: 50px auto;}
+.content_area > div {
+    display: inline-block; 
+    padding: 30px; position: relative;
+    background-color: #fff; font-size: 16px;
+    border-radius: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.content_area > div {
+    width: 300px; height: 300px;   text-align: center;
+}
+.content_area .msg {
+    color: red; font-size: 16px;
+}
+.content_area .input_area input { 
+    border: 0; padding: 10px; margin: 0; outline: none; color: #434343;
+    background-color: #e4e0e0; border-radius: 15px; padding: 5px 15px;
+    margin: 10px; font-size: 16px;
+}
+
+#login_btn {
+    border: 0; background-color: #999; color: #fff;
+    width: 120px; height: 40px; border-radius: 5px; font-size: 14px; font-weight: 300;
+    cursor: pointer; margin-top: 20px;
+}

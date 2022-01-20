@@ -1,6 +1,11 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +17,12 @@
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/assets/css/header.css">
+    <c:if test='${admin==null}'>
+        <script>
+            alert("로그인 후 사용 가능합니다.");
+            location.href="/login";
+        </script>
+    </c:if>
 </head>
 <body>
     <header>
@@ -21,8 +32,8 @@
                     <img src="http://placekitten.com/100/100">
                     <span>수정하기</span>
                 </a>
-                <a href="#" id="user_name">관리자(admin)</a>
-                <a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
+                <a href="#" id="user_name">${admin.a_name}(${admin.a_id})</a>
+                <a href="/admin/logout" id="logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
             </div>
             <div class="main_menu">
                 <a href="/"><i class="fas fa-columns"></i> 대시보드</a>

@@ -88,9 +88,9 @@
                                         <span style="background-color: rgb(17,226,27);">완료</span>
                                     </c:if>
                                 </td>
-                                <td><fmt:formatDate value="${d.mbi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
-                                <!-- 오전/오후: a hh:~ -->
                                 <td><fmt:formatDate value="${d.mbi_reg_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
+                                <!-- 오전/오후: a hh:~ -->
+                                <td><fmt:formatDate value="${d.mbi_mod_dt}" pattern="yyyy-MM-dd (EE) HH:mm:ss"/></td>
                                 <td>
                                     <c:if test="${d.mbi_status!=1}">
                                         <button class="answer_btn" data-seq="${d.mbi_seq}"><i class="fas fa-comment-dots"></i></button>
